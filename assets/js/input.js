@@ -28,6 +28,8 @@ export class Input {
       )
         actions.throw();
       if (!e.repeat && e.code === "KeyE") actions.interact();
+      if (!e.repeat && e.code === "KeyQ") actions.mode?.();
+      if (!e.repeat && e.code === "KeyM") actions.map?.();
     });
     window.addEventListener("keyup", (e) => this.keys.delete(e.code));
     window.addEventListener("blur", () => {

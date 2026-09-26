@@ -9,7 +9,7 @@ export class Character {
     this.model = view.employee.scene;
     view.scene.add(this.model);
     this.body = physics.world.createRigidBody(
-      RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(0, 0.97, 6),
+      RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(-40, 0.97, 18),
     );
     this.collider = physics.world.createCollider(
       RAPIER.ColliderDesc.capsule(0.65, 0.3).setFriction(0.2),
@@ -36,8 +36,8 @@ export class Character {
     this.look = new THREE.Vector3();
   }
   reset() {
-    this.body.setTranslation({ x: 0, y: 0.98, z: 6 }, true);
-    this.body.setNextKinematicTranslation({ x: 0, y: 0.98, z: 6 });
+    this.body.setTranslation({ x: -40, y: 0.98, z: 18 }, true);
+    this.body.setNextKinematicTranslation({ x: -40, y: 0.98, z: 18 });
     this.model.rotation.set(0, 0, 0);
     this.vertical = 0;
     this.throwTime = 0;
@@ -83,7 +83,7 @@ export class Character {
     const moving = dir.lengthSq() > 0;
     dir.normalize();
     const running = i.has("ShiftLeft", "ShiftRight");
-    const speed = running ? 5.5 : 3.25;
+    const speed = running ? 7.2 : 4.2;
     this.vertical = this.controller.computedGrounded()
       ? -0.5
       : Math.max(-20, this.vertical - 9.81 * dt);

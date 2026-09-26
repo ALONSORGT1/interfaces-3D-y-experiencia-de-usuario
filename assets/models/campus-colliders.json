@@ -1,0 +1,3135 @@
+[
+  {
+    "name": "Campus floor",
+    "position": [
+      0,
+      -0.22,
+      0
+    ],
+    "size": [
+      100,
+      0.44,
+      54
+    ]
+  },
+  {
+    "name": "Boundary side",
+    "position": [
+      -50.15,
+      1.7,
+      0
+    ],
+    "size": [
+      0.3,
+      3.4,
+      54.6
+    ]
+  },
+  {
+    "name": "Boundary side",
+    "position": [
+      50.15,
+      1.7,
+      0
+    ],
+    "size": [
+      0.3,
+      3.4,
+      54.6
+    ]
+  },
+  {
+    "name": "Boundary back",
+    "position": [
+      0,
+      1.7,
+      -27.15
+    ],
+    "size": [
+      100,
+      3.4,
+      0.3
+    ]
+  },
+  {
+    "name": "Boundary front",
+    "position": [
+      0,
+      0.28,
+      27.15
+    ],
+    "size": [
+      100,
+      0.56,
+      0.3
+    ]
+  },
+  {
+    "name": "Front limit",
+    "position": [
+      0,
+      2,
+      27.35
+    ],
+    "size": [
+      100.6,
+      4,
+      0.3
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      -45.9,
+      1.2,
+      -6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      -34.1,
+      1.2,
+      -6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      -49.1,
+      0.95,
+      -17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      -30.9,
+      0.95,
+      -17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      -46,
+      1.05,
+      -22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -47.1,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -47.1,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -44.9,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -44.9,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      -46,
+      1.58,
+      -22.25
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      -34,
+      1.05,
+      -22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -35.1,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -35.1,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -32.9,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -32.9,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      -34,
+      1.58,
+      -22.25
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Side storage",
+    "position": [
+      -47.5,
+      0.8,
+      -17
+    ],
+    "size": [
+      1.2,
+      1.6,
+      3
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      -25.9,
+      1.2,
+      -6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      -14.1,
+      1.2,
+      -6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      -29.1,
+      0.95,
+      -17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      -10.9,
+      0.95,
+      -17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      -26,
+      1.05,
+      -22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -27.1,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -27.1,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -24.9,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -24.9,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      -26,
+      1.58,
+      -22.25
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      -14,
+      1.05,
+      -22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -15.1,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -15.1,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -12.9,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -12.9,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      -14,
+      1.58,
+      -22.25
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Side storage",
+    "position": [
+      -27.5,
+      0.8,
+      -17
+    ],
+    "size": [
+      1.2,
+      1.6,
+      3
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      -5.9,
+      1.2,
+      -6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      5.9,
+      1.2,
+      -6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      -9.1,
+      0.95,
+      -17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      9.1,
+      0.95,
+      -17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      -6,
+      1.05,
+      -22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -7.1,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -7.1,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -4.9,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -4.9,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      -6,
+      1.58,
+      -22.25
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      6,
+      1.05,
+      -22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      4.9,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      4.9,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      7.1,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      7.1,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      6,
+      1.58,
+      -22.25
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Side storage",
+    "position": [
+      -7.5,
+      0.8,
+      -17
+    ],
+    "size": [
+      1.2,
+      1.6,
+      3
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      14.1,
+      1.2,
+      -6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      25.9,
+      1.2,
+      -6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      10.9,
+      0.95,
+      -17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      29.1,
+      0.95,
+      -17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      14,
+      1.05,
+      -22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      12.9,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      12.9,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      15.1,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      15.1,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      14,
+      1.58,
+      -22.25
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      26,
+      1.05,
+      -22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      24.9,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      24.9,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      27.1,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      27.1,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      26,
+      1.58,
+      -22.25
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Side storage",
+    "position": [
+      12.5,
+      0.8,
+      -17
+    ],
+    "size": [
+      1.2,
+      1.6,
+      3
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      34.1,
+      1.2,
+      -6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      45.9,
+      1.2,
+      -6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      30.9,
+      0.95,
+      -17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      49.1,
+      0.95,
+      -17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      34,
+      1.05,
+      -22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      32.9,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      32.9,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      35.1,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      35.1,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      34,
+      1.58,
+      -22.25
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      46,
+      1.05,
+      -22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      44.9,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      44.9,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      47.1,
+      0.49,
+      -22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      47.1,
+      0.49,
+      -21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      46,
+      1.58,
+      -22.25
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Side storage",
+    "position": [
+      32.5,
+      0.8,
+      -17
+    ],
+    "size": [
+      1.2,
+      1.6,
+      3
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      -45.9,
+      1.2,
+      6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      -34.1,
+      1.2,
+      6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      -49.1,
+      0.95,
+      17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      -30.9,
+      0.95,
+      17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      -46,
+      1.05,
+      22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -47.1,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -47.1,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -44.9,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -44.9,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      -46,
+      1.58,
+      21.75
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      -34,
+      1.05,
+      22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -35.1,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -35.1,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -32.9,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -32.9,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      -34,
+      1.58,
+      21.75
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Side storage",
+    "position": [
+      -47.5,
+      0.8,
+      17
+    ],
+    "size": [
+      1.2,
+      1.6,
+      3
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      -25.9,
+      1.2,
+      6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      -14.1,
+      1.2,
+      6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      -29.1,
+      0.95,
+      17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      -10.9,
+      0.95,
+      17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      -26,
+      1.05,
+      22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -27.1,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -27.1,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -24.9,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -24.9,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      -26,
+      1.58,
+      21.75
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      -14,
+      1.05,
+      22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -15.1,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -15.1,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -12.9,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -12.9,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      -14,
+      1.58,
+      21.75
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Side storage",
+    "position": [
+      -27.5,
+      0.8,
+      17
+    ],
+    "size": [
+      1.2,
+      1.6,
+      3
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      -5.9,
+      1.2,
+      6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      5.9,
+      1.2,
+      6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      -9.1,
+      0.95,
+      17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      9.1,
+      0.95,
+      17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      -6,
+      1.05,
+      22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -7.1,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -7.1,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -4.9,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      -4.9,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      -6,
+      1.58,
+      21.75
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      6,
+      1.05,
+      22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      4.9,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      4.9,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      7.1,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      7.1,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      6,
+      1.58,
+      21.75
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Side storage",
+    "position": [
+      -7.5,
+      0.8,
+      17
+    ],
+    "size": [
+      1.2,
+      1.6,
+      3
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      14.1,
+      1.2,
+      6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      25.9,
+      1.2,
+      6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      10.9,
+      0.95,
+      17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      29.1,
+      0.95,
+      17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      14,
+      1.05,
+      22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      12.9,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      12.9,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      15.1,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      15.1,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      14,
+      1.58,
+      21.75
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      26,
+      1.05,
+      22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      24.9,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      24.9,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      27.1,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      27.1,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      26,
+      1.58,
+      21.75
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Side storage",
+    "position": [
+      12.5,
+      0.8,
+      17
+    ],
+    "size": [
+      1.2,
+      1.6,
+      3
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      34.1,
+      1.2,
+      6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room front",
+    "position": [
+      45.9,
+      1.2,
+      6.8
+    ],
+    "size": [
+      6.2,
+      2.4,
+      0.2
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      30.9,
+      0.95,
+      17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Room divider",
+    "position": [
+      49.1,
+      0.95,
+      17
+    ],
+    "size": [
+      0.18,
+      1.9,
+      20
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      34,
+      1.05,
+      22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      32.9,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      32.9,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      35.1,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      35.1,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      34,
+      1.58,
+      21.75
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk top",
+    "position": [
+      46,
+      1.05,
+      22
+    ],
+    "size": [
+      2.7,
+      0.16,
+      1.35
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      44.9,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      44.9,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      47.1,
+      0.49,
+      21.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Desk leg",
+    "position": [
+      47.1,
+      0.49,
+      22.5
+    ],
+    "size": [
+      0.1,
+      0.98,
+      0.1
+    ]
+  },
+  {
+    "name": "Monitor",
+    "position": [
+      46,
+      1.58,
+      21.75
+    ],
+    "size": [
+      1,
+      0.66,
+      0.1
+    ]
+  },
+  {
+    "name": "Side storage",
+    "position": [
+      32.5,
+      0.8,
+      17
+    ],
+    "size": [
+      1.2,
+      1.6,
+      3
+    ]
+  },
+  {
+    "name": "Bench",
+    "position": [
+      -46,
+      0.5,
+      -4.4
+    ],
+    "size": [
+      2.8,
+      0.2,
+      0.65
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -47,
+      0.25,
+      -4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -45,
+      0.25,
+      -4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench",
+    "position": [
+      -46,
+      0.5,
+      4.4
+    ],
+    "size": [
+      2.8,
+      0.2,
+      0.65
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -47,
+      0.25,
+      4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -45,
+      0.25,
+      4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench",
+    "position": [
+      -26,
+      0.5,
+      -4.4
+    ],
+    "size": [
+      2.8,
+      0.2,
+      0.65
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -27,
+      0.25,
+      -4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -25,
+      0.25,
+      -4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench",
+    "position": [
+      -26,
+      0.5,
+      4.4
+    ],
+    "size": [
+      2.8,
+      0.2,
+      0.65
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -27,
+      0.25,
+      4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -25,
+      0.25,
+      4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench",
+    "position": [
+      -6,
+      0.5,
+      -4.4
+    ],
+    "size": [
+      2.8,
+      0.2,
+      0.65
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -7,
+      0.25,
+      -4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -5,
+      0.25,
+      -4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench",
+    "position": [
+      -6,
+      0.5,
+      4.4
+    ],
+    "size": [
+      2.8,
+      0.2,
+      0.65
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -7,
+      0.25,
+      4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      -5,
+      0.25,
+      4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench",
+    "position": [
+      14,
+      0.5,
+      -4.4
+    ],
+    "size": [
+      2.8,
+      0.2,
+      0.65
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      13,
+      0.25,
+      -4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      15,
+      0.25,
+      -4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench",
+    "position": [
+      14,
+      0.5,
+      4.4
+    ],
+    "size": [
+      2.8,
+      0.2,
+      0.65
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      13,
+      0.25,
+      4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      15,
+      0.25,
+      4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench",
+    "position": [
+      34,
+      0.5,
+      -4.4
+    ],
+    "size": [
+      2.8,
+      0.2,
+      0.65
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      33,
+      0.25,
+      -4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      35,
+      0.25,
+      -4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench",
+    "position": [
+      34,
+      0.5,
+      4.4
+    ],
+    "size": [
+      2.8,
+      0.2,
+      0.65
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      33,
+      0.25,
+      4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Bench foot",
+    "position": [
+      35,
+      0.25,
+      4.4
+    ],
+    "size": [
+      0.1,
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "name": "Shared table",
+    "position": [
+      3,
+      1,
+      22
+    ],
+    "size": [
+      2.4,
+      0.18,
+      1.3
+    ]
+  },
+  {
+    "name": "Table pedestal",
+    "position": [
+      3,
+      0.45,
+      22
+    ],
+    "size": [
+      0.45,
+      0.9,
+      0.6
+    ]
+  },
+  {
+    "name": "Shared table",
+    "position": [
+      -3,
+      1,
+      22
+    ],
+    "size": [
+      2.4,
+      0.18,
+      1.3
+    ]
+  },
+  {
+    "name": "Table pedestal",
+    "position": [
+      -3,
+      0.45,
+      22
+    ],
+    "size": [
+      0.45,
+      0.9,
+      0.6
+    ]
+  },
+  {
+    "name": "Shared table",
+    "position": [
+      -4,
+      1,
+      -21
+    ],
+    "size": [
+      2.4,
+      0.18,
+      1.3
+    ]
+  },
+  {
+    "name": "Table pedestal",
+    "position": [
+      -4,
+      0.45,
+      -21
+    ],
+    "size": [
+      0.45,
+      0.9,
+      0.6
+    ]
+  },
+  {
+    "name": "Shared table",
+    "position": [
+      4,
+      1,
+      -21
+    ],
+    "size": [
+      2.4,
+      0.18,
+      1.3
+    ]
+  },
+  {
+    "name": "Table pedestal",
+    "position": [
+      4,
+      0.45,
+      -21
+    ],
+    "size": [
+      0.45,
+      0.9,
+      0.6
+    ]
+  },
+  {
+    "name": "Shared table",
+    "position": [
+      -20,
+      1,
+      19
+    ],
+    "size": [
+      2.4,
+      0.18,
+      1.3
+    ]
+  },
+  {
+    "name": "Table pedestal",
+    "position": [
+      -20,
+      0.45,
+      19
+    ],
+    "size": [
+      0.45,
+      0.9,
+      0.6
+    ]
+  },
+  {
+    "name": "Shared table",
+    "position": [
+      -24,
+      1,
+      23
+    ],
+    "size": [
+      2.4,
+      0.18,
+      1.3
+    ]
+  },
+  {
+    "name": "Table pedestal",
+    "position": [
+      -24,
+      0.45,
+      23
+    ],
+    "size": [
+      0.45,
+      0.9,
+      0.6
+    ]
+  },
+  {
+    "name": "Packed storage",
+    "position": [
+      14,
+      0.75,
+      22
+    ],
+    "size": [
+      1.5,
+      1.5,
+      1.4
+    ]
+  },
+  {
+    "name": "Packed storage",
+    "position": [
+      17,
+      1.0,
+      23
+    ],
+    "size": [
+      1.5,
+      2,
+      1.4
+    ]
+  },
+  {
+    "name": "Packed storage",
+    "position": [
+      24,
+      0.5,
+      21
+    ],
+    "size": [
+      1.5,
+      1,
+      1.4
+    ]
+  },
+  {
+    "name": "Packed storage",
+    "position": [
+      26,
+      0.75,
+      24
+    ],
+    "size": [
+      1.5,
+      1.5,
+      1.4
+    ]
+  },
+  {
+    "name": "Packed storage",
+    "position": [
+      -44,
+      0.9,
+      -23
+    ],
+    "size": [
+      1.5,
+      1.8,
+      1.4
+    ]
+  },
+  {
+    "name": "Packed storage",
+    "position": [
+      -37,
+      0.65,
+      -23
+    ],
+    "size": [
+      1.5,
+      1.3,
+      1.4
+    ]
+  },
+  {
+    "name": "Director desk",
+    "position": [
+      40,
+      1,
+      -24
+    ],
+    "size": [
+      5,
+      0.2,
+      1.5
+    ]
+  },
+  {
+    "name": "Director desk foot",
+    "position": [
+      38,
+      0.45,
+      -24
+    ],
+    "size": [
+      0.3,
+      0.9,
+      1.2
+    ]
+  },
+  {
+    "name": "Director desk foot",
+    "position": [
+      42,
+      0.45,
+      -24
+    ],
+    "size": [
+      0.3,
+      0.9,
+      1.2
+    ]
+  },
+  {
+    "name": "Dispenser base",
+    "position": [
+      -43,
+      0.65,
+      12
+    ],
+    "size": [
+      1.25,
+      1.3,
+      1
+    ]
+  },
+  {
+    "name": "Dispenser lid",
+    "position": [
+      -43,
+      1.36,
+      12
+    ],
+    "size": [
+      1.35,
+      0.12,
+      1.1
+    ]
+  },
+  {
+    "name": "Dispenser base",
+    "position": [
+      -25,
+      0.65,
+      -10
+    ],
+    "size": [
+      1.25,
+      1.3,
+      1
+    ]
+  },
+  {
+    "name": "Dispenser lid",
+    "position": [
+      -25,
+      1.36,
+      -10
+    ],
+    "size": [
+      1.35,
+      0.12,
+      1.1
+    ]
+  },
+  {
+    "name": "Dispenser base",
+    "position": [
+      5,
+      0.65,
+      10
+    ],
+    "size": [
+      1.25,
+      1.3,
+      1
+    ]
+  },
+  {
+    "name": "Dispenser lid",
+    "position": [
+      5,
+      1.36,
+      10
+    ],
+    "size": [
+      1.35,
+      0.12,
+      1.1
+    ]
+  },
+  {
+    "name": "Dispenser base",
+    "position": [
+      25,
+      0.65,
+      -10
+    ],
+    "size": [
+      1.25,
+      1.3,
+      1
+    ]
+  },
+  {
+    "name": "Dispenser lid",
+    "position": [
+      25,
+      1.36,
+      -10
+    ],
+    "size": [
+      1.35,
+      0.12,
+      1.1
+    ]
+  },
+  {
+    "name": "Dispenser base",
+    "position": [
+      45,
+      0.65,
+      -10
+    ],
+    "size": [
+      1.25,
+      1.3,
+      1
+    ]
+  },
+  {
+    "name": "Dispenser lid",
+    "position": [
+      45,
+      1.36,
+      -10
+    ],
+    "size": [
+      1.35,
+      0.12,
+      1.1
+    ]
+  },
+  {
+    "name": "Dispenser base",
+    "position": [
+      -20,
+      0.65,
+      4
+    ],
+    "size": [
+      1.25,
+      1.3,
+      1
+    ]
+  },
+  {
+    "name": "Dispenser lid",
+    "position": [
+      -20,
+      1.36,
+      4
+    ],
+    "size": [
+      1.35,
+      0.12,
+      1.1
+    ]
+  },
+  {
+    "name": "Dispenser base",
+    "position": [
+      35,
+      0.65,
+      4
+    ],
+    "size": [
+      1.25,
+      1.3,
+      1
+    ]
+  },
+  {
+    "name": "Dispenser lid",
+    "position": [
+      35,
+      1.36,
+      4
+    ],
+    "size": [
+      1.35,
+      0.12,
+      1.1
+    ]
+  }
+]

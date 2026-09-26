@@ -1,0 +1,181 @@
+{
+  "width": 100,
+  "depth": 54,
+  "previousArea": 360,
+  "areaMultiplier": 15,
+  "spawn": [
+    -40,
+    18
+  ],
+  "exit": [
+    -44,
+    23
+  ],
+  "rooms": [
+    {
+      "id": "north-0",
+      "name": "ARCHIVO MUERTO",
+      "x": -40,
+      "z": -17,
+      "width": 18,
+      "depth": 20,
+      "color": "#e8dfc3"
+    },
+    {
+      "id": "north-1",
+      "name": "ARCHIVO / EVIDENCIAS",
+      "x": -20,
+      "z": -17,
+      "width": 18,
+      "depth": 20,
+      "color": "#d7c399"
+    },
+    {
+      "id": "north-2",
+      "name": "REUNIÓN ETERNA",
+      "x": 0,
+      "z": -17,
+      "width": 18,
+      "depth": 20,
+      "color": "#dec8bf"
+    },
+    {
+      "id": "north-3",
+      "name": "SISTEMAS / TI",
+      "x": 20,
+      "z": -17,
+      "width": 18,
+      "depth": 20,
+      "color": "#b8cbd2"
+    },
+    {
+      "id": "north-4",
+      "name": "DIRECCIÓN",
+      "x": 40,
+      "z": -17,
+      "width": 18,
+      "depth": 20,
+      "color": "#b9cbbb"
+    },
+    {
+      "id": "south-0",
+      "name": "RECEPCIÓN / SALIDA",
+      "x": -40,
+      "z": 17,
+      "width": 18,
+      "depth": 20,
+      "color": "#b9cbbb"
+    },
+    {
+      "id": "south-1",
+      "name": "CREATIVIDAD",
+      "x": -20,
+      "z": 17,
+      "width": 18,
+      "depth": 20,
+      "color": "#dec8bf"
+    },
+    {
+      "id": "south-2",
+      "name": "CAFETERÍA",
+      "x": 0,
+      "z": 17,
+      "width": 18,
+      "depth": 20,
+      "color": "#e8dfc3"
+    },
+    {
+      "id": "south-3",
+      "name": "LOGÍSTICA",
+      "x": 20,
+      "z": 17,
+      "width": 18,
+      "depth": 20,
+      "color": "#d7c399"
+    },
+    {
+      "id": "south-4",
+      "name": "AZOTEA / JARDÍN",
+      "x": 40,
+      "z": 17,
+      "width": 18,
+      "depth": 20,
+      "color": "#b8cbd2"
+    },
+    {
+      "id": "hall-0",
+      "name": "PLAZA DE BIENVENIDA",
+      "x": -40,
+      "z": 0,
+      "width": 20,
+      "depth": 12,
+      "color": "#e3e3d2"
+    },
+    {
+      "id": "hall-1",
+      "name": "GALERÍA DEL EMPLEADO",
+      "x": -20,
+      "z": 0,
+      "width": 20,
+      "depth": 12,
+      "color": "#e3e3d2"
+    },
+    {
+      "id": "hall-2",
+      "name": "PATIO CENTRAL",
+      "x": 0,
+      "z": 0,
+      "width": 20,
+      "depth": 12,
+      "color": "#e3e3d2"
+    },
+    {
+      "id": "hall-3",
+      "name": "PASILLO DE AUDITORÍA",
+      "x": 20,
+      "z": 0,
+      "width": 20,
+      "depth": 12,
+      "color": "#e3e3d2"
+    },
+    {
+      "id": "hall-4",
+      "name": "FOYER EJECUTIVO",
+      "x": 40,
+      "z": 0,
+      "width": 20,
+      "depth": 12,
+      "color": "#e3e3d2"
+    }
+  ],
+  "dispensers": [
+    [
+      -43,
+      12
+    ],
+    [
+      -25,
+      -10
+    ],
+    [
+      5,
+      10
+    ],
+    [
+      25,
+      -10
+    ],
+    [
+      45,
+      -10
+    ],
+    [
+      -20,
+      4
+    ],
+    [
+      35,
+      4
+    ]
+  ]
+}
