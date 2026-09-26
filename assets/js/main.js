@@ -1,0 +1,14 @@
+import * as THREE from 'three';
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#f3f0e8');
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, .1, 100);
+camera.position.set(12, 15, 20); camera.lookAt(0, 0, 0);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight); renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+document.querySelector('#scene').append(renderer.domElement);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x7e907a, 3));
+const floor = new THREE.Mesh(new THREE.BoxGeometry(18, .4, 16), new THREE.MeshStandardMaterial({ color: '#b2c9af' }));
+scene.add(floor);
+document.querySelector('#load-status').textContent = 'v0.1 · Escena base preparada.';
+renderer.setAnimationLoop(() => renderer.render(scene, camera));
+window.addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
