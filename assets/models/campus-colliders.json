@@ -3083,9 +3083,9 @@
   {
     "name": "Dispenser base",
     "position": [
-      -20,
+      -17,
       0.65,
-      4
+      2
     ],
     "size": [
       1.25,
@@ -3096,9 +3096,9 @@
   {
     "name": "Dispenser lid",
     "position": [
-      -20,
+      -17,
       1.36,
-      4
+      2
     ],
     "size": [
       1.35,

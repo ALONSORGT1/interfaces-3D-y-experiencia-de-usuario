@@ -13,6 +13,10 @@ export class Input {
         if (!e.repeat) actions.pause();
         return;
       }
+      if (e.code === "KeyM") {
+        if (!e.repeat) actions.map?.();
+        return;
+      }
       if (!this.enabled) return;
       if (
         ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(
@@ -29,7 +33,6 @@ export class Input {
         actions.throw();
       if (!e.repeat && e.code === "KeyE") actions.interact();
       if (!e.repeat && e.code === "KeyQ") actions.mode?.();
-      if (!e.repeat && e.code === "KeyM") actions.map?.();
     });
     window.addEventListener("keyup", (e) => this.keys.delete(e.code));
     window.addEventListener("blur", () => {

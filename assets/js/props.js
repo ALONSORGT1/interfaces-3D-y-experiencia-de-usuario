@@ -24,7 +24,7 @@ function part(group, geometry, size, position, color) {
   return mesh;
 }
 const box = (g, s, p, c) => part(g, cube, s, p, c);
-export function ballMesh(radius = 0.32, color = '#c87869') {
+export function ballMesh(radius = 0.32, color = "#c87869") {
   const g = new THREE.Group();
   part(g, sphere, [radius, radius, radius], [0, 0, 0], color);
   for (const [x, z] of [
@@ -82,46 +82,136 @@ export class Props {
     this.bonuses = [];
     this.balls = [];
     this.serial = 0;
-    this.tower('lola', -36, 10, '#d8af7c', 3, 2);
-    this.tower('archive', -20, -17, '#91b5a1', 3, 2);
-    for(const [x,z] of [[15,-19],[20,-22],[25,-19]])this.server(x,z);
-    for (const [x,z] of [[-35,21],[-45,21],[-25,-19],[-15,-19],[-5,-19],[5,-19],[-22,18],[5,23],[16,-17],[25,-17],[36,20],[44,20]])this.chair(x,z);
-    this.deliveryCart=this.cart(0,22);this.deliveryCart.delivery=true;
-    this.deliveryCart.mesh.children.forEach(o=>{if(o.isMesh&&o.material.color.getHexString()==='bc9573')o.material=material('#ddbd60');});
-    this.cart(23,18);this.cart(-42,-20);
-    for(const [x,z] of [[-47,8],[-30,4],[-10,4],[10,4],[30,4],[47,8],[35,20],[45,15],[-15,22]])this.plant(x,z);
-    this.coffee(3,1.6,22);
+    this.tower("lola", -36, 10, "#d8af7c", 3, 2);
+    this.tower("archive", -20, -17, "#91b5a1", 3, 2);
+    for (const [x, z] of [
+      [15, -19],
+      [20, -22],
+      [25, -19],
+    ])
+      this.server(x, z);
+    for (const [x, z] of [
+      [-35, 21],
+      [-45, 21],
+      [-25, -19],
+      [-15, -19],
+      [-5, -19],
+      [5, -19],
+      [-22, 18],
+      [5, 23],
+      [16, -17],
+      [25, -17],
+      [36, 20],
+      [44, 20],
+    ])
+      this.chair(x, z);
+    this.deliveryCart = this.cart(0, 22);
+    this.deliveryCart.delivery = true;
+    this.deliveryCart.mesh.children.forEach((o) => {
+      if (o.isMesh && o.material.color.getHexString() === "bc9573")
+        o.material = material("#ddbd60");
+    });
+    this.cart(23, 18);
+    this.cart(-42, -20);
+    for (const [x, z] of [
+      [-47, 8],
+      [-30, 4],
+      [-10, 4],
+      [10, 4],
+      [30, 4],
+      [47, 8],
+      [35, 20],
+      [45, 15],
+      [-15, 22],
+    ])
+      this.plant(x, z);
+    this.coffee(3, 1.6, 22);
     // Settle the freshly stacked objects before establishing scoring baselines.
     for (let n = 0; n < 100; n++) this.physics.world.step(this.physics.events);
     this.physics.events.drainCollisionEvents(() => {});
     for (const item of this.items)
       item.initial = { ...item.body.translation() };
     this.sync();
-    for (const p of [[-38,.4,20],[-22,.4,-12],[2,.4,10],[22,.4,-10],[40,.4,14]])
+    for (const p of [
+      [-38, 0.4, 20],
+      [-22, 0.4, -12],
+      [2, 0.4, 10],
+      [22, 0.4, -10],
+      [40, 0.4, 14],
+    ])
       this.spawnBonus(p);
   }
-  tower(mission,x,z,color,rows=3,columns=2,wave=0){
-    const created=[];
-    for(let row=0;row<rows;row++)for(let col=0;col<columns;col++){
-      const g=new THREE.Group();box(g,[.92,.68,.72],[0,0,0],color);
-      for(const y of [-.17,.16]){box(g,[.83,.27,.04],[0,y,.375],color);box(g,[.22,.025,.055],[0,y+.025,.412],'#486457');box(g,[.16,.065,.01],[.23,y,.401],'#f6efd9');}
-      created.push(this.add('target',g,[x+(col-(columns-1)/2)*.98,.35+row*.7,z],[RAPIER.ColliderDesc.cuboid(.46,.34,.36).setDensity(3).setFriction(.6).setRestitution(.04)],{mission,wave}));
-    }
+  tower(mission, x, z, color, rows = 3, columns = 2, wave = 0) {
+    const created = [];
+    for (let row = 0; row < rows; row++)
+      for (let col = 0; col < columns; col++) {
+        const g = new THREE.Group();
+        box(g, [0.92, 0.68, 0.72], [0, 0, 0], color);
+        for (const y of [-0.17, 0.16]) {
+          box(g, [0.83, 0.27, 0.04], [0, y, 0.375], color);
+          box(g, [0.22, 0.025, 0.055], [0, y + 0.025, 0.412], "#486457");
+          box(g, [0.16, 0.065, 0.01], [0.23, y, 0.401], "#f6efd9");
+        }
+        created.push(
+          this.add(
+            "target",
+            g,
+            [x + (col - (columns - 1) / 2) * 0.98, 0.35 + row * 0.7, z],
+            [
+              RAPIER.ColliderDesc.cuboid(0.46, 0.34, 0.36)
+                .setDensity(3)
+                .setFriction(0.6)
+                .setRestitution(0.04),
+            ],
+            { mission, wave },
+          ),
+        );
+      }
     return created;
   }
-  server(x,z){
-    const g=new THREE.Group();box(g,[.9,1.7,.75],[0,0,0],'#4b6877');
-    for(let y=-.6;y<=.6;y+=.3){box(g,[.72,.15,.03],[0,y,.395],'#263d43');box(g,[.08,.045,.025],[.25,y,.42],'#bedd8a');}
-    return this.add('target',g,[x,.86,z],[RAPIER.ColliderDesc.cuboid(.45,.85,.38).setDensity(2).setFriction(.5)],{mission:'servers',wave:0});
+  server(x, z) {
+    const g = new THREE.Group();
+    box(g, [0.9, 1.7, 0.75], [0, 0, 0], "#4b6877");
+    for (let y = -0.6; y <= 0.6; y += 0.3) {
+      box(g, [0.72, 0.15, 0.03], [0, y, 0.395], "#263d43");
+      box(g, [0.08, 0.045, 0.025], [0.25, y, 0.42], "#bedd8a");
+    }
+    return this.add(
+      "target",
+      g,
+      [x, 0.86, z],
+      [
+        RAPIER.ColliderDesc.cuboid(0.45, 0.85, 0.38)
+          .setDensity(2)
+          .setFriction(0.5),
+      ],
+      { mission: "servers", wave: 0 },
+    );
   }
-  spawnWave(wave){
-    const anchors=[[37,-18],[43,-18],[40,-21]];
-    const anchor=anchors[wave];if(!anchor)return [];
-    const candidates=[anchor,[anchor[0],anchor[1]+2],[anchor[0]-2,anchor[1]+2],[anchor[0]+2,anchor[1]+2]];
+  spawnWave(wave) {
+    const anchors = [
+      [37, -18],
+      [43, -18],
+      [40, -21],
+    ];
+    const anchor = anchors[wave];
+    if (!anchor) return [];
+    const candidates = [
+      anchor,
+      [anchor[0], anchor[1] + 2],
+      [anchor[0] - 2, anchor[1] + 2],
+      [anchor[0] + 2, anchor[1] + 2],
+    ];
     // Validate the full height of the new tower, not just its base.
-    const p=candidates.find(([x,z])=>hasBoxSpace(this.physics.world,{x,y:1.05,z},{x:.47,y:1.04,z:.37}));
-    if(!p)return [];
-    return this.tower('director',p[0],p[1],'#cfae70',3,1,wave);
+    const p = candidates.find(([x, z]) =>
+      hasBoxSpace(
+        this.physics.world,
+        { x, y: 1.05, z },
+        { x: 0.47, y: 1.04, z: 0.37 },
+      ),
+    );
+    if (!p) return [];
+    return this.tower("director", p[0], p[1], "#cfae70", 3, 1, wave);
   }
   chair(x, z) {
     const g = new THREE.Group();
@@ -238,11 +328,16 @@ export class Props {
       { protected: true },
     );
   }
-  spawnBall(position, velocity, shotId, mode={mass:3.2,restitution:.38,color:'#c87869'}) {
+  spawnBall(
+    position,
+    velocity,
+    shotId,
+    mode = { mass: 3.2, restitution: 0.38, color: "#c87869" },
+  ) {
     if (!hasSpace(this.physics.world, position, 0.33)) return null;
     const item = this.add(
       "ball",
-      ballMesh(.32,mode.color),
+      ballMesh(0.32, mode.color),
       [position.x, position.y, position.z],
       [
         RAPIER.ColliderDesc.ball(0.32)
@@ -263,7 +358,15 @@ export class Props {
   spawnBonus(preferred) {
     const candidates = [
       preferred,
-      [-38,.4,20],[-22,.4,-12],[2,.4,10],[22,.4,-10],[40,.4,14],[-18,.4,3],[-5,.4,2],[14,.4,2],[-32,.4,-16],
+      [-38, 0.4, 20],
+      [-22, 0.4, -12],
+      [2, 0.4, 10],
+      [22, 0.4, -10],
+      [40, 0.4, 14],
+      [-18, 0.4, 3],
+      [-5, 0.4, 2],
+      [14, 0.4, 2],
+      [-32, 0.4, -16],
     ];
     const p = candidates.find(
       (c) =>
@@ -312,13 +415,17 @@ export class Props {
       item.mesh.quaternion.copy(item.body.rotation());
     }
   }
-  update(dt, time, focus=null) {
+  update(dt, time, focus = null) {
     for (const b of this.bonuses) {
       b.mesh.position.y =
         b.position.y + Math.sin(time * 2.5 + b.position.x) * 0.08;
       b.mesh.rotation.y = time * 0.7;
     }
     this.sync();
-    if(focus)for(const item of this.items){const p=item.body.translation();item.mesh.visible=Math.hypot(p.x-focus.x,p.z-focus.z)<48;}
+    if (focus)
+      for (const item of this.items) {
+        const p = item.body.translation();
+        item.mesh.visible = Math.hypot(p.x - focus.x, p.z - focus.z) < 48;
+      }
   }
 }

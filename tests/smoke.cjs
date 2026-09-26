@@ -1,356 +1,443 @@
-/* Integration tests use real WebGL, real Rapier, UI input, and controlled scenario
-   setup through ?test=1. No scoring/collision functions are mocked. */
+/* Real-browser campaign tests. Controlled positioning/time fixtures shorten travel;
+   all demolition, delivery and character movement use the actual Rapier world. */
 const { chromium } = require("playwright");
 const assert = require("node:assert/strict");
 const { spawn } = require("node:child_process");
-const path = require("node:path");
 const fs = require("node:fs");
-const root = path.resolve(__dirname, "..");
-const results = path.join(root, "test-results");
-fs.mkdirSync(results, { recursive: true });
-const server = spawn(
-  process.execPath,
-  [path.join(root, "tools", "serve.cjs")],
-  {
-    env: { ...process.env, PORT: "4174", SITE_PREFIX: "/renuncia-definitiva" },
-    stdio: ["ignore", "pipe", "pipe"],
-    windowsHide: true,
-  },
-);
-let browser;
-const logs = [];
-const passed = [];
-const pass = (name) => {
-  passed.push(name);
-  console.log("PASS", name);
+const path = require("node:path");
+const root = path.resolve(__dirname, ".."),
+  out = path.join(root, "test-results");
+fs.mkdirSync(out, { recursive: true });
+const server = spawn(process.execPath, [path.join(root, "tools/serve.cjs")], {
+  env: { ...process.env, PORT: "4174", SITE_PREFIX: "/renuncia-definitiva" },
+  stdio: ["ignore", "pipe", "pipe"],
+  windowsHide: true,
+});
+let browser, page;
+const errors = [],
+  passed = [];
+const pass = (s) => {
+  passed.push(s);
+  console.log("PASS", s);
 };
 async function run() {
   await new Promise((resolve, reject) => {
     server.stdout.once("data", resolve);
     server.once("error", reject);
-    server.once("exit", (c) => reject(new Error("Server exited " + c)));
   });
   browser = await chromium.launch({
     headless: true,
     ...(process.env.TEST_BROWSER ? { channel: process.env.TEST_BROWSER } : {}),
   });
-  const page = await browser.newPage({
-    viewport: { width: 1440, height: 900 },
-  });
-  page.on("pageerror", (e) => logs.push(e.message));
+  page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  page.on("pageerror", (e) => errors.push(e.message));
   page.on("console", (m) => {
-    if (m.type() === "error") logs.push(m.text());
+    if (m.type() === "error") errors.push(m.text());
   });
   page.on("response", (r) => {
-    if (r.status() >= 400) logs.push(`${r.status()} ${r.url()}`);
+    if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`);
   });
   await page.goto("http://127.0.0.1:4174/renuncia-definitiva/?test=1");
-  await page.waitForFunction(() => window.__game?.state === "intro");
-  await page.screenshot({ path: path.join(results, "01-inicio.png") });
-  assert.equal(
-    await page.locator("h1").innerText(),
-    "Tu último día.\nSu peor lunes.",
+  await page.waitForFunction(
+    () => window.__game?.state === "intro",
+    {},
+    { timeout: 60000 },
   );
-  pass(
-    "Carga GLB, texturas, CDN e import map desde una subruta de repositorio",
-  );
-  await page.locator("#start-button").click();
   const snap = () => page.evaluate(() => __game.snapshot());
-  const start = async () => {
-    await page.evaluate(() => __game.start());
-    await page.waitForTimeout(100);
-  };
-  const place = async (x, z, yaw = 0) => {
-    await page.evaluate(
+  const place = async (x, z, yaw = 0) =>
+    page.evaluate(
       ({ x, z, yaw }) => {
         const g = __game;
         g.input.clear();
         g.input.yaw = yaw;
+        g.character.vertical = 0;
         g.character.body.setTranslation({ x, y: 0.98, z }, true);
         g.character.body.setNextKinematicTranslation({ x, y: 0.98, z });
-        g.character.vertical = 0;
         g.character.sync();
         g.character.updateCamera(0, true);
+        g.physics.world.propagateModifiedBodyPositionsToColliders();
+        g.physics.world.updateSceneQueries();
       },
       { x, z, yaw },
     );
-    await page.waitForTimeout(60);
+  const steps = async (n) =>
+    page.evaluate((n) => {
+      const g = __game;
+      for (let i = 0; i < n && g.state === "playing"; i++) g.step();
+      g.props.sync();
+      g.crowd.sync(g.character.position);
+      g.ui.update(g);
+      return g.snapshot();
+    }, n);
+  const shoot = async (x, z, power = 65, mode = 0, yaw = 0) => {
+    await place(x, z, yaw);
+    return page.evaluate(
+      ({ power, mode }) => {
+        const g = __game;
+        g.power = power;
+        g.modeIndex = mode;
+        g.throwCooldown = 0;
+        g.ballReady = g.shots > 0;
+        g.throwBall();
+        return g.snapshot();
+      },
+      { power, mode },
+    );
   };
-  await page.waitForTimeout(500);
-  assert.equal((await snap()).down, 0);
-  assert.equal((await snap()).score, 0);
-  assert.equal((await snap()).shots, 8);
-  assert.equal(
-    await page.evaluate(() =>
-      Object.keys(__game.character.animations).sort().join(","),
-    ),
-    "Idle,Run,Throw,Walk",
+  const talk = async () => {
+    await page.keyboard.press("KeyE");
+    await page.locator("#dialogue-dialog").waitFor({ state: "visible" });
+    await page.locator('[data-close="dialogue-dialog"]').click();
+    await page.waitForFunction(() => __game.state === "playing");
+  };
+  const map = (await snap()).map;
+  assert.equal(map.width * map.depth, 20 * 18 * 15);
+  assert.equal(map.areaMultiplier, 15);
+  pass("Mapa medido: 100 × 54, exactamente quince veces el área original");
+  assert.equal(await page.evaluate(() => __game.crowd.people.length), 10);
+  pass("Ocho personajes y dos auditores presentes en el mundo");
+  const assets = await page.evaluate(() => ({
+    clips: __game.view.employee.animations.map((a) => a.name).sort(),
+    campus: __game.view.office.children.length,
+    mixer: __game.character.mixer.constructor.name,
+  }));
+  assert.deepEqual(assets.clips, ["Idle", "Run", "Throw", "Walk"]);
+  assert.equal(assets.mixer, "AnimationMixer");
+  assert.ok(assets.campus > 0);
+  pass(
+    "R2/R4: campus y empleado GLB cargados; cuatro clips reales en AnimationMixer",
   );
-  pass("Inicio limpio: 18 objetivos estables, ocho bolas y cuatro clips GLB");
+  const paths = await page.evaluate(() =>
+    __game.view.map.rooms.map((r) => ({
+      name: r.name,
+      length: __game.navigation.route({ x: -40, z: 18 }, { x: r.x, z: r.z })
+        .length,
+    })),
+  );
+  assert.ok(
+    paths.every((p) => p.length > 0),
+    JSON.stringify(paths),
+  );
+  pass("Las quince áreas están conectadas por rutas transitables");
+  await page.screenshot({ path: path.join(out, "01-inicio.png") });
+  await page.locator("#start-button").click();
+  assert.equal((await snap()).mission, "lola");
+  assert.equal((await snap()).shots, 12);
+  pass("La campaña empieza con propósito visible y un primer interlocutor");
   await page.keyboard.down("KeyW");
   await page.waitForFunction(() => __game.character.state === "Walk");
   await page.waitForTimeout(250);
   await page.keyboard.up("KeyW");
-  assert.ok((await snap()).position.z < 5.8);
   await page.keyboard.down("Shift");
   await page.keyboard.down("KeyW");
   await page.waitForFunction(() => __game.character.state === "Run");
   await page.keyboard.up("KeyW");
   await page.keyboard.up("Shift");
   await page.waitForFunction(() => __game.character.state === "Idle");
-  pass("WASD, movimiento relativo a cámara y animaciones Idle/Walk/Run");
-  await page.mouse.move(850, 480);
-  await page.mouse.down();
-  await page.mouse.move(960, 500, { steps: 5 });
-  await page.mouse.up();
-  assert.ok(Math.abs(await page.evaluate(() => __game.input.yaw)) > 0.2);
-  pass("Órbita con mouse");
-  await place(9.2, 5);
-  await page.keyboard.down("KeyD");
-  await page.waitForTimeout(600);
-  await page.keyboard.up("KeyD");
-  assert.ok((await snap()).position.x < 9.95);
-  await place(-7, 3.4);
-  await page.keyboard.down("KeyW");
-  await page.waitForTimeout(650);
-  await page.keyboard.up("KeyW");
-  assert.ok((await snap()).position.z > 2.7);
-  pass("Personaje bloqueado por límites y escritorio sólido");
-  await start();
-  await page.keyboard.press("KeyF");
+  pass("Idle, Walk y Run siguen los controles reales del jugador");
+  await place(-39, 16);
+  await talk();
+  assert.equal(await page.evaluate(() => __game.lolaTalked), true);
+  assert.match(await page.locator("#mission-title").textContent(), /Libera/);
+  pass("Conversación con Lola cambia el objetivo y pausa el reloj");
+  await shoot(-36, 14);
   await page.waitForFunction(() => __game.character.state === "Throw");
-  await page.waitForFunction(() => __game.down >= 4, { timeout: 10000 });
-  await page.waitForTimeout(1000);
-  const hit = await snap();
-  assert.equal(hit.shots, 7);
-  assert.equal(hit.ballReady, false);
-  assert.ok(hit.score > 0);
-  assert.ok(hit.down >= 4);
-  await page.screenshot({ path: path.join(results, "02-derribo.png") });
+  let current = await steps(260);
+  console.log("CHAPTER1", current.mission, current.down, current.score);
+  assert.equal(current.mission, "archive");
+  assert.deepEqual(current.team, ["lola"]);
+  assert.equal(current.unlocked, 2);
   pass(
-    "Lanzamiento desde teclado causa un derrumbe físico y actualiza HUD/puntuación",
+    "Derribo físico de seis archivadores rescata a Lola y desbloquea la bola pesada",
   );
-  const beforeReload = hit.shots;
-  await place(-2.2, 6.1);
-  await page.keyboard.press("KeyE");
-  assert.equal((await snap()).ballReady, true);
-  assert.equal((await snap()).shots, beforeReload);
-  pass("Máquina recarga sin regalar lanzamientos");
-  const scoreBefore = (await snap()).score;
-  await place(7, 6);
-  await page.keyboard.press("KeyE");
-  assert.ok((await snap()).score >= scoreBefore + 100);
-  pass("Recoger bono añade puntos y elimina el objeto");
-  await start();
-  await place(3.25, 4);
-  const cartStart = await page.evaluate(
-    () =>
-      __game.props.items.find((i) => i.type === "cart").body.translation().z,
-  );
-  await page.keyboard.press("KeyE");
-  await page.waitForTimeout(500);
-  const cartEnd = await page.evaluate(
-    () =>
-      __game.props.items.find((i) => i.type === "cart").body.translation().z,
-  );
-  assert.ok(cartEnd < cartStart - 0.15);
-  pass("Empujar carrito aplica un impulso físico");
-  async function measurePower(power) {
-    await start();
-    return page.evaluate((power) => {
-      const g = __game;
-      const slider = document.getElementById("power");
-      slider.value = power;
-      slider.dispatchEvent(new Event("input"));
-      g.throwBall();
-      const v = g.props.balls.at(-1).body.linvel();
-      return Math.hypot(v.x, v.z);
-    }, power);
-  }
-  const weak = await measurePower(25),
-    strong = await measurePower(100);
-  assert.ok(strong > weak * 1.8);
-  pass("El deslizador cambia la velocidad real de lanzamiento");
-  await start();
-  await page.evaluate(() => {
-    const g = __game;
-    g.props.spawnBall(g.ballOrigin(), { x: 0, y: 0, z: 0 }, 99);
+  await place(-40, 0);
+  await steps(300);
+  const follower = await page.evaluate(() => {
+    const p = __game.crowd.get("lola").body.translation(),
+      q = __game.character.position;
+    return Math.hypot(p.x - q.x, p.z - q.z);
   });
-  await page.keyboard.press("KeyF");
-  assert.equal((await snap()).shots, 8);
-  assert.equal((await snap()).ballReady, true);
-  pass("Generación bloqueada si el volumen de salida está ocupado");
-  await start();
-  await page.locator("#pause-button").click();
-  const paused = (await snap()).time;
-  await page.waitForTimeout(300);
-  assert.equal((await snap()).time, paused);
-  await page.locator("#resume-button").click();
-  await page.waitForTimeout(150);
-  assert.ok((await snap()).time > paused);
-  pass("Pausa congela física y tiempo; continuar restaura controles");
-  await page.locator("#help-button").click();
+  assert.ok(follower < 5, `Lola quedó a ${follower} m`);
+  pass("Lola sigue al jugador y cruza la puerta sin atravesar muros");
+  await page.keyboard.press("KeyQ");
+  assert.equal((await snap()).mode, "heavy");
+  pass("Q selecciona un tipo de bola desbloqueado");
+  await shoot(-20, -12, 85, 1);
+  current = await steps(280);
+  assert.equal(
+    current.targets.filter((t) => t.mission === "archive" && t.scored).length,
+    6,
+  );
+  await place(-20, -22);
+  await page.keyboard.press("KeyE");
+  current = await snap();
+  assert.equal(current.mission, "cafe");
+  assert.equal(current.evidence, true);
+  assert.deepEqual(current.team, ["lola", "beto"]);
+  assert.equal(current.unlocked, 3);
+  pass(
+    "Archivo: derribo, memoria recogida y Beto reclutado son pasos distintos",
+  );
+  await shoot(0, 25, 25, 1);
+  current = await steps(240);
+  console.log(
+    "CART",
+    await page.evaluate(() => ({
+      ...__game.props.deliveryCart.body.translation(),
+      delivered: __game.delivered,
+    })),
+  );
+  assert.equal(current.delivered, true);
+  await place(4, 19);
+  await talk();
+  current = await snap();
+  assert.equal(current.mission, "servers");
+  assert.deepEqual(current.team, ["lola", "beto", "nora"]);
+  pass(
+    "Una bola mueve la batería hasta el generador; hablar con Nora completa la misión",
+  );
+  await place(0, 11);
+  await steps(900);
+  const teamDistances = await page.evaluate(() =>
+    __game.crowd.teammates.map((p) => ({
+      name: p.id,
+      distance: Math.hypot(
+        p.body.translation().x - __game.character.position.x,
+        p.body.translation().z - __game.character.position.z,
+      ),
+    })),
+  );
+  assert.ok(
+    teamDistances.every((p) => p.distance < 5),
+    JSON.stringify(teamDistances),
+  );
+  pass(
+    "Los tres compañeros atraviesan el mapa y se reúnen pese a los escombros",
+  );
+  await page.locator("#map-button").click();
   assert.equal((await snap()).state, "paused");
-  await page.locator('[data-close="help-dialog"]').last().click();
+  const pauseTime = (await snap()).time;
+  await page.waitForTimeout(200);
+  assert.equal((await snap()).time, pauseTime);
+  await page.screenshot({ path: path.join(out, "02-mapa.png") });
+  await page.locator('[data-close="map-dialog"]').last().click();
   assert.equal((await snap()).state, "playing");
-  pass("Ayuda pausa y reanuda sin perder partida");
-  // Controlled high-speed tests advance the real fixed-step simulation, not wall time.
-  await start();
-  const loss = await page.evaluate(() => {
-    const g = __game;
-    g.input.yaw = Math.PI;
-    for (let n = 0; n < 8; n++) {
-      g.ballReady = true;
-      g.throwCooldown = 0;
-      g.throwBall();
-      // Let each physical miss settle and be retired before the next setup.
-      for (let k = 0; k < 1860 && g.state === "playing"; k++) g.step();
-    }
-    for (let k = 0; k < 1600 && g.state === "playing"; k++) g.step();
-    return g.snapshot();
-  });
-  assert.equal(loss.shots, 0);
-  assert.equal(loss.state, "lost");
-  await page.screenshot({ path: path.join(results, "03-derrota.png") });
+  pass("Mapa ampliado muestra capítulos, compañeros y ruta; congela el tiempo");
+  await page.keyboard.press("KeyM");
+  assert.equal((await snap()).state, "paused");
+  await page.keyboard.press("KeyM");
+  await page.waitForFunction(() => __game.state === "playing");
+  pass("La tecla M abre y cierra el mapa sin dejar la partida pausada");
+  for (const [x, z] of [
+    [15, -15],
+    [20, -17],
+    [25, -15],
+  ]) {
+    await shoot(x, z, 90, 1);
+    await steps(220);
+  }
+  current = await snap();
+  console.log(
+    "SERVERS",
+    current.mission,
+    current.targets.filter((t) => t.mission === "servers"),
+  );
+  assert.equal(current.mission, "director");
+  pass("Tres servidores físicos abren la misión del director");
+  for (let wave = 0; wave < 3; wave++) {
+    await steps(90);
+    const target = await page.evaluate(() => {
+      const g = __game;
+      return g
+        .targetsFor()
+        .find((t) => t.wave === g.bossWave && !t.scored)
+        ?.body.translation();
+    });
+    assert.ok(target, `No apareció la oleada ${wave + 1}`);
+    await shoot(target.x, target.z + 4, 85, 1);
+    await steps(220);
+    assert.equal((await snap()).bossWave, wave + 1);
+  }
   pass(
-    "Ocho tiros fallidos producen derrota después de resolver la última bola",
+    "Dirección genera y resuelve tres oleadas derribables en posiciones válidas",
+  );
+  await place(40, -22.5);
+  await page.keyboard.press("KeyE");
+  current = await snap();
+  assert.equal(current.mission, "exit");
+  assert.equal(current.directorSigned, true);
+  assert.equal(current.completed.length, 5);
+  pass("Recoger la carta muestra explícitamente el regreso al ascensor");
+  await page.evaluate(() => {
+    __game.score = -500;
+    __game.shots = 0;
+    __game.ui.update(__game);
+  });
+  await place(-44, 23);
+  const finish = await page.evaluate(() => {
+    const start = performance.now();
+    __game.interact();
+    return {
+      state: __game.state,
+      elapsed: performance.now() - start,
+      dialog: document.getElementById("result-dialog").open,
+      score: __game.score,
+      completed: __game.completed.length,
+    };
+  });
+  assert.equal(finish.state, "won");
+  assert.equal(finish.dialog, true);
+  assert.ok(finish.elapsed < 500);
+  assert.equal(finish.score, -500);
+  assert.equal(finish.completed, 6);
+  await page.screenshot({ path: path.join(out, "03-victoria.png") });
+  pass(
+    "Victoria inmediata al salir: sin umbral de puntos, sin bolas y sin esperas físicas",
   );
   await page.locator("#restart-button").click();
-  const reset = await snap();
-  assert.equal(reset.score, 0);
-  assert.equal(reset.down, 0);
-  assert.equal(reset.shots, 8);
-  assert.equal(reset.penalties, 0);
-  assert.equal(reset.balls.length, 0);
-  assert.equal(reset.bonuses, 3);
-  pass("Reinicio completo después de derrota");
-  // Set up three shooting positions; gameplay still uses real balls and collision scoring.
-  const win = await page.evaluate(() => {
-    const g = __game;
-    g.power = 100;
-    for (const [x, z] of [
-      [0, 1],
-      [-5, 1],
-      [5, 1],
-    ]) {
-      if (g.state !== "playing") break;
-      g.character.body.setTranslation({ x, y: 0.98, z }, true);
-      g.character.body.setNextKinematicTranslation({ x, y: 0.98, z });
-      g.input.yaw = 0;
-      g.ballReady = true;
-      g.throwCooldown = 0;
-      g.throwBall();
-      for (let n = 0; n < 360 && g.state === "playing"; n++) g.step();
-    }
-    // Pick up existing bonuses through the real interaction if a plant penalty requires it.
-    for (const bonus of [...g.props.bonuses]) {
-      if (g.state !== "playing") break;
-      const p = bonus.position;
-      g.character.body.setTranslation({ x: p.x, y: 0.98, z: p.z }, true);
-      g.interact();
-    }
-    return g.snapshot();
-  });
-  assert.equal(win.down, 18);
-  assert.ok(win.score >= 1800);
-  assert.equal(win.state, "won");
-  await page.screenshot({ path: path.join(results, "04-victoria.png") });
+  current = await snap();
+  assert.equal(current.mission, "lola");
+  assert.equal(current.score, 0);
+  assert.equal(current.team.length, 0);
+  assert.equal(current.shots, 12);
   pass(
-    "Tres torres derribadas con bolas reales y puntuación mínima producen victoria",
+    "Nueva campaña reinicia misiones, actores, objetos, recursos y puntuación",
   );
-  await page.locator("#restart-button").click();
-  assert.equal((await snap()).score, 0);
-  assert.equal((await snap()).shots, 8);
-  pass("Reinicio después de victoria");
+  // State-machine fixture, not a fabricated physics playthrough: verify checkpoint recovery.
   await page.evaluate(() => {
     const g = __game;
-    g.start();
-    for (let n = 0; n < 1500; n++) g.step();
+    g.missionIndex = 3;
+    g.completed = ["lola", "archive", "cafe"];
+    g.evidence = true;
+    g.delivered = true;
+    g.unlocked = 3;
+    for (const id of ["lola", "beto", "nora"]) g.crowd.recruit(id);
+    g.saveCheckpoint();
+    g.time = 721;
+    g.checkCampaign();
   });
-  assert.ok((await snap()).bonuses > 3);
-  const valid = await page.evaluate(() =>
-    __game.props.bonuses.every(
-      (b) =>
-        Math.abs(b.position.x) < 9.6 &&
-        Math.abs(b.position.z) < 8.6 &&
-        b.position.y >= 0.3,
-    ),
+  assert.equal((await snap()).state, "lost");
+  await page.locator("#restart-button").click();
+  current = await snap();
+  assert.equal(current.mission, "servers");
+  assert.equal(current.team.length, 3);
+  assert.ok(current.remaining >= 179);
+  assert.equal(current.score, 0);
+  pass(
+    "Derrota por tiempo ofrece punto de control y conserva al equipo reclutado",
   );
-  assert.ok(valid);
-  pass("Bonos generados durante la partida dentro de la zona válida");
-  await start();
-  const damage = await page.evaluate(() => {
-    const g = __game;
-    const plant = g.props.items.find((i) => i.type === "plant");
-    plant.body.setRotation({ x: 0, y: 0, z: 0.8, w: 0.6 }, true);
-    for (let n = 0; n < 120; n++) g.step();
-    const first = { score: g.score, penalties: g.penalties };
-    for (let n = 0; n < 180; n++) g.step();
-    return { first, second: { score: g.score, penalties: g.penalties } };
+  // Real guard detection and static-wall occlusion.
+  await page.evaluate(() => __game.start());
+  await place(-9, 0);
+  await steps(25);
+  assert.ok((await snap()).suspicion > 0);
+  pass("Auditor con visión directa aumenta la sospecha");
+  const cone = await page.evaluate(() => {
+    const g = __game,
+      p = g.crowd.get("audit1");
+    g.crowd.sync(g.character.position);
+    p.vision.updateMatrixWorld(true);
+    const e = p.vision.matrixWorld.elements;
+    return (
+      e[0] * -Math.sin(p.model.rotation.y) +
+      e[2] * -Math.cos(p.model.rotation.y)
+    );
   });
-  assert.equal(damage.first.penalties, 1);
-  assert.equal(damage.first.score, -150);
-  assert.deepEqual(damage.first, damage.second);
-  pass("Cada objeto protegido resta una sola vez, aunque siga en el suelo");
-  await start();
-  const lastBonus = await page.evaluate(() => {
-    const g = __game;
-    // State-machine fixture: the last throw clears the room, but a bonus is needed.
-    g.props.items
-      .filter((i) => i.type === "target")
-      .forEach((i) => (i.scored = true));
-    g.down = 18;
-    g.score = 1700;
-    g.shots = 0;
-    g.ballReady = false;
-    g.shot = { id: 1, start: -30, rebate: false };
-    g.checkResult();
-    const before = { state: g.state, canCollect: g.finalChoice };
-    const p = g.props.bonuses[0].position;
-    g.character.body.setTranslation({ x: p.x, y: 0.98, z: p.z }, true);
-    g.interact();
-    return { before, after: g.state, score: g.score };
+  assert.ok(cone > 0.99);
+  pass(
+    "El cono dibujado apunta en la misma dirección que la detección del auditor",
+  );
+  const occlusion = await page.evaluate(() => {
+    const g = __game,
+      p = g.crowd.get("audit1");
+    p.body.setTranslation({ x: -35, y: 0.97, z: 5 }, true);
+    p.body.setNextKinematicTranslation({ x: -35, y: 0.97, z: 5 });
+    p.patrol = [[-35, 15]];
+    p.route = [{ x: -35, z: 15 }];
+    p.waypoint = 0;
+    p.repath = 100;
+    g.character.body.setTranslation({ x: -35, y: 0.98, z: 9 }, true);
+    g.character.body.setNextKinematicTranslation({ x: -35, y: 0.98, z: 9 });
+    g.suspicion = 40;
+    for (let n = 0; n < 60; n++) g.step();
+    return { seen: g.seen, alarm: g.suspicion };
   });
-  assert.deepEqual(lastBonus.before, { state: "playing", canCollect: true });
-  assert.equal(lastBonus.after, "won");
-  assert.equal(lastBonus.score, 1800);
-  pass("Último tiro permite recoger el bono necesario antes de finalizar");
+  assert.equal(occlusion.seen, false);
+  assert.ok(occlusion.alarm < 40);
+  pass(
+    "Una pared real corta la visión del auditor y permite bajar la sospecha",
+  );
+  await page.evaluate(() => {
+    __game.suspicion = 100;
+    __game.checkCampaign();
+  });
+  assert.equal((await snap()).state, "lost");
+  pass("Sospecha al 100% causa derrota verificable");
+  await page.evaluate(() => __game.start());
+  const power = await page.evaluate(() => {
+    const g = __game,
+      values = [];
+    for (const p of [25, 100]) {
+      g.power = p;
+      g.throwCooldown = 0;
+      g.ballReady = true;
+      g.throwBall();
+      const b = g.props.balls.at(-1);
+      values.push(Math.hypot(b.body.linvel().x, b.body.linvel().z));
+      g.props.remove(b);
+    }
+    return values;
+  });
+  assert.ok(power[1] > power[0] * 1.8);
+  pass("La potencia conserva un efecto real en velocidad");
+  await place(-43, 14);
+  await page.keyboard.press("KeyE");
+  assert.equal((await snap()).shots, 16);
+  pass("Recarga local elimina el regreso obligatorio a un único punto");
+  const blocked = await page.evaluate(() => {
+    const g = __game;
+    const p = g.ballOrigin();
+    g.props.spawnBall(p, { x: 0, y: 0, z: 0 }, 99);
+    g.throwCooldown = 0;
+    g.ballReady = true;
+    const before = g.shots;
+    g.throwBall();
+    return g.shots === before;
+  });
+  assert.equal(blocked, true);
+  pass("No se genera una bola dentro de un volumen ocupado");
+  await place(49, 3);
+  await page.keyboard.down("KeyD");
+  await page.waitForTimeout(500);
+  await page.keyboard.up("KeyD");
+  assert.ok((await snap()).position.x < 49.8);
+  pass("Los límites del mapa ampliado bloquean al personaje");
   await page.evaluate(() => __game.home());
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.screenshot({ path: path.join(results, "05-movil.png") });
-  assert.equal(
+  await page.screenshot({ path: path.join(out, "04-movil.png") });
+  assert.ok(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
-    true,
   );
-  pass("Interfaz sin desbordamiento horizontal a 390 px");
+  pass("Interfaz adaptable sin desbordamiento a 390 px");
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.locator("#start-button").click();
-  await page.waitForTimeout(3300);
-  await page.screenshot({ path: path.join(results, "06-partida.png") });
-  assert.deepEqual(logs, []);
-  pass("Sin errores de JavaScript, recursos 404 ni errores de consola");
-  const offline = await browser.newPage();
-  await offline.route("https://cdn.jsdelivr.net/**", (route) => route.abort());
-  await offline.goto("http://127.0.0.1:4174/renuncia-definitiva/");
-  await offline.waitForFunction(
-    () =>
-      document.getElementById("start-label").textContent ===
-      "Volver a intentar",
-  );
-  assert.equal(await offline.locator("#start-button").isEnabled(), true);
-  await offline.close();
-  pass("Fallo de CDN muestra un mensaje legible y permite reintentar");
+  await page.waitForTimeout(700);
+  await page.screenshot({ path: path.join(out, "05-partida.png") });
+  assert.deepEqual(errors, []);
+  pass("Sin errores JavaScript, errores de consola ni recursos 404 en subruta");
   fs.writeFileSync(
-    path.join(results, "report.json"),
+    path.join(out, "campaign-report.json"),
     JSON.stringify(
       {
         date: new Date().toISOString(),
         browser: await browser.version(),
         passed,
-        errors: logs,
-        scenarios: { loss, win },
+        errors,
+        finish,
+        map,
+        paths,
       },
       null,
       2,
@@ -358,13 +445,22 @@ async function run() {
   );
 }
 run()
-  .catch(async (e) => {
-    console.error(e);
-    console.error("Browser errors:", logs);
+  .catch(async (error) => {
+    console.error(error);
+    console.error("Browser errors", errors);
+    if (page) {
+      try {
+        console.log(
+          "STATE",
+          JSON.stringify(await page.evaluate(() => __game.snapshot())),
+        );
+        await page.screenshot({ path: path.join(out, "failure.png") });
+      } catch {}
+    }
     process.exitCode = 1;
     fs.writeFileSync(
-      path.join(results, "failure.txt"),
-      String(e) + "\n" + logs.join("\n"),
+      path.join(out, "failure.txt"),
+      String(error) + "\n" + errors.join("\n"),
     );
   })
   .finally(async () => {

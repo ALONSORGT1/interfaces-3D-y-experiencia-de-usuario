@@ -1,62 +1,52 @@
-# Guía de revisión y entrega
-
-Esta guía distingue lo implementado y probado localmente de la evidencia pública que aún falta. No sustituye las conclusiones personales del alumno.
+# Guía de revisión y entrega de la campaña
 
 ## Requisitos técnicos
 
-| ID | Implementación | Evidencia / revisión |
-| --- | --- | --- |
-| R1 | Three.js por CDN e import map | `index.html`, `scene.js`; escena real renderizada |
-| R2 | Oficina y personaje cargados desde GLB | `scene.js`, `assets/models`; materiales y alfombra con textura incrustada |
-| R3 | Seguimiento en tercera persona, órbita y zoom | `character.js`, `input.js`; rayos para evitar obstáculos de cámara |
-| R4 | Idle, Walk, Run y Throw en AnimationMixer | Cuatro clips glTF originales; `character.js` |
-| R5 | Rapier: gravedad, colliders y rigid bodies | `physics.js`; personaje con cápsula y Character Controller |
-| R6 | Más de cuatro tipos de objetos | Archivadores, sillas, carritos, plantas, cafetera y bolas |
-| R7 | Tres agrupaciones derribables | Seis cuerpos rígidos por torre; 18 objetivos |
-| R8 | Bola a distancia con impacto físico | `game.js`, `props.js`; impulso inicial y CCD |
-| R9 | Potencia funcional | 25–100 cambia la velocidad real; prueba compara extremos |
-| R10 | Bolas y bonos generados durante el juego | Volumen de salida y candidatos libres comprobados; prueba de obstáculo |
-| R11 | HUD y diseño responsivo propio | HTML/CSS; botones, ayuda, slider y mensajes; prueba a 390 px |
-| R12 | Repositorio e historial | Historial Git local real; **falta subirlo a un repositorio público** |
-| R13 | Preparado para GitHub Pages | Subruta probada y `.nojekyll`; **falta despliegue y validación pública** |
+| ID | Evidencia |
+| --- | --- |
+| R1 | Three.js por CDN/import map; escenario, cámaras, luces y efectos |
+| R2 | GLTFLoader carga `campus.glb` y `employee.glb`; ver `R2-R4.md` |
+| R3 | Cámara en tercera persona, seguimiento, órbita, zoom y rayos contra obstáculos |
+| R4 | AnimationMixer reproduce Idle, Walk, Run y Throw desde el GLB |
+| R5 | Rapier: suelo, muros, muebles, límites y personajes con colliders |
+| R6 | Archivadores, servidores, carritos, sillas, plantas, cafetera, bonos y bolas |
+| R7 | Pilas de recepción/archivo y oleadas físicas del director |
+| R8 | Lanzamientos con masa, velocidad, restitución y consecuencias visibles |
+| R9 | Potencia real y tres tipos de bola desbloqueables |
+| R10 | Generación comprobada de bolas, bonos y oleadas en volúmenes válidos |
+| R11 | HUD, diálogos, mapa, estados y diseño responsivo propio |
+| R12 | Historial Git original preservado y ampliado; **repositorio público pendiente** |
+| R13 | Rutas relativas y subruta de Pages probada; **publicación real pendiente** |
 
 ## Reglas de negocio
 
-| Reglas | Dónde y cómo se cumplen |
-| --- | --- |
-| RN-01, 02 | Pantalla inicial, botón explícito y misión visible; `Game.start/reset` |
-| RN-03 | Suelo, muros, escritorio y límites físicos; pruebas de avance contra sólidos |
-| RN-04 | Movimiento relativo a cámara y selección de clips según acción |
-| RN-05 | Paso físico fijo, materiales físicos diferentes y objetos dinámicos |
-| RN-06 | Lanzar, empujar, recoger y recargar; contextos de E |
-| RN-07, 08 | Lanzamiento visible, colisiones y slider conectado a velocidad |
-| RN-09 | Comprobación de límites y solapamientos antes de generar |
-| RN-10 | Puntos, objetivos, tiros, cadena y barra de progreso |
-| RN-11 | 18 objetivos y al menos 1,800 puntos; pantalla de victoria |
-| RN-12 | Tiros agotados sin misión cumplida, o caída; pantalla de derrota |
-| RN-13 | Reinicio elimina objetos creados, reconstruye torres y restablece variables |
-| RN-14 | HUD, mensajes, ayuda y controles; pausa al perder foco |
-| RN-15 | Rutas verificadas localmente bajo un prefijo de repositorio; **validación en URL pública pendiente** |
+- Inicio explícito, objetivo visible, progreso por capítulos y zonas con colisiones.
+- Movimiento y animación ligados a acciones reales; cuerpos dinámicos con gravedad.
+- Interacciones: hablar, recoger, empujar, recargar y lanzar.
+- Generación validada de proyectiles y pilas, con parámetros que modifican la física.
+- HUD con misión actual, contador, distancia, equipo, tiempo, sospecha, bolas y puntuación.
+- Victoria al completar las cinco misiones previas y activar la salida con el equipo y las pruebas. Se muestra inmediatamente al interactuar; la puntuación es opcional.
+- Derrota por tiempo, sospecha o caída. Reintento por capítulo o nueva campaña completa.
+- Pausa, mapa y conversación detienen el mundo. La interfaz no requiere mirar la consola.
+- RN-15 queda pendiente hasta validar todo desde una URL pública de GitHub Pages.
 
-## Antes de entregar
+## Qué cambió respecto a la oficina inicial
 
-- Juega tú una partida completa usando únicamente teclado y mouse. Las pruebas automatizadas también preparan escenarios para verificar casos límite; no sustituyen tu revisión.
-- Confirma que esta oficina es distinta del escenario de tu práctica 1.5. No se proporcionó esa práctica para compararla.
-- Cambia potencia y posición: observa cómo afectan a un tiro contra cada torre.
-- Intenta atravesar muros, escritorios, archivadores y límites.
-- Empuja un carrito hacia una torre; recoge un bono y recarga en la máquina.
-- Provoca una penalización y comprueba que no se repite por el mismo objeto.
-- Fuerza victoria y derrota; reinicia desde ambas pantallas.
-- Lee `game.js`, `character.js` y `physics.js` hasta poder explicar sus decisiones.
-- Completa los ajustes manuales y conclusiones personales en el README y en tu plataforma de entrega.
-- Crea el repositorio público, conserva los commits y publica `main` desde la raíz en GitHub Pages.
-- Verifica en la URL pública los archivos GLB, scripts, textura y fuentes; revisa Console y Network.
-- Añade las URLs reales al README. Verifica esa versión, crea el commit final y entrega esas mismas URLs.
+El mapa pasó de 360 a 5,400 unidades². La campaña incorpora tres compañeros reclutables, otros empleados, el director y dos auditores. Hay seis objetivos sucesivos con diferentes acciones, recursos en varias zonas, bolas desbloqueables, mapa, rutas y puntos de control.
 
-## Alcance de esta versión
+La regla anterior mezclaba derribar 18 objetos con alcanzar 1,800 puntos y resolver la física de la última bola. Eso permitía terminar el contador sin obtener un resultado. No se conservó telemetría de la partida reportada, por lo que no se atribuye su demora exacta de cinco minutos a una única causa. La nueva regla elimina esas dependencias: completar la historia y usar la salida resuelve el resultado en la misma interacción. Existe una prueba de victoria con puntos negativos y munición agotada.
 
-Un escenario, tres torres, un personaje, ocho tiros y una misión completa. No incluye multijugador, editor, guardado de partidas ni controles táctiles. El sonido viene apagado y se activa por elección del jugador. Los modelos glTF usan animación de nodos articulados, no un rig humano con skinning; `AnimationMixer` reproduce los cuatro clips reales.
+## Validación manual antes de entregar
 
-La guía de puntos marca dirección y obstáculo, no una trayectoria física futura exacta. Los cuerpos rígidos pueden seguir oscilando después de un golpe; por eso la resolución del último tiro combina un intervalo de estabilización con un límite de espera.
+1. Juega la historia completa sin usar el modo de pruebas. Habla con los personajes y comprueba que entiendes el siguiente objetivo sin leer el código.
+2. Verifica la carga de ambos GLB y observa los cuatro estados de animación.
+3. Recorre habitaciones y pasillos, intenta atravesar sólidos y sigue a tus compañeros por una puerta.
+4. Compara potencias y tipos de bola, empuja el carrito y recoge recursos.
+5. Comprueba que los auditores detectan dentro de su cono y pierden visión detrás de una pared.
+6. Completa todos los pasos y activa el ascensor: debe aparecer el final sin esperar derrumbes pendientes ni conseguir puntos extra.
+7. Fuerza una derrota; verifica el punto de control y la opción de empezar una campaña nueva.
+8. Confirma que el escenario es distinto del usado en tu práctica 1.5; esa práctica no se proporcionó para comparación.
+9. Publica el repositorio, conserva sus commits, activa GitHub Pages y vuelve a probar Console y Network desde la URL pública.
+10. Añade las URLs reales y tus conclusiones personales. No presentes la URL localhost como entrega pública.
 
-El proyecto necesita Internet para las librerías fijadas en el import map. Si falla la carga, la interfaz informa del problema y permite reintentar. La versión se ha probado en Edge/Chromium; aún corresponde verificarla en el navegador y equipo de evaluación.
+Las pruebas automáticas usan navegador y física reales, pero preparan posiciones para acortar los desplazamientos y establecer casos límite. No equivalen a una evaluación humana de toda la experiencia. La versión está diseñada para teclado/mouse, sin multijugador ni controles táctiles. Los puntos de control viven en la sesión actual, no persisten al cerrar la página.

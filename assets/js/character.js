@@ -9,7 +9,11 @@ export class Character {
     this.model = view.employee.scene;
     view.scene.add(this.model);
     this.body = physics.world.createRigidBody(
-      RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(-40, 0.97, 18),
+      RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(
+        -40,
+        0.97,
+        18,
+      ),
     );
     this.collider = physics.world.createCollider(
       RAPIER.ColliderDesc.capsule(0.65, 0.3).setFriction(0.2),

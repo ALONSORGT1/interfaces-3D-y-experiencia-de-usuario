@@ -1,114 +1,138 @@
-# Renuncia definitiva · Boliche de oficina
+# Renuncia definitiva · Nos vamos todos
 
-**Tu último día. Su peor lunes.**
+**Tu renuncia. La de todos.**
 
-Videojuego Web 3D en tercera persona. Recorre una oficina, busca el mejor ángulo y derriba las torres de pendientes del jefe con una bola de boliche. Mueve sillas, utiliza carritos como proyectiles secundarios y recoge bonos. Las plantas y la cafetera no tienen la culpa: dañarlas resta puntos.
+A las 18:00, el director bloquea la salida para imponer otra noche de horas extra. Tu objetivo es rescatar a Lola, Beto y Nora, sacar las pruebas de lo que les deben, desactivar el sistema de turnos y conseguir la carta firmada. Después, todos se van por el ascensor de recepción.
 
-**Estado: v0.9 — versión local jugable y probada; publicación pública pendiente.** El repositorio local conserva los commits reales de construcción. La aplicación no requiere compilación ni servidor de aplicación, solo alojamiento estático.
+Una campaña Web 3D en tercera persona con física, compañeros que siguen al jugador, auditores que patrullan, diálogos y seis capítulos. **La puntuación determina una medalla; no impide completar la historia.**
 
-![Pantalla inicial de Renuncia definitiva](docs/capturas/inicio.png)
+Estado: **versión local jugable y probada; publicación en GitHub Pages pendiente**. El proyecto y todo su historial Git se trasladaron a la carpeta `Examen Tema 1` indicada por el alumno. La vista previa local sirve esta misma carpeta.
 
-## Jugar localmente
+![Inicio de la campaña](docs/capturas/inicio.png)
 
-Necesitas un navegador con WebGL 2 y WebAssembly, conexión a Internet para las dependencias CDN, teclado y mouse. La interfaz se adapta a pantallas estrechas, pero esta versión no incluye joystick táctil.
+## Jugar
 
-Desde esta carpeta, ejecuta una de estas opciones:
+Desde la raíz del proyecto:
 
 ```sh
-# Node.js; no hace falta instalar paquetes para jugar.
 node tools/serve.cjs
-
-# Alternativa con Python 3.
-python -m http.server 4173 --bind 127.0.0.1
 ```
 
-Abre **http://127.0.0.1:4173/** y pulsa **Presentar mi renuncia**. No abras `index.html` con `file://`: los módulos y modelos necesitan servirse por HTTP. Si el puerto está ocupado, detén el servidor anterior o configura `PORT` al ejecutar el servidor Node.
+Abre **http://127.0.0.1:4173/**. No necesitas instalar paquetes para ejecutar el juego. Alternativamente: `python -m http.server 4173 --bind 127.0.0.1`.
 
-## Misión y reglas
+Se necesita teclado y mouse, un navegador con WebGL 2/WebAssembly y conexión a Internet para Three.js, Rapier y las fuentes. La interfaz se adapta a ventanas estrechas; esta versión no incluye controles táctiles. No abras `index.html` con `file://`.
 
-- Hay **18 archivadores**, distribuidos en **tres torres** de seis piezas.
-- Dispones de **ocho lanzamientos**. La primera bola ya está en tu mano.
-- Ganas cuando derribas los 18 archivadores y consigues **al menos 1,800 puntos**.
-- Después de lanzar, acércate a la **máquina rosa**, junto al punto inicial, y pulsa **E** para recargar. Recargar no aumenta los lanzamientos disponibles.
-- Al agotarse los lanzamientos, la simulación espera a que la escena se estabilice durante 1.5 segundos, tras un mínimo de tres segundos desde el último tiro. Hay un límite de espera de 24 segundos para evitar bloqueos por objetos que siguen vibrando.
-- Si quedan archivadores en pie, pierdes. Si derribaste todos y faltan puntos, puedes recoger los bonos existentes cuando basten para alcanzar la meta, o pulsar E fuera de otra interacción para terminar el turno. Si los bonos disponibles no bastan, se declara derrota.
-- Una caída accidental fuera del escenario también termina la partida.
-- Victoria y derrota ofrecen reinicio completo sin recargar la página. La potencia configurada se conserva entre intentos; los objetos, puntos, lanzamientos, penalizaciones y tiempo se reinician.
+## Historia y misión
 
-### Puntuación
+| Capítulo | Qué haces | Qué cambia |
+| --- | --- | --- |
+| 1. Nadie se queda atrás | Habla con Lola y derriba seis archivadores en recepción | Lola te sigue; desbloqueas la bola pesada |
+| 2. Las horas que nos deben | Abre el archivo con la bola y recoge la memoria USB con E | Guardas las pruebas; Beto te sigue; desbloqueas la bola de rebote |
+| 3. Café para la resistencia | Lleva el carrito amarillo al círculo del generador y habla con Nora | La batería queda conectada y Nora se une |
+| 4. Desconecta las horas extra | Derriba los tres servidores de TI | Desactivas el bloqueo de turnos |
+| 5. Su última orden | Derriba tres oleadas de tres archivadores y recoge la carta firmada | El director autoriza la salida |
+| 6. Nos vamos todos | Regresa al ascensor de recepción y pulsa E | Victoria inmediata con el equipo y las pruebas |
 
-| Evento | Puntos |
-| --- | ---: |
-| Archivador derribado o desplazado suficientemente | +100 |
-| Cada derribo adicional en una cadena con menos de 1.8 s entre caídas | +25 |
-| Derribo después de un rebote de la bola del lanzamiento actual en una pared | +50, una vez por lanzamiento |
-| Bono recogido con E | +100 |
-| Planta o cafetera derribada/desplazada | −150, una vez por objeto |
+El HUD muestra **el paso actual**, su contador, la distancia y los compañeros reclutados. Un rombo dorado marca el destino, pequeñas marcas en el suelo indican una ruta y el minimapa permite orientarse. El mapa ampliado muestra la campaña completa.
 
-El contador **×N** muestra la longitud de la cadena; no multiplica todos los puntos. Un archivador cuenta al inclinarse más de aproximadamente 44°, bajar 0.32 unidades respecto a su posición estable o desplazarse horizontalmente más de 0.85. Los objetos protegidos se penalizan con los mismos criterios de caída y un desplazamiento horizontal de más de 0.7.
+**Victoria:** completa la historia, reúne a los tres compañeros y pulsa E en la salida con las pruebas, el generador conectado y la carta firmada. La pantalla final se abre en esa misma interacción. No espera a que se detengan los cuerpos físicos y no exige una puntuación mínima ni munición restante.
 
-### Controles
+**Derrota:** se agotan los doce minutos, la sospecha llega al 100% o el personaje cae fuera del área segura. Se puede reintentar desde el principio del capítulo conservando el equipo y los objetivos de los capítulos anteriores. El reintento concede al menos tres minutos; no conserva la posición física exacta de cada objeto.
+
+**Nueva campaña:** restablece actores, misiones, recursos, puntuación, tiempo y objetos. La potencia elegida se conserva. Pausar, abrir un diálogo, abrir el mapa o cambiar de ventana detiene la simulación y el reloj.
+
+## Un mapa quince veces mayor
+
+El suelo anterior medía 20 × 18 = 360 unidades². El nuevo suelo mide **100 × 54 = 5,400 unidades²: exactamente 15 veces el área**. Las dimensiones del personaje se mantienen: se amplió el espacio, no se escaló al jugador junto con el escenario.
+
+Hay diez departamentos y cinco áreas del pasillo central: recepción, archivo muerto, archivo de evidencias, creatividad, sala de reuniones, cafetería, sistemas, logística, dirección, jardín y las cinco áreas públicas que los conectan. Las habitaciones tienen puertas reales y colliders alineados con su geometría. Las quince áreas están conectadas en la navegación.
+
+![Mapa de la campaña](docs/capturas/mapa.png)
+
+## Personajes, auditores y bolas
+
+**Lola, Beto y Nora** tienen diálogo, condiciones de rescate y seguimiento físico. Usan una cuadrícula de navegación y controladores cinemáticos que respetan obstáculos. Otros cuatro empleados conversan y algunos se desplazan por sus departamentos. El director participa en la secuencia final. Dos auditores patrullan el pasillo central: diez personajes además del jugador.
+
+Los auditores detectan dentro de un cono de hasta 7.5 unidades, con visión cercana adicional. Una consulta física comprueba si una pared interrumpe su línea de visión. Estar a la vista aumenta la sospecha; ocultarse permite reducirla. Una bola lanzada genera una distracción cercana durante unos segundos. El cono naranja dibujado apunta en la misma dirección que la detección.
+
+| Bola | Desbloqueo | Comportamiento |
+| --- | --- | --- |
+| Clásica | Desde el inicio | Masa 3.2, restitución 0.38; equilibrada |
+| Pesada | Rescatar a Lola | Masa 6.2, restitución 0.15 y velocidad menor; mueve carritos y pilas |
+| Rebote | Ayudar a Beto | Masa 2.8, restitución 0.88 y velocidad mayor; aprovecha paredes |
+
+Empiezas con 12 bolas. La siguiente aparece en la mano tras un breve intervalo; ya no debes volver a una sola máquina después de cada tiro. **Siete máquinas rosas recargan hasta 16 bolas**. Completar capítulos y recoger bonos repone recursos. Si necesitas disparar y te quedas sin bolas, la ruta te guía a recargar; no desvía de la salida al terminar la historia.
+
+## Controles
 
 | Control | Acción |
 | --- | --- |
-| WASD o flechas | Caminar respecto a la orientación de la cámara |
+| WASD o flechas | Caminar respecto a la cámara |
 | Shift | Correr |
-| Arrastrar el mouse sobre la escena | Girar cámara y dirección del lanzamiento |
-| Rueda del mouse | Acercar/alejar cámara |
-| F, espacio o botón LANZAR | Lanzar la bola |
-| E | Recoger bono, recargar o empujar una silla/carrito cercano |
-| P o Escape | Pausar/continuar |
-| Deslizador POTENCIA | Cambiar la velocidad inicial real de la bola |
-| Botón ? | Ayuda; pausa la partida mientras está abierta |
-| Botón ♫ | Activar/desactivar sonidos originales sintetizados |
+| Arrastrar el mouse | Girar cámara y apuntar |
+| Rueda | Ajustar distancia de cámara |
+| F, espacio o LANZAR | Lanzar la bola |
+| E | Hablar, recoger pruebas/bonos/carta, empujar, recargar o salir según contexto |
+| Q | Cambiar el tipo de bola desbloqueado |
+| M | Abrir/cerrar el mapa y consultar capítulos |
+| P o Escape | Pausar/continuar o cerrar el diálogo/mapa |
+| Deslizador POTENCIA | Modificar la velocidad real de lanzamiento |
+| ♫ | Activar/desactivar sonidos sintetizados originales |
 
-Las teclas de movimiento no se capturan mientras editas un control de formulario. Haz clic en la escena para devolverle el foco. Al cambiar de ventana, la partida se pausa automáticamente.
+## Puntuación opcional
 
-## Diseño y física
+- Objetivo derribado: **+100**.
+- Cada derribo adicional en una cadena de menos de 1.8 s entre caídas: **+25**.
+- Derribo tras un rebote de la bola del tiro actual en una pared: **+50**, una vez por tiro.
+- Capítulo de preparación completado: **+200**.
+- Bono: **+100 y dos bolas**.
+- Planta o cafetera derribada: **−150**, una sola vez por objeto; aumenta ligeramente la sospecha.
 
-La oficina y el empleado son **modelos GLB originales**, creados para este proyecto con `tools/generate_assets.py`. El GLB de la oficina contiene materiales y una textura de alfombra incrustada. El empleado incluye clips glTF articulados **Idle, Walk, Run y Throw**, reproducidos y mezclados mediante `AnimationMixer`; no utiliza un esqueleto humano descargado.
+La medalla final es oro desde 4,200, plata desde 3,000 y bronce por debajo. **Incluso una puntuación negativa permite ganar si se cumple la misión.** El indicador ×N representa la longitud de la cadena, no multiplica toda la puntuación.
 
-Rapier utiliza gravedad de −9.81 y un paso fijo de 1/60 s. El personaje tiene un cuerpo cinemático, collider de cápsula y Character Controller; el movimiento considera obstáculos y puede transmitir impulsos a cuerpos dinámicos. Su representación visual se sincroniza después de cada paso físico.
+## R2 y R4: evidencia explícita
 
-Los colliders estáticos se generan junto con la oficina y se guardan en `office-colliders.json`. Los lados abiertos de la maqueta tienen límites físicos; la cámara puede ver a través de esos límites invisibles. Para las paredes y muebles sólidos, el seguimiento reduce su distancia cuando una consulta de rayos detecta un obstáculo.
+**R2 se cumple:** `scene.js` crea un `GLTFLoader` y carga `assets/models/campus.glb` y `assets/models/employee.glb`. El escenario renderizado procede del GLB. Sus mallas estáticas se agrupan por material después de cargarlas para reducir llamadas de dibujo; se conservan geometría, materiales y textura incrustada.
 
-Hay archivadores, sillas, carritos, plantas, cafetera y bolas con cuerpos rígidos dinámicos, densidades, fricción y formas diferentes. Sillas y carritos usan colliders compuestos. Los proyectiles emplean detección continua de colisiones y una masa de 3.2. La potencia entre 25 y 100 determina una velocidad horizontal de `8 + potencia × 0.17` unidades por segundo: **12.25 a 25**. La guía punteada indica la dirección y el primer obstáculo; no predice todos los rebotes.
+**R4 se cumple:** `employee.glb` contiene cuatro animaciones glTF reales: `Idle`, `Walk`, `Run` y `Throw`. `character.js` crea `THREE.AnimationMixer`, convierte los clips cargados en acciones con `clipAction`, mezcla sus transiciones y reproduce el estado según reposo, caminar, correr o lanzar/empujar. Son animaciones de nodos articulados incluidas en el archivo.
 
-Cada lanzamiento genera una bola únicamente si su volumen de salida está libre y dentro del área válida. Antes de comprobarlo se actualizan las consultas espaciales, incluso si acaba de crearse otro objeto en el mismo fotograma. Los bonos aparecen al iniciar, al completar torres y durante la partida, con posiciones candidatas verificadas. Su flotación y rotación son intencionales para distinguirlos como objetos recogibles; no bloquean al jugador.
+Consulta [la comprobación detallada de R2 y R4](docs/R2-R4.md), que incluye los lugares del código y cómo observar cada estado.
 
-## Tecnologías y estructura
+## Física y arquitectura
 
-- HTML, CSS y JavaScript modular. Diseño responsivo propio, equivalente al uso opcional de Bootstrap.
-- Three.js **0.180.0**, mediante CDN e import map; GLTFLoader y AnimationMixer.
-- Rapier 3D Compat **0.17.3**, mediante CDN, con WebAssembly integrado en el paquete.
-- Web Audio API para sonidos originales. No hay backend ni almacenamiento de datos personales.
-- Git para el historial; compatible con GitHub Pages desde la raíz de `main`.
+Three.js 0.180.0 se importa por CDN e import map; Rapier 3D Compat 0.17.3 controla gravedad −9.81, colisiones, cuerpos rígidos y un paso fijo de 1/60 s. El personaje tiene cápsula cinemática y Character Controller; sillas, archivadores, servidores, carritos, plantas, cafetera y bolas responden a la física. Los proyectiles usan detección continua de colisiones.
+
+La potencia 25–100 cambia la velocidad base `8 + potencia × 0.17`; cada tipo de bola aplica su multiplicador. La guía punteada indica dirección y primer obstáculo, no todos los rebotes futuros.
+
+Las bolas se crean únicamente si su volumen de salida está libre. Los bonos usan posiciones candidatas comprobadas. Las oleadas del director comprueban el volumen completo de la nueva pila antes de generarla. Los bonos flotan intencionalmente como señal visual de objeto recogible. La batería del generador se fija al quedar dentro del círculo durante 0.25 s.
 
 ```text
-index.html                 Pantallas y HUD; import map
-assets/
-  css/styles.css           Diseño y adaptación de tamaños
-  js/main.js               Carga y recuperación de errores
-  js/scene.js              Renderizador, luces, GLB, presentación
-  js/physics.js            Rapier, colliders fijos, validación de espacio
-  js/character.js          Personaje, cuatro animaciones, cámara
-  js/input.js              Teclado, mouse, foco y pausa automática
-  js/props.js              Objetos dinámicos, proyectiles, bonos
-  js/game.js               Misión, estados, puntuación y ciclo físico
-  js/ui.js                 HUD, mensajes, ayuda y pantallas finales
-  js/audio.js              Sonidos sintetizados
-  models/                  Dos GLB originales y colliders
-  textures/                Icono original
-  licenses/                Licencias de dependencias y tipografías
-tools/generate_assets.py   Fuente reproducible de los modelos originales
-tools/serve.cjs            Servidor estático local
-tests/smoke.cjs            Pruebas de integración en navegador
-docs/                     Guía del examen, informe y capturas
+index.html                    Pantallas, diálogos, HUD e import map
+assets/css/                   Identidad visual y HUD de campaña
+assets/js/main.js             Carga y recuperación ante errores
+assets/js/scene.js            GLTFLoader, escenario, luces y cámara inicial
+assets/js/physics.js          Rapier, colliders y validación de espacios
+assets/js/character.js        Movimiento físico y AnimationMixer del jugador
+assets/js/input.js            Teclado, mouse, foco y pausa
+assets/js/props.js            Objetos, bolas, bonos y oleadas
+assets/js/campaign.js         Historia, personajes y tipos de bola
+assets/js/navigation.js       Rutas de compañeros y guía al objetivo
+assets/js/crowd.js            Actores, seguimiento y auditores
+assets/js/game.js             Estados, capítulos, física, puntos y checkpoints
+assets/js/ui.js               Diálogos, minimapa y resultados
+assets/js/audio.js            Sonidos originales mediante Web Audio
+assets/models/                Campus/empleado GLB y datos del mapa
+assets/licenses/              Licencias externas
+tools/build_campus.py         Generador reproducible del escenario ampliado
+tools/generate_assets.py      Escritor GLB y generador del personaje
+tools/serve.cjs               Servidor local sin instalación adicional
+tests/smoke.cjs               Pruebas reales en navegador
+docs/                        Capturas, verificación y guía del examen
 ```
 
-## Pruebas
+Para regenerar los modelos: `python tools/build_campus.py`. Usa solo la biblioteca estándar de Python. `office.glb` y sus datos antiguos se conservan como referencia de la versión inicial; el juego actual carga `campus.glb`.
 
-La suite utiliza un navegador real con WebGL y Rapier. No simula las colisiones con funciones falsas. Combina controles de interfaz con escenarios de prueba preparados mediante `?test=1`; ese parámetro expone `window.__game` solo para desarrollo. Los escenarios preparados acortan desplazamientos o establecen condiciones límite y no sustituyen una partida completa realizada por el alumno.
+## Verificación
 
 ```sh
 npm ci
@@ -116,54 +140,36 @@ npx playwright install chromium
 npm test
 ```
 
-En Windows también puede utilizarse Edge ya instalado, definiendo `TEST_BROWSER=msedge`. El servidor de pruebas usa el puerto 4174 y la subruta `/renuncia-definitiva/` para detectar rutas incompatibles con Pages. Genera capturas y un informe en `test-results/`, excluido de Git. El informe conservado de la verificación local está en [docs/verificacion.json](docs/verificacion.json).
+En Windows puede usarse Edge instalado con `TEST_BROWSER=msedge`. La suite sirve una subruta `/renuncia-definitiva/` para comprobar rutas compatibles con GitHub Pages. Utiliza navegador real, GLTFLoader, AnimationMixer y Rapier. Recorre los capítulos con colisiones reales; prepara posiciones para acortar los traslados y utiliza escenarios específicos para tiempo, puntos negativos y puntos de control. No sustituye una partida manual del alumno.
 
-Se comprueban carga, cuatro clips, movimiento, cámara, límites y escritorios sólidos, lanzamiento y derribo, recarga, bonos, empuje, efecto de potencia, generación bloqueada por obstáculos, pausa, ayuda, victoria, derrota, reinicios, generación durante la partida, penalización única, recogida del último bono, interfaz estrecha y recuperación ante fallo de CDN. Consulta [la guía de validación](docs/GUIA-DEL-EXAMEN.md) para las comprobaciones manuales restantes.
+El informe vigente está en [docs/verificacion.json](docs/verificacion.json). Se incluyen pruebas de área 15×, conexión de los departamentos, diálogos, seguimiento físico, derribos, batería, auditores, mapa, tipos de bola, final inmediato, reinicio y ausencia de errores críticos. Las capturas del juego están en `docs/capturas/`.
 
 ![Partida en tercera persona](docs/capturas/partida.png)
 
-## Publicar en GitHub Pages
+## Publicación y entrega
 
-**Todavía no se ha creado ni vinculado un repositorio remoto. No hay una URL pública verificada.**
+El historial Git de la primera versión se preservó completo y se añadieron los commits de esta ampliación. **El remoto y la URL pública de GitHub Pages siguen pendientes.**
 
-1. Crea un repositorio público vacío en tu cuenta, por ejemplo `renuncia-definitiva`, sin inicializar otro README.
-2. Desde esta carpeta vincula el remoto y sube el historial existente:
+1. Crea un repositorio público vacío y vincúlalo desde esta carpeta con `git remote add origin URL-REAL-DEL-REPOSITORIO`.
+2. Sube el historial con `git push -u origin main`.
+3. En GitHub: Settings → Pages → Deploy from a branch → main → /(root).
+4. Prueba la URL publicada, incluyendo modelos, movimiento, victoria, derrota y reinicio. Registra esa URL y la del repositorio en este README.
+5. Completa las conclusiones personales del examen y conserva una versión final identificada.
 
-   ```sh
-   git remote add origin https://github.com/TU-USUARIO/renuncia-definitiva.git
-   git push -u origin main
-   ```
+El proyecto utiliza rutas relativas y `.nojekyll`. Consulta [la guía del examen](docs/GUIA-DEL-EXAMEN.md) para distinguir los requisitos implementados de la validación pública pendiente.
 
-3. En el repositorio, abre **Settings → Pages → Deploy from a branch → main → /(root)**.
-4. Cuando finalice el despliegue, abre la URL que muestre GitHub Pages. No entregues la dirección `localhost`.
-5. Prueba inicio, movimiento, lanzamiento, victoria, derrota y reinicio desde esa URL, y revisa Console y Network.
-6. Registra aquí la URL real del repositorio y de la aplicación, y crea el commit final de producción después de verificarla. La versión v1.0 queda reservada para esa entrega publicada.
+## Créditos y uso de IA
 
-El archivo `.nojekyll` permite servir el proyecto estático directamente. Los archivos propios utilizan rutas relativas y respetan mayúsculas/minúsculas. La conexión a CDN sigue siendo necesaria para Three.js, Rapier y las tipografías.
+El mapa, el personaje, las animaciones, los objetos, la textura incrustada y los sonidos se crearon específicamente para este proyecto con asistencia de IA; se incluyen sus fuentes. No se descargaron modelos de terceros.
 
-## Créditos y recursos externos
-
-| Recurso | Autor/fuente | Licencia |
+| Dependencia | Autor/fuente | Licencia |
 | --- | --- | --- |
-| Oficina, empleado, cuatro clips, textura incrustada, objetos y sonidos | Creados específicamente para este proyecto con asistencia de IA; fuentes incluidas | Recursos originales del proyecto, sin modelos de terceros |
-| Three.js y GLTFLoader | [Three.js contributors](https://github.com/mrdoob/three.js) | [MIT](assets/licenses/three-MIT.txt) |
+| Three.js, GLTFLoader y utilidades | [Three.js contributors](https://github.com/mrdoob/three.js) | [MIT](assets/licenses/three-MIT.txt) |
 | Rapier 3D | [Dimforge](https://github.com/dimforge/rapier.js) | [Apache 2.0](assets/licenses/rapier-Apache-2.0.txt) |
-| DM Sans | [DM Sans Project Authors](https://github.com/googlefonts/dm-fonts) | [SIL OFL 1.1](assets/licenses/DM-Sans-OFL.txt) |
-| Space Grotesk | [Space Grotesk Project Authors / Florian Karsten](https://github.com/floriankarsten/space-grotesk) | [SIL OFL 1.1](assets/licenses/Space-Grotesk-OFL.txt) |
-| Playwright, solo desarrollo | [Microsoft](https://github.com/microsoft/playwright) | Apache 2.0; licencia incluida en su paquete npm |
+| DM Sans | [DM Sans Project Authors](https://github.com/googlefonts/dm-fonts) | [SIL OFL](assets/licenses/DM-Sans-OFL.txt) |
+| Space Grotesk | [Space Grotesk Project Authors / Florian Karsten](https://github.com/floriankarsten/space-grotesk) | [SIL OFL](assets/licenses/Space-Grotesk-OFL.txt) |
+| Playwright, desarrollo | [Microsoft](https://github.com/microsoft/playwright) | Apache 2.0, incluida en el paquete |
 
-Referencias técnicas: [Character Controller de Rapier](https://rapier.rs/docs/user_guides/javascript/character_controller/), [GLTFLoader](https://threejs.org/docs/pages/GLTFLoader.html) y [AnimationMixer](https://threejs.org/docs/pages/AnimationMixer.html).
+La IA ayudó con arquitectura, programación, modelos, interfaz, navegación y pruebas. La ampliación responde a la revisión del alumno: propósito poco claro, soledad, mapa pequeño y falta de retroalimentación final. Se sustituyó el bloqueo por puntuación por una progresión narrativa explícita y una salida inmediata.
 
-## Uso de IA y reflexión del alumno
-
-Se utilizó IA para plantear la arquitectura, escribir los módulos, generar recursos 3D originales, integrar física y animaciones, diseñar la interfaz y preparar pruebas y documentación. Durante esta construcción asistida se corrigieron la cámara obstruida por límites invisibles, la consulta espacial desactualizada al generar objetos y el tratamiento del último lanzamiento y de los bonos pendientes.
-
-**La comprensión, revisión y conclusión personal del alumno todavía deben realizarse.** No se afirma que el alumno ya haya hecho ajustes manuales o aprendido algo que no ha confirmado. Antes de entregar, completa con tus palabras:
-
-- Qué módulos revisaste y qué cambiaste manualmente.
-- Cómo funciona el lanzamiento y por qué la potencia cambia su resultado.
-- Cómo se detecta un derribo sin puntuar dos veces.
-- Qué problema encontraste al probar y cómo lo resolviste.
-- Qué aprendiste y qué mejorarías en una siguiente versión.
-
-La [guía del examen](docs/GUIA-DEL-EXAMEN.md) relaciona los requisitos con los archivos y señala las verificaciones que faltan antes de la entrega pública.
+Antes de entregar, el alumno debe probar y explicar los módulos, registrar los ajustes que haga personalmente y redactar sus propias conclusiones. No se presentan como realizadas esas actividades personales que todavía no ha confirmado.

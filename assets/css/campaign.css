@@ -1,9 +1,560 @@
 /* Campaign UI extends the original identity while keeping the centre of play clear. */
-.intro-copy strong{font-weight:500;color:var(--ink)}.intro-panel .memo{top:375px;left:360px}.intro-panel .mission-strip{gap:30px}.scene-stamp strong{font-size:14px}.scene-caption{right:5%}
-.scoreboard{min-width:450px;padding:10px 20px}.scoreboard strong{font-size:25px}.scoreboard .urgent{color:#ad5145}.mission-card{width:244px;top:20px}.mission-card .eyebrow{font-size:8px;line-height:1.6;margin-bottom:10px}.mission-card h2{font-size:18px}.mission-card p{font-size:11px}.mission-numbers{display:flex;justify-content:space-between;font-size:10px;font-weight:700}.mission-card .progress-track{margin-top:9px}.team-header{border-top:1px solid var(--line);margin-top:14px;padding-top:12px;font-size:8px;letter-spacing:1px;display:flex;justify-content:space-between}.team-strip{display:flex;gap:20px;margin-top:10px;padding-bottom:16px}.team-strip>span{position:relative;display:flex;width:30px;height:30px;border-radius:50%;border:1px dashed #aab6a3;align-items:center;justify-content:center;color:#a0ac9a;font-size:13px;font-weight:700;background:#e6e8df}.team-strip small{position:absolute;top:35px;font-size:7px;letter-spacing:1px}.team-strip .joined{background:#477561;color:#e7f4cb;border-style:solid;border-color:#477561}.team-strip .joined:after{content:'✓';position:absolute;right:-3px;bottom:-2px;border-radius:50%;background:var(--lime);font-size:8px;color:var(--ink);padding:1px 3px}
-.map-panel{position:absolute;right:25px;top:20px;width:228px;border:1px solid #d0d6c6;border-radius:8px;background:#fffef9ed;padding:7px;pointer-events:auto;box-shadow:0 8px 30px #173f3608}#minimap-button{padding:0;background:none;border:0;width:100%;color:var(--ink)}#minimap{width:100%;display:block;border-radius:4px}#minimap-button>span{display:flex;justify-content:space-between;align-items:center;padding:8px 4px;font-size:8px;letter-spacing:.5px;text-align:left}#minimap-button kbd{font-size:8px}#alarm-panel{padding:8px 5px 6px;border-top:1px solid var(--line)}#alarm-panel>div:first-child{display:flex;justify-content:space-between;font-size:8px;letter-spacing:1px}.alarm-track{height:5px;background:#dfe5d6;margin:7px 0;border-radius:5px;overflow:hidden}#alarm-fill{height:100%;display:block;width:0;background:#c08056;transition:width .15s}#alarm-panel small{font-size:8px;color:var(--muted)}#alarm-panel.detected{color:#a24c40}#alarm-panel.detected .alarm-track{background:#edd0bd}#alarm-panel.detected #alarm-fill{background:#b35645}.combo{top:290px;right:30px}.combo strong{font-size:46px}.bottom-dock{gap:20px;padding:12px 14px 12px 20px}.ball-status{min-width:147px}.mode-button{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:5px;padding:12px 10px;background:#eef0e4;color:var(--ink);font-size:8px;letter-spacing:.7px;font-weight:700}.mode-button kbd{font-size:8px}.bottom-dock .power-control{width:145px}.bottom-dock .button{min-width:130px}.radio{position:absolute;left:30px;bottom:158px;width:260px;padding:16px 18px;border-left:3px solid #acbc7c;background:#f6f4e9ed;border-radius:0 7px 7px 0;box-shadow:0 8px 30px #173f360d}.radio>span{font-size:8px;letter-spacing:1.8px;font-weight:700;color:#658354}.radio p{font-size:11px;line-height:1.7;margin:9px 0 0}.toast{max-width:44%;top:108px;font-size:11px}.interaction{bottom:157px;max-width:calc(100% - 36px);text-align:center;font-size:11px}
-#dialogue-portrait{height:58px;width:58px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:#fff5df;border-radius:14px;margin-bottom:24px}#dialogue-dialog .eyebrow{margin-bottom:9px}#dialogue-dialog h2{font-size:36px;margin-bottom:17px}#dialogue-copy{font-size:16px;line-height:1.8;color:#36594b}#map-dialog{width:min(870px,94vw);padding:30px}#map-dialog h2{font-size:34px;letter-spacing:-1.3px}#full-map{width:100%;height:auto;border:1px solid var(--line);border-radius:8px}.map-legend{display:flex;flex-wrap:wrap;gap:18px;font-size:10px;padding:10px 0;color:var(--muted)}#chapter-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}#chapter-list li{display:flex;gap:10px;align-items:center;padding:12px;background:#e7eadf;border-radius:6px;color:#899283}#chapter-list li>span{display:flex;align-items:center;justify-content:center;width:25px;height:25px;border:1px solid currentColor;border-radius:50%;font-size:12px;flex:none}#chapter-list b{font-size:10px;display:block}#chapter-list small{font-size:9px;display:block;margin-top:4px}#chapter-list li.current{background:#173f36;color:#ddf568}#chapter-list li.done{color:#496f4a;background:#dce7cd}
-@media(max-width:1180px){.mission-card{width:205px;left:16px}.map-panel{width:180px;right:16px}.scoreboard{min-width:390px;gap:15px}.radio{width:215px;left:16px}.mission-card h2{font-size:16px}.scene-caption{right:3%;font-size:8px}.intro-panel .memo{left:300px}.toast{max-width:45%;font-size:10px}}
-@media(max-width:900px){.scoreboard{min-width:345px;padding:10px 14px}.scoreboard strong{font-size:21px}.scoreboard>div+div{padding-left:11px}.map-panel{width:150px}.mission-card{width:176px;padding:12px}.mission-card p{font-size:10px}.radio{width:185px}.scoreboard span{font-size:7px}.bottom-dock{gap:12px}.ball-status{min-width:120px}}
-@media(max-width:760px){.intro-panel{max-width:390px}.intro-copy{max-width:340px}.intro-panel .mission-strip{gap:20px}.intro-panel .memo{display:none}.scoreboard{top:9px;width:calc(100% - 24px);min-width:0}.mission-card{display:block;top:97px;left:12px;width:calc(100% - 180px);padding:11px;min-width:160px}.mission-card .eyebrow{font-size:6px}.mission-card h2{font-size:13px;margin-bottom:5px}.mission-card p{font-size:9px;line-height:1.5}.team-header,.team-strip,.mission-hint{display:none}.map-panel{top:97px;right:12px;width:145px}.map-panel small{display:none}.map-panel #current-zone{font-size:6px}#alarm-panel{padding:5px}.bottom-dock{padding:9px;gap:8px;bottom:60px;flex-wrap:wrap;justify-content:space-between}.ball-status{min-width:100px}.ball-status small{max-width:120px}.mode-button{padding:8px}.bottom-dock .power-control{width:90px}.bottom-dock .button{min-width:75px;padding:13px 9px}.radio{left:12px;bottom:160px;width:190px;padding:10px}.radio p{font-size:10px;line-height:1.5}.toast{top:265px;max-width:92%;width:max-content;font-size:10px}.combo{top:300px;right:18px}.combo strong{font-size:34px}.interaction{bottom:140px;font-size:9px;padding:8px 10px}.controls-footer{font-size:7px}.map-legend{font-size:8px;gap:10px}#chapter-list{grid-template-columns:repeat(2,1fr)}#chapter-list li{padding:8px}#chapter-list b{font-size:9px}#map-dialog{padding:22px}}
-@media(max-height:740px) and (min-width:761px){.intro-panel{top:119px}.intro-panel .memo{top:330px}.intro-copy{font-size:13px;margin-bottom:15px}.intro-panel .mission-strip{margin-bottom:18px}.intro-panel h1{font-size:53px}.mission-card{top:15px}.radio{bottom:155px;padding:12px}.radio p{font-size:10px}.map-panel{top:15px}}
+.intro-copy strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+.intro-panel .memo {
+  top: 375px;
+  left: 360px;
+}
+.intro-panel .mission-strip {
+  gap: 30px;
+}
+.scene-stamp strong {
+  font-size: 14px;
+}
+.scene-caption {
+  right: 5%;
+}
+.scoreboard {
+  min-width: 450px;
+  padding: 10px 20px;
+}
+.scoreboard strong {
+  font-size: 25px;
+}
+.scoreboard .urgent {
+  color: #ad5145;
+}
+.mission-card {
+  width: 244px;
+  top: 20px;
+}
+.mission-card .eyebrow {
+  font-size: 8px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.mission-card h2 {
+  font-size: 18px;
+}
+.mission-card p {
+  font-size: 11px;
+}
+.mission-numbers {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 700;
+}
+.mission-card .progress-track {
+  margin-top: 9px;
+}
+.team-header {
+  border-top: 1px solid var(--line);
+  margin-top: 14px;
+  padding-top: 12px;
+  font-size: 8px;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: space-between;
+}
+.team-strip {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+  padding-bottom: 16px;
+}
+.team-strip > span {
+  position: relative;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px dashed #aab6a3;
+  align-items: center;
+  justify-content: center;
+  color: #a0ac9a;
+  font-size: 13px;
+  font-weight: 700;
+  background: #e6e8df;
+}
+.team-strip small {
+  position: absolute;
+  top: 35px;
+  font-size: 7px;
+  letter-spacing: 1px;
+}
+.team-strip .joined {
+  background: #477561;
+  color: #e7f4cb;
+  border-style: solid;
+  border-color: #477561;
+}
+.team-strip .joined:after {
+  content: "✓";
+  position: absolute;
+  right: -3px;
+  bottom: -2px;
+  border-radius: 50%;
+  background: var(--lime);
+  font-size: 8px;
+  color: var(--ink);
+  padding: 1px 3px;
+}
+.map-panel {
+  position: absolute;
+  right: 25px;
+  top: 20px;
+  width: 228px;
+  border: 1px solid #d0d6c6;
+  border-radius: 8px;
+  background: #fffef9ed;
+  padding: 7px;
+  pointer-events: auto;
+  box-shadow: 0 8px 30px #173f3608;
+}
+#minimap-button {
+  padding: 0;
+  background: none;
+  border: 0;
+  width: 100%;
+  color: var(--ink);
+}
+#minimap {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+}
+#minimap-button > span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+  font-size: 8px;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+#minimap-button kbd {
+  font-size: 8px;
+}
+#alarm-panel {
+  padding: 8px 5px 6px;
+  border-top: 1px solid var(--line);
+}
+#alarm-panel > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+.alarm-track {
+  height: 5px;
+  background: #dfe5d6;
+  margin: 7px 0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+#alarm-fill {
+  height: 100%;
+  display: block;
+  width: 0;
+  background: #c08056;
+  transition: width 0.15s;
+}
+#alarm-panel small {
+  font-size: 8px;
+  color: var(--muted);
+}
+#alarm-panel.detected {
+  color: #a24c40;
+}
+#alarm-panel.detected .alarm-track {
+  background: #edd0bd;
+}
+#alarm-panel.detected #alarm-fill {
+  background: #b35645;
+}
+.combo {
+  top: 290px;
+  right: 30px;
+}
+.combo strong {
+  font-size: 46px;
+}
+.bottom-dock {
+  gap: 20px;
+  padding: 12px 14px 12px 20px;
+}
+.ball-status {
+  min-width: 147px;
+}
+.mode-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 12px 10px;
+  background: #eef0e4;
+  color: var(--ink);
+  font-size: 8px;
+  letter-spacing: 0.7px;
+  font-weight: 700;
+}
+.mode-button kbd {
+  font-size: 8px;
+}
+.bottom-dock .power-control {
+  width: 145px;
+}
+.bottom-dock .button {
+  min-width: 130px;
+}
+.radio {
+  position: absolute;
+  left: 30px;
+  bottom: 158px;
+  width: 260px;
+  padding: 16px 18px;
+  border-left: 3px solid #acbc7c;
+  background: #f6f4e9ed;
+  border-radius: 0 7px 7px 0;
+  box-shadow: 0 8px 30px #173f360d;
+}
+.radio > span {
+  font-size: 8px;
+  letter-spacing: 1.8px;
+  font-weight: 700;
+  color: #658354;
+}
+.radio p {
+  font-size: 11px;
+  line-height: 1.7;
+  margin: 9px 0 0;
+}
+.toast {
+  max-width: 44%;
+  top: 108px;
+  font-size: 11px;
+}
+.interaction {
+  bottom: 157px;
+  max-width: calc(100% - 36px);
+  text-align: center;
+  font-size: 11px;
+}
+#dialogue-portrait {
+  height: 58px;
+  width: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff5df;
+  border-radius: 14px;
+  margin-bottom: 24px;
+}
+#dialogue-dialog .eyebrow {
+  margin-bottom: 9px;
+}
+#dialogue-dialog h2 {
+  font-size: 36px;
+  margin-bottom: 17px;
+}
+#dialogue-copy {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #36594b;
+}
+#map-dialog {
+  width: min(870px, 94vw);
+  padding: 30px;
+}
+#map-dialog h2 {
+  font-size: 34px;
+  letter-spacing: -1.3px;
+}
+#full-map {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 10px;
+  padding: 10px 0;
+  color: var(--muted);
+}
+#chapter-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+#chapter-list li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  background: #e7eadf;
+  border-radius: 6px;
+  color: #899283;
+}
+#chapter-list li > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 12px;
+  flex: none;
+}
+#chapter-list b {
+  font-size: 10px;
+  display: block;
+}
+#chapter-list small {
+  font-size: 9px;
+  display: block;
+  margin-top: 4px;
+}
+#chapter-list li.current {
+  background: #173f36;
+  color: #ddf568;
+}
+#chapter-list li.done {
+  color: #496f4a;
+  background: #dce7cd;
+}
+@media (max-width: 1180px) {
+  .mission-card {
+    width: 205px;
+    left: 16px;
+  }
+  .map-panel {
+    width: 180px;
+    right: 16px;
+  }
+  .scoreboard {
+    min-width: 390px;
+    gap: 15px;
+  }
+  .radio {
+    width: 215px;
+    left: 16px;
+  }
+  .mission-card h2 {
+    font-size: 16px;
+  }
+  .scene-caption {
+    right: 3%;
+    font-size: 8px;
+  }
+  .intro-panel .memo {
+    left: 300px;
+  }
+  .toast {
+    max-width: 45%;
+    font-size: 10px;
+  }
+}
+@media (max-width: 900px) {
+  .scoreboard {
+    min-width: 345px;
+    padding: 10px 14px;
+  }
+  .scoreboard strong {
+    font-size: 21px;
+  }
+  .scoreboard > div + div {
+    padding-left: 11px;
+  }
+  .map-panel {
+    width: 150px;
+  }
+  .mission-card {
+    width: 176px;
+    padding: 12px;
+  }
+  .mission-card p {
+    font-size: 10px;
+  }
+  .radio {
+    width: 185px;
+  }
+  .scoreboard span {
+    font-size: 7px;
+  }
+  .bottom-dock {
+    gap: 12px;
+  }
+  .ball-status {
+    min-width: 120px;
+  }
+}
+@media (max-width: 760px) {
+  .intro-panel {
+    max-width: 390px;
+  }
+  .intro-copy {
+    max-width: 340px;
+  }
+  .intro-panel .mission-strip {
+    gap: 20px;
+  }
+  .intro-panel .memo {
+    display: none;
+  }
+  .scoreboard {
+    top: 9px;
+    width: calc(100% - 24px);
+    min-width: 0;
+  }
+  .mission-card {
+    display: block;
+    top: 97px;
+    left: 12px;
+    width: calc(100% - 180px);
+    padding: 11px;
+    min-width: 160px;
+  }
+  .mission-card .eyebrow {
+    font-size: 6px;
+  }
+  .mission-card h2 {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+  .mission-card p {
+    font-size: 9px;
+    line-height: 1.5;
+  }
+  .team-header,
+  .team-strip,
+  .mission-hint {
+    display: none;
+  }
+  .map-panel {
+    top: 97px;
+    right: 12px;
+    width: 145px;
+  }
+  .map-panel small {
+    display: none;
+  }
+  .map-panel #current-zone {
+    font-size: 6px;
+  }
+  #alarm-panel {
+    padding: 5px;
+  }
+  .bottom-dock {
+    padding: 9px;
+    gap: 8px;
+    bottom: 60px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .ball-status {
+    min-width: 100px;
+  }
+  .ball-status small {
+    max-width: 120px;
+  }
+  .mode-button {
+    padding: 8px;
+  }
+  .bottom-dock .power-control {
+    width: 90px;
+  }
+  .bottom-dock .button {
+    min-width: 75px;
+    padding: 13px 9px;
+  }
+  .radio {
+    left: 12px;
+    bottom: 160px;
+    width: 190px;
+    padding: 10px;
+  }
+  .radio p {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  .toast {
+    top: 265px;
+    max-width: 92%;
+    width: max-content;
+    font-size: 10px;
+  }
+  .combo {
+    top: 300px;
+    right: 18px;
+  }
+  .combo strong {
+    font-size: 34px;
+  }
+  .interaction {
+    bottom: 140px;
+    font-size: 9px;
+    padding: 8px 10px;
+  }
+  .controls-footer {
+    font-size: 7px;
+  }
+  .map-legend {
+    font-size: 8px;
+    gap: 10px;
+  }
+  #chapter-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #chapter-list li {
+    padding: 8px;
+  }
+  #chapter-list b {
+    font-size: 9px;
+  }
+  #map-dialog {
+    padding: 22px;
+  }
+}
+@media (max-height: 740px) and (min-width: 761px) {
+  .intro-panel {
+    top: 119px;
+  }
+  .intro-panel .memo {
+    top: 330px;
+  }
+  .intro-copy {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+  .intro-panel .mission-strip {
+    margin-bottom: 18px;
+  }
+  .intro-panel h1 {
+    font-size: 53px;
+  }
+  .mission-card {
+    top: 15px;
+  }
+  .radio {
+    bottom: 155px;
+    padding: 12px;
+  }
+  .radio p {
+    font-size: 10px;
+  }
+  .map-panel {
+    top: 15px;
+  }
+}

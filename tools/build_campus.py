@@ -66,7 +66,7 @@ def build():
     box('Director desk',(40,1,-24),(5,.2,1.5),'wood',True)
     for x in (38,42):box('Director desk foot',(x,.45,-24),(.3,.9,1.2),'trim',True)
     # Seven refill points, always beside an accessible aisle.
-    dispensers=[[-43,12],[-25,-10],[5,10],[25,-10],[45,-10],[-20,4],[35,4]]
+    dispensers=[[-43,12],[-25,-10],[5,10],[25,-10],[45,-10],[-17,2],[35,4]]
     for x,z in dispensers:
         box('Dispenser base',(x,.65,z),(1.25,1.3,1),'coral',True)
         box('Dispenser lid',(x,1.36,z),(1.35,.12,1.1),'dark',True)

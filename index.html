@@ -1,52 +1,340 @@
 <!doctype html>
 <html lang="es">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f3f0e8">
-  <meta name="description" content="Renuncia definitiva: una fuga corporativa en 3D. Rescata a tu equipo, consigue las pruebas y salgan juntos.">
-  <title>Renuncia definitiva — Nos vamos todos</title>
-  <link rel="icon" href="./assets/textures/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./assets/css/styles.css"><link rel="stylesheet" href="./assets/css/campaign.css">
-  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/","@dimforge/rapier3d-compat":"https://cdn.jsdelivr.net/npm/@dimforge/rapier3d-compat@0.17.3/rapier.es.js"}}</script>
-</head>
-<body>
-<main id="app" data-mode="loading">
-  <div id="scene" aria-label="Corporativo 3D. Usa WASD, arrastra el mouse para mirar y pulsa E para interactuar."></div>
-  <header class="masthead">
-    <a class="brand" href="./" aria-label="Renuncia definitiva, inicio"><span class="brand-mark">r<span>•</span></span><span>RENUNCIA<span class="brand-sub">DEFINITIVA</span></span></a>
-    <div class="edition">OPERACIÓN SALIDA <span>/</span> NOS VAMOS TODOS</div>
-    <div class="header-actions"><span class="online"><i></i> 18:00 · NI UNA HORA MÁS</span><button id="sound" class="icon-button" aria-label="Activar sonido">♫<span id="sound-label">OFF</span></button><button id="map-button" class="icon-button" aria-label="Abrir mapa" hidden>M</button><button id="help-button" class="icon-button" aria-label="Ver controles">?</button><button id="pause-button" class="icon-button" aria-label="Pausar partida" hidden>Ⅱ</button></div>
-  </header>
-  <section id="intro" class="intro-panel" aria-labelledby="intro-title">
-    <p class="eyebrow"><span class="tiny-square"></span> UNA FUGA CORPORATIVA EN SEIS CAPÍTULOS</p>
-    <h1 id="intro-title">Tu renuncia.<br>La de <em>todos.</em></h1>
-    <p class="intro-copy">El director bloqueó la salida para otra noche de trabajo.<br><strong>Reúne a tu equipo, consigue las pruebas<br>y salgan juntos.</strong> Tienes doce minutos.</p>
-    <div class="mission-strip"><div><strong>03</strong><span>COMPAÑEROS</span></div><div><strong>06</strong><span>CAPÍTULOS</span></div><div><strong>15×</strong><span>MÁS MAPA</span></div></div>
-    <button id="start-button" class="button button-primary" disabled><span id="start-label">Abriendo el corporativo…</span><span aria-hidden="true">↗</span></button>
-    <p id="load-status" class="small-note" role="status">Cargando escenario y personajes…</p>
-    <div class="howto-inline"><span><kbd>WASD</kbd> Muévete</span><span><kbd>F</kbd> Lanza</span><span><kbd>E</kbd> Interactúa</span></div>
-    <div class="memo"><span class="memo-pin"></span><strong>MENSAJE DE LOLA</strong><p>«Si te vas,<br><b>no nos dejes aquí.</b>»<br>Te espero en recepción.</p></div>
-  </section>
-  <aside id="scene-caption" class="scene-caption"><span class="caption-number">15 /</span><div>DEPARTAMENTOS. UNA SOLA SALIDA.<small>Archivo · Cafetería · Sistemas · Dirección</small></div></aside>
-  <div id="scene-stamp" class="scene-stamp">NADIE<br><strong>SE QUEDA</strong><span>12 MIN → LIBERTAD</span></div>
-  <footer id="intro-footer"><span>FÍSICA REAL. SOLIDARIDAD TAMBIÉN.</span><span>TECLADO + MOUSE <span class="footer-arrow">↗</span></span></footer>
-  <section id="hud" aria-label="Estado de la campaña" hidden>
-    <div class="scoreboard"><div class="score-main"><span>PUNTUACIÓN <small>/ SOLO MEDALLA</small></span><strong id="score">0</strong></div><div><span>CAPÍTULO</span><strong id="chapter">1 / 6</strong></div><div><span>CIERRE NOCTURNO</span><strong id="clock">12:00</strong></div></div>
-    <aside class="mission-card"><span id="mission-kicker" class="eyebrow">CAPÍTULO 1 · RECEPCIÓN</span><h2 id="mission-title">Habla con Lola</h2><p id="mission-detail">Está junto a la barricada.</p><div class="mission-numbers"><span id="mission-count">0 / 1</span><span id="objective-distance">5 m</span></div><div class="progress-track"><span id="progress"></span></div><p id="objective-hint" class="mission-hint">Sigue la ruta dorada.</p><div class="team-header">TU EQUIPO <span id="team-count">0/3</span></div><div class="team-strip"><span id="team-lola">L<small>LOLA</small></span><span id="team-beto">B<small>BETO</small></span><span id="team-nora">N<small>NORA</small></span></div></aside>
-    <aside class="map-panel"><button id="minimap-button" aria-label="Ampliar mapa"><canvas id="minimap" width="260" height="148"></canvas><span><b id="current-zone">RECEPCIÓN</b><kbd>M</kbd></span></button><div id="alarm-panel"><div><span id="alarm-label">SOSPECHA</span><strong id="alarm-value">0%</strong></div><div class="alarm-track"><span id="alarm-fill"></span></div><small>Los auditores ven hacia el cono naranja.</small></div></aside>
-    <div id="combo" class="combo" hidden><span>EFECTO DOMINÓ</span><strong id="combo-count">×2</strong></div>
-    <div id="interaction" class="interaction" hidden><kbd>E</kbd><span id="interaction-label"></span></div>
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <aside id="radio" class="radio" hidden aria-live="polite"><span id="radio-name">LOLA</span><p id="radio-copy"></p></aside>
-    <div class="bottom-dock"><div class="ball-status"><span class="ball-icon">●</span><div><span id="ball-label">12 BOLAS</span><small id="ball-detail">Recarga automática en mano.</small></div></div><button id="mode-button" class="mode-button"><span id="mode-label">CLÁSICA</span><kbd>Q</kbd></button><label class="power-control" for="power"><span>POTENCIA <output id="power-value" for="power">65%</output></span><input id="power" type="range" min="25" max="100" value="65" step="5"><span class="power-scale"><small>PRECISIÓN</small><small>CAOS</small></span></label><button id="throw-button" class="button button-primary"><span>LANZAR <kbd>F</kbd></span><span>↗</span></button></div>
-    <div class="controls-footer"><span><kbd>WASD</kbd> Caminar <kbd>SHIFT</kbd> Correr <kbd>E</kbd> Interactuar <kbd>Q</kbd> Bola</span><span>Arrastra: cámara · Rueda: zoom · <kbd>M</kbd> Mapa · <kbd>P</kbd> Pausa</span></div>
-  </section>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3f0e8" />
+    <meta
+      name="description"
+      content="Renuncia definitiva: una fuga corporativa en 3D. Rescata a tu equipo, consigue las pruebas y salgan juntos."
+    />
+    <title>Renuncia definitiva — Nos vamos todos</title>
+    <link
+      rel="icon"
+      href="./assets/textures/favicon.svg"
+      type="image/svg+xml"
+    />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <link rel="stylesheet" href="./assets/css/campaign.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+          "@dimforge/rapier3d-compat": "https://cdn.jsdelivr.net/npm/@dimforge/rapier3d-compat@0.17.3/rapier.es.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main id="app" data-mode="loading">
+      <div
+        id="scene"
+        aria-label="Corporativo 3D. Usa WASD, arrastra el mouse para mirar y pulsa E para interactuar."
+      ></div>
+      <header class="masthead">
+        <a class="brand" href="./" aria-label="Renuncia definitiva, inicio"
+          ><span class="brand-mark">r<span>•</span></span
+          ><span>RENUNCIA<span class="brand-sub">DEFINITIVA</span></span></a
+        >
+        <div class="edition">
+          OPERACIÓN SALIDA <span>/</span> NOS VAMOS TODOS
+        </div>
+        <div class="header-actions">
+          <span class="online"><i></i> 18:00 · NI UNA HORA MÁS</span
+          ><button id="sound" class="icon-button" aria-label="Activar sonido">
+            ♫<span id="sound-label">OFF</span></button
+          ><button
+            id="map-button"
+            class="icon-button"
+            aria-label="Abrir mapa"
+            hidden
+          >
+            M</button
+          ><button
+            id="help-button"
+            class="icon-button"
+            aria-label="Ver controles"
+          >
+            ?</button
+          ><button
+            id="pause-button"
+            class="icon-button"
+            aria-label="Pausar partida"
+            hidden
+          >
+            Ⅱ
+          </button>
+        </div>
+      </header>
+      <section id="intro" class="intro-panel" aria-labelledby="intro-title">
+        <p class="eyebrow">
+          <span class="tiny-square"></span> UNA FUGA CORPORATIVA EN SEIS
+          CAPÍTULOS
+        </p>
+        <h1 id="intro-title">Tu renuncia.<br />La de <em>todos.</em></h1>
+        <p class="intro-copy">
+          El director bloqueó la salida para otra noche de trabajo.<br /><strong
+            >Reúne a tu equipo, consigue las pruebas<br />y salgan
+            juntos.</strong
+          >
+          Tienes doce minutos.
+        </p>
+        <div class="mission-strip">
+          <div><strong>03</strong><span>COMPAÑEROS</span></div>
+          <div><strong>06</strong><span>CAPÍTULOS</span></div>
+          <div><strong>15×</strong><span>MÁS MAPA</span></div>
+        </div>
+        <button id="start-button" class="button button-primary" disabled>
+          <span id="start-label">Abriendo el corporativo…</span
+          ><span aria-hidden="true">↗</span>
+        </button>
+        <p id="load-status" class="small-note" role="status">
+          Cargando escenario y personajes…
+        </p>
+        <div class="howto-inline">
+          <span><kbd>WASD</kbd> Muévete</span><span><kbd>F</kbd> Lanza</span
+          ><span><kbd>E</kbd> Interactúa</span>
+        </div>
+        <div class="memo">
+          <span class="memo-pin"></span><strong>MENSAJE DE LOLA</strong>
+          <p>
+            «Si te vas,<br /><b>no nos dejes aquí.</b>»<br />Te espero en
+            recepción.
+          </p>
+        </div>
+      </section>
+      <aside id="scene-caption" class="scene-caption">
+        <span class="caption-number">15 /</span>
+        <div>
+          DEPARTAMENTOS. UNA SOLA SALIDA.<small
+            >Archivo · Cafetería · Sistemas · Dirección</small
+          >
+        </div>
+      </aside>
+      <div id="scene-stamp" class="scene-stamp">
+        NADIE<br /><strong>SE QUEDA</strong><span>12 MIN → LIBERTAD</span>
+      </div>
+      <footer id="intro-footer">
+        <span>FÍSICA REAL. SOLIDARIDAD TAMBIÉN.</span
+        ><span>TECLADO + MOUSE <span class="footer-arrow">↗</span></span>
+      </footer>
+      <section id="hud" aria-label="Estado de la campaña" hidden>
+        <div class="scoreboard">
+          <div class="score-main">
+            <span>PUNTUACIÓN <small>/ SOLO MEDALLA</small></span
+            ><strong id="score">0</strong>
+          </div>
+          <div><span>CAPÍTULO</span><strong id="chapter">1 / 6</strong></div>
+          <div>
+            <span>CIERRE NOCTURNO</span><strong id="clock">12:00</strong>
+          </div>
+        </div>
+        <aside class="mission-card">
+          <span id="mission-kicker" class="eyebrow"
+            >CAPÍTULO 1 · RECEPCIÓN</span
+          >
+          <h2 id="mission-title">Habla con Lola</h2>
+          <p id="mission-detail">Está junto a la barricada.</p>
+          <div class="mission-numbers">
+            <span id="mission-count">0 / 1</span
+            ><span id="objective-distance">5 m</span>
+          </div>
+          <div class="progress-track"><span id="progress"></span></div>
+          <p id="objective-hint" class="mission-hint">Sigue la ruta dorada.</p>
+          <div class="team-header">
+            TU EQUIPO <span id="team-count">0/3</span>
+          </div>
+          <div class="team-strip">
+            <span id="team-lola">L<small>LOLA</small></span
+            ><span id="team-beto">B<small>BETO</small></span
+            ><span id="team-nora">N<small>NORA</small></span>
+          </div>
+        </aside>
+        <aside class="map-panel">
+          <button id="minimap-button" aria-label="Ampliar mapa">
+            <canvas id="minimap" width="260" height="148"></canvas
+            ><span><b id="current-zone">RECEPCIÓN</b><kbd>M</kbd></span>
+          </button>
+          <div id="alarm-panel">
+            <div>
+              <span id="alarm-label">SOSPECHA</span
+              ><strong id="alarm-value">0%</strong>
+            </div>
+            <div class="alarm-track"><span id="alarm-fill"></span></div>
+            <small>Los auditores ven hacia el cono naranja.</small>
+          </div>
+        </aside>
+        <div id="combo" class="combo" hidden>
+          <span>EFECTO DOMINÓ</span><strong id="combo-count">×2</strong>
+        </div>
+        <div id="interaction" class="interaction" hidden>
+          <kbd>E</kbd><span id="interaction-label"></span>
+        </div>
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+        <aside id="radio" class="radio" hidden aria-live="polite">
+          <span id="radio-name">LOLA</span>
+          <p id="radio-copy"></p>
+        </aside>
+        <div class="bottom-dock">
+          <div class="ball-status">
+            <span class="ball-icon">●</span>
+            <div>
+              <span id="ball-label">12 BOLAS</span
+              ><small id="ball-detail">Recarga automática en mano.</small>
+            </div>
+          </div>
+          <button id="mode-button" class="mode-button">
+            <span id="mode-label">CLÁSICA</span><kbd>Q</kbd></button
+          ><label class="power-control" for="power"
+            ><span
+              >POTENCIA <output id="power-value" for="power">65%</output></span
+            ><input
+              id="power"
+              type="range"
+              min="25"
+              max="100"
+              value="65"
+              step="5"
+            /><span class="power-scale"
+              ><small>PRECISIÓN</small><small>CAOS</small></span
+            ></label
+          ><button id="throw-button" class="button button-primary">
+            <span>LANZAR <kbd>F</kbd></span
+            ><span>↗</span>
+          </button>
+        </div>
+        <div class="controls-footer">
+          <span
+            ><kbd>WASD</kbd> Caminar <kbd>SHIFT</kbd> Correr
+            <kbd>E</kbd> Interactuar <kbd>Q</kbd> Bola</span
+          ><span
+            >Arrastra: cámara · Rueda: zoom · <kbd>M</kbd> Mapa ·
+            <kbd>P</kbd> Pausa</span
+          >
+        </div>
+      </section>
 
-  <dialog id="dialogue-dialog"><div id="dialogue-portrait">L</div><p id="dialogue-role" class="eyebrow">RECEPCIÓN</p><h2 id="dialogue-name">LOLA</h2><p id="dialogue-copy"></p><button class="button button-primary" data-close="dialogue-dialog">Vamos juntos <span>↗</span></button></dialog>
-  <dialog id="map-dialog"><button class="dialog-close" data-close="map-dialog" aria-label="Cerrar mapa">×</button><p class="eyebrow">CORPORATIVO · 100 × 54</p><h2>Un edificio.<br>Seis razones para salir.</h2><p id="map-objective"></p><canvas id="full-map" width="800" height="448"></canvas><div class="map-legend"><span>◆ Objetivo</span><span>▲ Tú</span><span>■ Recarga</span><span>● Rojo: auditores</span></div><ol id="chapter-list"></ol><button class="button button-primary" data-close="map-dialog">Volver a la fuga <span>↗</span></button></dialog>
-  <dialog id="help-dialog"><button class="dialog-close" data-close="help-dialog" aria-label="Cerrar ayuda">×</button><p class="eyebrow">MANUAL DE LA RENUNCIA COLECTIVA</p><h2>Esta vez,<br>salimos todos.</h2><p>Ayuda a <strong>Lola, Beto y Nora</strong>, consigue las pruebas, apaga los servidores, recoge la carta del director y vuelve al ascensor. <strong>La puntuación da medallas; nunca bloquea la victoria.</strong></p><dl class="control-list"><div><dt><kbd>WASD</kbd> / flechas</dt><dd>Caminar según la cámara</dd></div><div><dt><kbd>SHIFT</kbd></dt><dd>Correr</dd></div><div><dt>Arrastrar / rueda</dt><dd>Mirar, apuntar y zoom</dd></div><div><dt><kbd>F</kbd> / espacio</dt><dd>Lanzar bola</dd></div><div><dt><kbd>E</kbd></dt><dd>Hablar, recoger, empujar y recargar</dd></div><div><dt><kbd>Q</kbd></dt><dd>Cambiar bola desbloqueada</dd></div><div><dt><kbd>M</kbd></dt><dd>Mapa y capítulos</dd></div><div><dt><kbd>P</kbd> / Escape</dt><dd>Pausar / continuar</dd></div></dl><div class="help-scoring">Archivador: <b>+100</b> · Cadena: <b>+25 extra</b><br>Rebote: <b>+50</b> · Capítulo: <b>+200</b><br>Planta/cafetera: <b>−150</b><br><b>Pierdes si la sospecha llega a 100% o termina el tiempo.</b></div><p class="small-note">Las máquinas rosas recargan hasta 16 bolas. Los compañeros te siguen. Las paredes ocultan tu posición a los auditores; un lanzamiento puede distraerlos. Hay un punto de control al iniciar cada capítulo.</p><button class="button button-primary" data-close="help-dialog">Entendido <span>↗</span></button></dialog>
-  <dialog id="pause-dialog"><p class="eyebrow">PAUSA DEL EQUIPO</p><h2>Respira.<br>Te esperamos.</h2><p>El tiempo y la física están detenidos.</p><button id="resume-button" class="button button-primary">Continuar <span>↗</span></button><button id="restart-pause" class="button button-secondary">Nueva campaña desde el inicio</button></dialog>
-  <dialog id="result-dialog"><p id="result-eyebrow" class="eyebrow">MISIÓN CUMPLIDA</p><h2 id="result-title">Nos fuimos.<br>Todos.</h2><p id="result-copy"></p><div class="result-score"><span>PUNTUACIÓN / MEDALLA</span><strong id="result-score">0</strong><small id="result-stats"></small></div><button id="restart-button" class="button button-primary"><span id="restart-label">Otra fuga</span><span>↗</span></button><button id="home-button" class="button button-secondary">Volver al inicio</button></dialog>
-  <noscript>Activa JavaScript para jugar a Renuncia definitiva.</noscript>
-</main>
-<script type="module" src="./assets/js/main.js"></script>
-</body>
+      <dialog id="dialogue-dialog">
+        <div id="dialogue-portrait">L</div>
+        <p id="dialogue-role" class="eyebrow">RECEPCIÓN</p>
+        <h2 id="dialogue-name">LOLA</h2>
+        <p id="dialogue-copy"></p>
+        <button class="button button-primary" data-close="dialogue-dialog">
+          Vamos juntos <span>↗</span>
+        </button>
+      </dialog>
+      <dialog id="map-dialog">
+        <button
+          class="dialog-close"
+          data-close="map-dialog"
+          aria-label="Cerrar mapa"
+        >
+          ×
+        </button>
+        <p class="eyebrow">CORPORATIVO · 100 × 54</p>
+        <h2>Un edificio.<br />Seis razones para salir.</h2>
+        <p id="map-objective"></p>
+        <canvas id="full-map" width="800" height="448"></canvas>
+        <div class="map-legend">
+          <span>◆ Objetivo</span><span>▲ Tú</span><span>■ Recarga</span
+          ><span>● Rojo: auditores</span>
+        </div>
+        <ol id="chapter-list"></ol>
+        <button class="button button-primary" data-close="map-dialog">
+          Volver a la fuga <span>↗</span>
+        </button>
+      </dialog>
+      <dialog id="help-dialog">
+        <button
+          class="dialog-close"
+          data-close="help-dialog"
+          aria-label="Cerrar ayuda"
+        >
+          ×
+        </button>
+        <p class="eyebrow">MANUAL DE LA RENUNCIA COLECTIVA</p>
+        <h2>Esta vez,<br />salimos todos.</h2>
+        <p>
+          Ayuda a <strong>Lola, Beto y Nora</strong>, consigue las pruebas,
+          apaga los servidores, recoge la carta del director y vuelve al
+          ascensor.
+          <strong>La puntuación da medallas; nunca bloquea la victoria.</strong>
+        </p>
+        <dl class="control-list">
+          <div>
+            <dt><kbd>WASD</kbd> / flechas</dt>
+            <dd>Caminar según la cámara</dd>
+          </div>
+          <div>
+            <dt><kbd>SHIFT</kbd></dt>
+            <dd>Correr</dd>
+          </div>
+          <div>
+            <dt>Arrastrar / rueda</dt>
+            <dd>Mirar, apuntar y zoom</dd>
+          </div>
+          <div>
+            <dt><kbd>F</kbd> / espacio</dt>
+            <dd>Lanzar bola</dd>
+          </div>
+          <div>
+            <dt><kbd>E</kbd></dt>
+            <dd>Hablar, recoger, empujar y recargar</dd>
+          </div>
+          <div>
+            <dt><kbd>Q</kbd></dt>
+            <dd>Cambiar bola desbloqueada</dd>
+          </div>
+          <div>
+            <dt><kbd>M</kbd></dt>
+            <dd>Mapa y capítulos</dd>
+          </div>
+          <div>
+            <dt><kbd>P</kbd> / Escape</dt>
+            <dd>Pausar / continuar</dd>
+          </div>
+        </dl>
+        <div class="help-scoring">
+          Archivador: <b>+100</b> · Cadena: <b>+25 extra</b><br />Rebote:
+          <b>+50</b> · Capítulo: <b>+200</b><br />Planta/cafetera: <b>−150</b
+          ><br /><b>Pierdes si la sospecha llega a 100% o termina el tiempo.</b>
+        </div>
+        <p class="small-note">
+          Las máquinas rosas recargan hasta 16 bolas. Los compañeros te siguen.
+          Las paredes ocultan tu posición a los auditores; un lanzamiento puede
+          distraerlos. Hay un punto de control al iniciar cada capítulo.
+        </p>
+        <button class="button button-primary" data-close="help-dialog">
+          Entendido <span>↗</span>
+        </button>
+      </dialog>
+      <dialog id="pause-dialog">
+        <p class="eyebrow">PAUSA DEL EQUIPO</p>
+        <h2>Respira.<br />Te esperamos.</h2>
+        <p>El tiempo y la física están detenidos.</p>
+        <button id="resume-button" class="button button-primary">
+          Continuar <span>↗</span></button
+        ><button id="restart-pause" class="button button-secondary">
+          Nueva campaña desde el inicio
+        </button>
+      </dialog>
+      <dialog id="result-dialog">
+        <p id="result-eyebrow" class="eyebrow">MISIÓN CUMPLIDA</p>
+        <h2 id="result-title">Nos fuimos.<br />Todos.</h2>
+        <p id="result-copy"></p>
+        <div class="result-score">
+          <span>PUNTUACIÓN / MEDALLA</span><strong id="result-score">0</strong
+          ><small id="result-stats"></small>
+        </div>
+        <button id="restart-button" class="button button-primary">
+          <span id="restart-label">Otra fuga</span><span>↗</span></button
+        ><button id="home-button" class="button button-secondary">
+          Volver al inicio
+        </button>
+      </dialog>
+      <noscript>Activa JavaScript para jugar a Renuncia definitiva.</noscript>
+    </main>
+    <script type="module" src="./assets/js/main.js"></script>
+  </body>
 </html>
