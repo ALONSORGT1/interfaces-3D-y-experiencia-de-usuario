@@ -10,6 +10,8 @@ export class UI {
   }
   bind(game) {
     this.game = game;
+    $("camera-button").onclick = () => game.toggleCamera();
+    $("team-button").onclick = () => game.toggleTeam();
     $("start-button").onclick = () => game.start();
     $("throw-button").onclick = () => {
       game.throwBall();
@@ -94,16 +96,35 @@ export class UI {
   }
   update(game) {
     const status = game.missionStatus();
+    const run = game.escape;
+    $("active-step").textContent = run?.task
+      ? `${run.difficulty.name} · RESCATA A ${run.plan.names[run.stage].toUpperCase()} · ENCARGO ${run.taskIndex + 1}/${run.plan.tasks[run.stage].length}`
+      : "EQUIPO COMPLETO · ÚLTIMO PASO";
+    for (const [id, value] of [
+      ["active-title", status.title],
+      ["active-action", status.detail],
+    ])
+      if ($(id).textContent !== value) $(id).textContent = value;
+    $("camera-button").textContent = game.input.firstPerson
+      ? "V · Tercera persona"
+      : "V · Primera persona";
+    $("crosshair").hidden = !game.input.firstPerson;
+    $("team-button").textContent = game.crowd.waiting
+      ? "H · Síganme"
+      : game.crowd.autoWait
+        ? "Equipo esperando · maniobra libre"
+        : "H · Esperar aquí";
     $("score").textContent = game.score.toLocaleString("en-US");
-    $("chapter").textContent = `${game.missionIndex + 1} / 6`;
+    $("chapter").textContent =
+      `${game.missionIndex + 1} / ${game.chapters.length}`;
     const seconds = Math.ceil(game.remaining);
     $("clock").textContent =
       `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
     $("clock").classList.toggle("urgent", seconds < 90);
     $("mission-kicker").textContent =
-      `CAPÍTULO ${game.missionIndex + 1} · ${game.mission.zone.toUpperCase()}`;
+      `${game.escape.plan.story.title.toUpperCase()} · ${game.mission.zone.toUpperCase()}`;
     $("mission-title").textContent = status.title;
-    $("mission-detail").textContent = status.detail;
+    $("mission-detail").textContent = game.escape?.task?.story || status.detail;
     $("progress").style.width = `${(status.count / status.total) * 100}%`;
     $("mission-count").textContent = `${status.count} / ${status.total}`;
     const target = game.objective(),
@@ -116,11 +137,14 @@ export class UI {
         ? "Sigue las marcas doradas y el minimapa."
         : "El objetivo está cerca. Busca el rombo dorado.";
     for (const id of ["lola", "beto", "nora"]) {
-      const active = game.crowd.get(id).recruited;
+      const person = game.crowd.get(id),
+        active = person.recruited;
+      $(`team-${id}`).firstChild.textContent = person.name[0];
+      $(`team-${id}`).querySelector("small").textContent = person.name;
       $(`team-${id}`).classList.toggle("joined", active);
       $(`team-${id}`).title = active
-        ? `${id.toUpperCase()} te acompaña`
-        : `Encuentra a ${id.toUpperCase()}`;
+        ? `${person.name} te acompaña`
+        : `Encuentra a ${person.name}`;
     }
     $("team-count").textContent = `${game.crowd.teammates.length}/3`;
     $("ball-label").textContent = `${game.shots} BOLAS`;
@@ -264,11 +288,13 @@ export class UI {
     c.restore();
     if (large) {
       $("map-objective").textContent =
-        `${game.missionIndex + 1}/6 · ${game.missionStatus().title}`;
-      $("chapter-list").innerHTML = CAMPAIGN.map(
-        (m, i) =>
-          `<li class="${i < game.missionIndex ? "done" : i === game.missionIndex ? "current" : ""}"><span>${i < game.missionIndex ? "✓" : i + 1}</span><div><b>${m.name}</b><small>${m.zone}</small></div></li>`,
-      ).join("");
+        `${game.missionIndex + 1}/${game.chapters.length} · ${game.missionStatus().title}`;
+      $("chapter-list").innerHTML = game.chapters
+        .map(
+          (m, i) =>
+            `<li class="${i < game.missionIndex ? "done" : i === game.missionIndex ? "current" : ""}"><span>${i < game.missionIndex ? "✓" : i + 1}</span><div><b>${m.name}</b><small>${m.zone}</small></div></li>`,
+        )
+        .join("");
     }
   }
   result(game, won, reason) {
@@ -279,17 +305,17 @@ export class UI {
       ? "Nos fuimos.<br>Todos."
       : "Una pausa.<br>No el final.";
     $("result-copy").textContent = won
-      ? "Lola, Beto y Nora salen contigo. Las pruebas están a salvo, la carta está firmada y el director tendrá que apagar las luces."
+      ? `${game.escape.plan.names.join(", ")} salen contigo. ${game.escape.plan.story.ending}`
       : reason;
     const medal =
       game.score >= 4200 ? "ORO" : game.score >= 3000 ? "PLATA" : "BRONCE";
     $("result-score").textContent = game.score.toLocaleString("en-US");
     $("result-stats").textContent = won
       ? `${medal} · ${game.crowd.teammates.length} compañeros · ${game.totalThrows} lanzamientos`
-      : `Capítulo ${game.missionIndex + 1}/6 · El punto de control conserva tu equipo`;
+      : `Rescate ${game.missionIndex + 1}/${game.chapters.length} · El punto de control conserva tu equipo`;
     $("restart-label").textContent = won
       ? "Otra fuga"
-      : "Reintentar este capítulo";
+      : "Reintentar este encargo";
     $("result-dialog").showModal();
   }
 }

@@ -51,7 +51,7 @@ export class Props {
       .setTranslation(...position)
       .setLinearDamping(options.damping ?? 0.25)
       .setAngularDamping(0.35)
-      .setCcdEnabled(true);
+      .setCcdEnabled(type === "ball");
     const body = this.physics.world.createRigidBody(desc);
     const item = {
       id: ++this.serial,
@@ -92,7 +92,7 @@ export class Props {
       this.server(x, z);
     for (const [x, z] of [
       [-35, 21],
-      [-45, 21],
+      [-35, 17],
       [-25, -19],
       [-15, -19],
       [-5, -19],

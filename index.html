@@ -69,8 +69,7 @@
       </header>
       <section id="intro" class="intro-panel" aria-labelledby="intro-title">
         <p class="eyebrow">
-          <span class="tiny-square"></span> UNA FUGA CORPORATIVA EN SEIS
-          CAPÍTULOS
+          <span class="tiny-square"></span> CADA FUGA CUENTA OTRA HISTORIA
         </p>
         <h1 id="intro-title">Tu renuncia.<br />La de <em>todos.</em></h1>
         <p class="intro-copy">
@@ -82,9 +81,27 @@
         </p>
         <div class="mission-strip">
           <div><strong>03</strong><span>COMPAÑEROS</span></div>
-          <div><strong>06</strong><span>CAPÍTULOS</span></div>
+          <div><strong>57</strong><span>ENCARGOS POSIBLES</span></div>
           <div><strong>15×</strong><span>MÁS MAPA</span></div>
         </div>
+        <label class="difficulty-label" for="difficulty"
+          >Dificultad de la fuga</label
+        >
+        <select id="difficulty">
+          <option value="relaxed">
+            Tranquila · tareas sencillas, auditores lentos
+          </option>
+          <option value="normal" selected>
+            Normal · vigilancia y retos equilibrados
+          </option>
+          <option value="expert">
+            Auditoría extrema · precisión y vigilancia alta
+          </option>
+        </select>
+        <p class="small-note">
+          3–4 encargos por compañero · 12 minutos · Nueva combinación en cada
+          fuga
+        </p>
         <button id="start-button" class="button button-primary" disabled>
           <span id="start-label">Abriendo el corporativo…</span
           ><span aria-hidden="true">↗</span>
@@ -97,7 +114,7 @@
           ><span><kbd>E</kbd> Interactúa</span>
         </div>
         <div class="memo">
-          <span class="memo-pin"></span><strong>MENSAJE DE LOLA</strong>
+          <span class="memo-pin"></span><strong>MENSAJE DEL EQUIPO</strong>
           <p>
             «Si te vas,<br /><b>no nos dejes aquí.</b>»<br />Te espero en
             recepción.
@@ -120,6 +137,15 @@
         ><span>TECLADO + MOUSE <span class="footer-arrow">↗</span></span>
       </footer>
       <section id="hud" aria-label="Estado de la campaña" hidden>
+        <div id="objective-banner" role="status" aria-live="polite">
+          <small id="active-step"></small><strong id="active-title"></strong
+          ><span id="active-action"></span>
+        </div>
+        <div class="play-options">
+          <button id="camera-button" type="button">V · Primera persona</button
+          ><button id="team-button" type="button">H · Esperar aquí</button>
+        </div>
+        <div id="crosshair" hidden aria-hidden="true">+</div>
         <div class="scoreboard">
           <div class="score-main">
             <span>PUNTUACIÓN <small>/ SOLO MEDALLA</small></span
@@ -134,7 +160,7 @@
           <span id="mission-kicker" class="eyebrow"
             >CAPÍTULO 1 · RECEPCIÓN</span
           >
-          <h2 id="mission-title">Habla con Lola</h2>
+          <h2 id="mission-title">Ayuda a tu equipo</h2>
           <p id="mission-detail">Está junto a la barricada.</p>
           <div class="mission-numbers">
             <span id="mission-count">0 / 1</span
@@ -256,9 +282,9 @@
         <p class="eyebrow">MANUAL DE LA RENUNCIA COLECTIVA</p>
         <h2>Esta vez,<br />salimos todos.</h2>
         <p>
-          Ayuda a <strong>Lola, Beto y Nora</strong>, consigue las pruebas,
-          apaga los servidores, recoge la carta del director y vuelve al
-          ascensor.
+          Ayuda a <strong>tres compañeros con nombres aleatorios</strong>. Cada
+          persona necesita 3–4 encargos de un banco de 57; la franja superior
+          explica la acción actual. Después vuelve al ascensor.
           <strong>La puntuación da medallas; nunca bloquea la victoria.</strong>
         </p>
         <dl class="control-list">
@@ -288,22 +314,32 @@
           </div>
           <div>
             <dt><kbd>M</kbd></dt>
-            <dd>Mapa y capítulos</dd>
+            <dd>Mapa y rescates</dd>
           </div>
           <div>
             <dt><kbd>P</kbd> / Escape</dt>
             <dd>Pausar / continuar</dd>
           </div>
+          <div>
+            <dt><kbd>V</kbd></dt>
+            <dd>Primera / tercera persona</dd>
+          </div>
+          <div>
+            <dt><kbd>H</kbd></dt>
+            <dd>El equipo espera / te sigue</dd>
+          </div>
         </dl>
         <div class="help-scoring">
           Archivador: <b>+100</b> · Cadena: <b>+25 extra</b><br />Rebote:
-          <b>+50</b> · Capítulo: <b>+200</b><br />Planta/cafetera: <b>−150</b
+          <b>+50</b> · Encargo: <b>+200</b><br />Planta/cafetera: <b>−150</b
           ><br /><b>Pierdes si la sospecha llega a 100% o termina el tiempo.</b>
         </div>
         <p class="small-note">
           Las máquinas rosas recargan hasta 16 bolas. Los compañeros te siguen.
           Las paredes ocultan tu posición a los auditores; un lanzamiento puede
-          distraerlos. Hay un punto de control al iniciar cada capítulo.
+          distraerlos. Hay un punto de control después de cada encargo. Durante
+          las entregas, el equipo espera automáticamente y no bloquea los
+          carritos.
         </p>
         <button class="button button-primary" data-close="help-dialog">
           Entendido <span>↗</span>

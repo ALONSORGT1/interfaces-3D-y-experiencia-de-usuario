@@ -558,3 +558,185 @@
     top: 15px;
   }
 }
+
+/* Persistent instructions; opaque surfaces remain legible against the 3D world. */
+#objective-banner {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(660px, 48vw);
+  background: #173f34;
+  color: #fff7df;
+  border-bottom: 4px solid #dafa76;
+  padding: 13px 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 22px #102e3433;
+  pointer-events: none;
+}
+#objective-banner small {
+  display: block;
+  color: #dafa76;
+  font-size: 10px;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+#objective-banner strong {
+  display: block;
+  font-size: 21px;
+  line-height: 1.2;
+  margin-bottom: 7px;
+}
+#objective-banner span {
+  display: block;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.scoreboard {
+  top: 154px;
+  left: auto;
+  right: 28px;
+  transform: none;
+  width: 225px;
+  gap: 8px;
+  padding: 10px;
+  font-size: 10px;
+}
+.scoreboard strong {
+  font-size: 19px;
+}
+.map-panel {
+  top: 240px;
+}
+.mission-card {
+  background: #faf7ed;
+  max-width: 245px;
+}
+.play-options {
+  position: absolute;
+  bottom: 115px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  pointer-events: auto;
+}
+.play-options button {
+  border: 1px solid #567265;
+  border-radius: 6px;
+  background: #faf7ed;
+  color: #214b3e;
+  padding: 9px 13px;
+  cursor: pointer;
+  font: 600 11px Arial;
+}
+#crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font: 26px Arial;
+  color: white;
+  text-shadow: 0 1px 4px #000;
+  pointer-events: none;
+}
+.difficulty-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 12px 0 5px;
+}
+#difficulty {
+  width: 100%;
+  max-width: 420px;
+  background: #faf7ed;
+  color: #214b3e;
+  border: 1px solid #759181;
+  border-radius: 6px;
+  padding: 10px;
+  font: 12px Arial;
+}
+.intro-panel .mission-strip {
+  margin: 15px 0;
+}
+.intro-panel .memo {
+  display: none;
+}
+.intro-panel .small-note {
+  margin: 8px 0;
+}
+@media (max-width: 1000px) {
+  #objective-banner {
+    width: calc(100% - 36px);
+    top: 10px;
+  }
+  .mission-card {
+    top: 168px;
+    width: 210px;
+  }
+  .scoreboard {
+    top: 170px;
+  }
+  .map-panel {
+    top: 250px;
+  }
+  .play-options {
+    bottom: 125px;
+  }
+}
+@media (max-width: 600px) {
+  #objective-banner {
+    padding: 10px;
+    width: calc(100% - 20px);
+  }
+  #objective-banner strong {
+    font-size: 17px;
+  }
+  #objective-banner span {
+    font-size: 11px;
+  }
+  .mission-card {
+    display: none;
+  }
+  .scoreboard {
+    top: 150px;
+    right: 10px;
+    width: 190px;
+  }
+  .map-panel {
+    display: none;
+  }
+  .play-options {
+    bottom: 145px;
+    width: max-content;
+  }
+  .intro-panel {
+    padding-top: 20px;
+  }
+  .intro-panel h1 {
+    font-size: 46px;
+  }
+  .intro-panel .intro-copy {
+    font-size: 13px;
+  }
+  .intro-panel .howto-inline {
+    display: none;
+  }
+}
+
+.scoreboard {
+  min-width: 0;
+  max-width: 310px;
+  width: 310px;
+}
+.play-options {
+  bottom: 180px;
+}
+@media (max-width: 600px) {
+  .scoreboard {
+    width: 200px;
+  }
+  .play-options {
+    bottom: 190px;
+  }
+}

@@ -1,112 +1,39 @@
 {
-  "date": "2026-09-26T01:37:27.664Z",
-  "browser": "153.0.4234.32",
-  "passed": [
-    "Mapa medido: 100 × 54, exactamente quince veces el área original",
-    "Ocho personajes y dos auditores presentes en el mundo",
-    "R2/R4: campus y empleado GLB cargados; cuatro clips reales en AnimationMixer",
-    "Las quince áreas están conectadas por rutas transitables",
-    "La campaña empieza con propósito visible y un primer interlocutor",
-    "Idle, Walk y Run siguen los controles reales del jugador",
-    "Conversación con Lola cambia el objetivo y pausa el reloj",
-    "Derribo físico de seis archivadores rescata a Lola y desbloquea la bola pesada",
-    "Lola sigue al jugador y cruza la puerta sin atravesar muros",
-    "Q selecciona un tipo de bola desbloqueado",
-    "Archivo: derribo, memoria recogida y Beto reclutado son pasos distintos",
-    "Una bola mueve la batería hasta el generador; hablar con Nora completa la misión",
-    "Los tres compañeros atraviesan el mapa y se reúnen pese a los escombros",
-    "Mapa ampliado muestra capítulos, compañeros y ruta; congela el tiempo",
-    "La tecla M abre y cierra el mapa sin dejar la partida pausada",
-    "Tres servidores físicos abren la misión del director",
-    "Dirección genera y resuelve tres oleadas derribables en posiciones válidas",
-    "Recoger la carta muestra explícitamente el regreso al ascensor",
-    "Victoria inmediata al salir: sin umbral de puntos, sin bolas y sin esperas físicas",
-    "Nueva campaña reinicia misiones, actores, objetos, recursos y puntuación",
-    "Derrota por tiempo ofrece punto de control y conserva al equipo reclutado",
-    "Auditor con visión directa aumenta la sospecha",
-    "El cono dibujado apunta en la misma dirección que la detección del auditor",
-    "Una pared real corta la visión del auditor y permite bajar la sospecha",
-    "Sospecha al 100% causa derrota verificable",
-    "La potencia conserva un efecto real en velocidad",
-    "Recarga local elimina el regreso obligatorio a un único punto",
-    "No se genera una bola dentro de un volumen ocupado",
-    "Los límites del mapa ampliado bloquean al personaje",
-    "Interfaz adaptable sin desbordamiento a 390 px",
-    "Sin errores JavaScript, errores de consola ni recursos 404 en subruta"
-  ],
-  "errors": [],
-  "finish": {
-    "state": "won",
-    "elapsed": 21.899999976158142,
-    "dialog": true,
-    "score": -500,
-    "completed": 6
+  "version": "0.12.0",
+  "campaign": {
+    "date": "2026-09-26T02:25:10.327Z",
+    "passed": [
+      "57 encargos únicos; 1000 semillas con 3–4 tareas por persona, sin repeticiones y nombres distintos",
+      "GLB real y cuatro clips de AnimationMixer conservados",
+      "Los 57 encargos se completan en todas sus ubicaciones (relaxed), incluidos tiros físicos y carritos",
+      "Los 57 encargos se completan en todas sus ubicaciones (normal), incluidos tiros físicos y carritos",
+      "Los 57 encargos se completan en todas sus ubicaciones (expert), incluidos tiros físicos y carritos",
+      "Secuencia errónea, terminal interrumpido, sigilo descubierto, tiro fuera de marca y espera automática comprobados; la dificultad cambia la detección real",
+      "Escape aleatorio completo: tres rescates y victoria inmediata sin puntos ni bolas",
+      "Otra fuga genera una historia, encargos y nombres nuevos",
+      "Derrota y reintento mantienen la combinación y el encargo guardado",
+      "V alterna primera y tercera persona sin reiniciar la partida",
+      "Compañeros sin colisión física; orden esperar/seguir operativa",
+      "Objetivo y botones de cámara/equipo visibles durante la partida",
+      "Muestra de rendimiento registrada (CPU de actualización/render, no FPS garantizados)",
+      "Inicio sin desbordamiento horizontal a 390 px",
+      "Sin errores JavaScript ni recursos HTTP fallidos"
+    ],
+    "taskDifficultyLocationCases": 399,
+    "performance": {
+      "median": 6.700000047683716,
+      "p95": 9.199999928474426,
+      "drawCalls": 52
+    },
+    "errors": []
   },
-  "map": {
-    "width": 100,
-    "depth": 54,
-    "areaMultiplier": 15
-  },
-  "paths": [
-    {
-      "name": "ARCHIVO MUERTO",
-      "length": 18
-    },
-    {
-      "name": "ARCHIVO / EVIDENCIAS",
-      "length": 28
-    },
-    {
-      "name": "REUNIÓN ETERNA",
-      "length": 38
-    },
-    {
-      "name": "SISTEMAS / TI",
-      "length": 48
-    },
-    {
-      "name": "DIRECCIÓN",
-      "length": 58
-    },
-    {
-      "name": "RECEPCIÓN / SALIDA",
-      "length": 1
-    },
-    {
-      "name": "CREATIVIDAD",
-      "length": 25
-    },
-    {
-      "name": "CAFETERÍA",
-      "length": 39
-    },
-    {
-      "name": "LOGÍSTICA",
-      "length": 49
-    },
-    {
-      "name": "AZOTEA / JARDÍN",
-      "length": 59
-    },
-    {
-      "name": "PLAZA DE BIENVENIDA",
-      "length": 10
-    },
-    {
-      "name": "GALERÍA DEL EMPLEADO",
-      "length": 20
-    },
-    {
-      "name": "PATIO CENTRAL",
-      "length": 30
-    },
-    {
-      "name": "PASILLO DE AUDITORÍA",
-      "length": 40
-    },
-    {
-      "name": "FOYER EJECUTIVO",
-      "length": 50
-    }
-  ]
+  "controls": {
+    "date": "2026-09-26T02:28:46.99Z",
+    "passed": [
+      "Teclado real activa Idle, Walk, Run y Throw",
+      "Teclas V, H y M alternan cámara, equipo y mapa correctamente",
+      "El jugador atraviesa la posición de un compañero sin quedar bloqueado",
+      "Si toda la zona está ocupada no aparece la pila; se reintenta al despejarse"
+    ]
+  }
 }

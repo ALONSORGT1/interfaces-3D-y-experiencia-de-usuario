@@ -1,3 +1,4 @@
+// Historical v0.11 six-chapter suite; current npm test uses escape.cjs and controls.cjs.
 /* Real-browser campaign tests. Controlled positioning/time fixtures shorten travel;
    all demolition, delivery and character movement use the actual Rapier world. */
 const { chromium } = require("playwright");

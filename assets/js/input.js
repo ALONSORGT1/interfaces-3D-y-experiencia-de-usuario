@@ -2,7 +2,7 @@ export class Input {
   constructor(canvas, actions) {
     this.keys = new Set();
     this.yaw = 0;
-    this.pitch = 0.43;
+    this.pitch = this.firstPerson ? 0 : 0.43;
     this.distance = 7.7;
     this.enabled = false;
     this.drag = null;
@@ -33,6 +33,8 @@ export class Input {
         actions.throw();
       if (!e.repeat && e.code === "KeyE") actions.interact();
       if (!e.repeat && e.code === "KeyQ") actions.mode?.();
+      if (!e.repeat && e.code === "KeyV") actions.camera?.();
+      if (!e.repeat && e.code === "KeyH") actions.team?.();
     });
     window.addEventListener("keyup", (e) => this.keys.delete(e.code));
     window.addEventListener("blur", () => {
@@ -56,8 +58,11 @@ export class Input {
       if (!this.enabled || !this.drag) return;
       this.yaw -= (e.clientX - this.drag.x) * 0.005;
       this.pitch = Math.max(
-        0.18,
-        Math.min(1.02, this.pitch + (e.clientY - this.drag.y) * 0.004),
+        this.firstPerson ? -1.1 : 0.18,
+        Math.min(
+          this.firstPerson ? 1.1 : 1.02,
+          this.pitch + (e.clientY - this.drag.y) * 0.004,
+        ),
       );
       this.drag = { x: e.clientX, y: e.clientY };
     });
@@ -85,7 +90,7 @@ export class Input {
   reset() {
     this.clear();
     this.yaw = 0;
-    this.pitch = 0.43;
+    this.pitch = this.firstPerson ? 0 : 0.43;
     this.distance = 7.7;
   }
   has(...keys) {

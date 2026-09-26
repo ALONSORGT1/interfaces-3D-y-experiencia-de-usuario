@@ -37,6 +37,7 @@ def build():
                 box('Window',(x+dx,2.1,backZ+(.08 if row=='north' else -.08)),(3.18,1.7,.03),'screen')
             # Side desks preserve an open path down every room.
             for dx,dz in ([(-6,-5),(6,-5)] if row=='north' else [(-6,5),(6,5)]):
+                if row=="south" and column==0 and dx==-6: continue # clear elevator lobby
                 xx,zz=x+dx,zoneZ+dz
                 box('Desk top',(xx,1.05,zz),(2.7,.16,1.35),'desk',True)
                 for lx in (-1.1,1.1):
@@ -45,9 +46,37 @@ def build():
                 box('Screen',(xx,1.58,zz-.19),(.86,.52,.02),'screen')
                 box('Keyboard',(xx,1.15,zz+.32),(.8,.05,.3),'trim')
                 box('Monitor base',(xx,1.19,zz-.25),(.15,.28,.15),'dark')
+                box('Office printer',(xx+.88,1.35,zz),(.62,.45,.55),'white')
+                box('Printer lid',(xx+.88,1.6,zz),(.6,.05,.52),'trim')
+                box('Printer output',(xx+.88,1.3,zz+.29),(.42,.07,.07),'dark')
+                box('Printed page',(xx+.88,1.28,zz+.4),(.35,.02,.24),'white')
+                box('Coffee mug',(xx-.94,1.28,zz+.3),(.18,.25,.18),'coral')
+                for sheet in range(3):box('Paper stack',(xx-.8,1.15+sheet*.025,zz-.15),(.5,.02,.35),'white')
+                box('Pen holder',(xx+.55,1.26,zz+.35),(.13,.22,.13),'gold')
+                for pen in range(3):box('Pen',(xx+.51+pen*.035,1.44,zz+.35),(.015,.25,.015),'dark')
             # Side shelving is decorative and collidable, not a mission target.
             box('Side storage',(x-7.5,.8,zoneZ),(1.2,1.6,3),'wood',True)
             for zoff in (-1,0,1):box('Storage face',(x-6.87,.8,zoneZ+zoff),(.04,1.4,.85),'desk')
+            # Wall decoration stays above the navigation corridor.
+            artZ=zoneZ+(-7 if row=='north' else 7)
+            box('Picture frame',(x+8.94,2.35,artZ),(.07,1.1,1.6),'wood')
+            box('Abstract print',(x+8.89,2.35,artZ),(.03,.92,1.42),'blue')
+            box('Art accent',(x+8.86,2.5,artZ+.23),(.025,.3,.6),'coral')
+            box('Noticeboard',(x-8.93,2.35,zoneZ+4),(.08,1.1,1.6),'gold')
+            for note in range(3):box('Pinned note',(x-8.87,2.4,zoneZ+3.5+note*.48),(.02,.4,.3),'white')
+            box('Wall clock',(x,2.45,backZ+(.12 if row=='north' else -.12)),(.6,.6,.09),'dark')
+            box('Clock face',(x,2.45,backZ+(.18 if row=='north' else -.18)),(.5,.5,.03),'white')
+    # A recessed elevator cabin, not a floor marker.
+    box('Elevator back',(-44,1.6,26),(4,3.2,.15),'dark',True)
+    for xx in (-46,-42):box('Elevator side',(xx,1.6,24.3),(.18,3.2,3.5),'trim',True)
+    box('Elevator ceiling',(-44,3.25,24.3),(4.2,.18,3.5),'trim')
+    box('Elevator cabin floor',(-44,.025,24.3),(3.8,.05,3.4),'desk')
+    box('Elevator mirror',(-44,1.85,25.89),(2.8,1.8,.03),'screen')
+    box('Elevator handrail',(-44,1.1,25.7),(3.1,.08,.08),'white')
+    box('Elevator threshold',(-44,.035,22.55),(4,.06,.4),'dark')
+    box('Elevator light',(-44,3.12,24.3),(2,.035,.4),'white')
+    box('Elevator call panel',(-41.8,1.2,22.6),(.23,.5,.14),'dark')
+    box('Elevator call button',(-41.8,1.22,22.51),(.1,.1,.02),'gold')
     # Central boulevard: five additional distinct public areas.
     for n,name in enumerate(['PLAZA DE BIENVENIDA','GALERÍA DEL EMPLEADO','PATIO CENTRAL','PASILLO DE AUDITORÍA','FOYER EJECUTIVO']):
         x=-40+20*n;rooms.append({'id':f'hall-{n}','name':name,'x':x,'z':0,'width':20,'depth':12,'color':colors['hall']})

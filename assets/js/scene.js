@@ -8,7 +8,8 @@ function batchGLB(root) {
   const groups = new Map();
   root.traverse((o) => {
     if (!o.isMesh) return;
-    const key = o.material.uuid;
+    const pos = new THREE.Vector3().setFromMatrixPosition(o.matrixWorld);
+    const key = `${o.material.uuid}/${Math.floor(pos.x / 20)}/${Math.floor(pos.z / 20)}`;
     if (!groups.has(key))
       groups.set(key, { material: o.material, geometries: [] });
     groups
@@ -36,7 +37,7 @@ export async function createScene(container) {
     antialias: true,
     powerPreference: "high-performance",
   });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.25));
   renderer.setSize(innerWidth, innerHeight);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -55,7 +56,7 @@ export async function createScene(container) {
   const sun = new THREE.DirectionalLight(0xffedd5, 3);
   sun.position.set(15, 40, 20);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.mapSize.set(1024, 1024);
   Object.assign(sun.shadow.camera, {
     left: -32,
     right: 32,
@@ -129,14 +130,46 @@ export async function createScene(container) {
     );
   const exit = addSign(
     scene,
-    "SALIDA / EQUIPO",
-    [-44, 0.035, 23],
-    5,
-    2,
+    "ASCENSOR · PLANTA 01",
+    [-44, 3.6, 22.45],
+    4,
+    0.6,
     "#f3f0e8",
     "#507a5b",
   );
-  exit.rotation.x = -Math.PI / 2;
+  exit.rotation.y = Math.PI;
+  const elevatorDoors = [];
+  for (const side of [-1, 1]) {
+    const door = new THREE.Mesh(
+      new THREE.BoxGeometry(1.88, 3, 0.08),
+      new THREE.MeshStandardMaterial({
+        color: "#94a69c",
+        metalness: 0.55,
+        roughness: 0.35,
+      }),
+    );
+    door.position.set(-44 + side * 0.95, 1.55, 22.65);
+    scene.add(door);
+    elevatorDoors.push(door);
+  }
+  const elevatorStatus = addSign(
+    scene,
+    "BLOQUEADO · RESCATA AL EQUIPO",
+    [-44, 2.8, 22.54],
+    3.6,
+    0.36,
+    "#f1cc87",
+    "#264f44",
+  );
+  elevatorStatus.rotation.y = Math.PI;
+  function setElevatorOpen(open) {
+    elevatorDoors.forEach(
+      (door, i) =>
+        (door.position.x = -44 + (i ? 1 : -1) * (open ? 1.86 : 0.95)),
+    );
+    elevatorDoors.forEach((door) => (door.scale.x = open ? 0.06 : 1));
+    elevatorStatus.visible = !open;
+  }
   let intro = true;
   function heroCamera() {
     intro = true;
@@ -184,6 +217,7 @@ export async function createScene(container) {
     heroCamera,
     playCamera,
     updateLighting,
+    setElevatorOpen,
   };
 }
 

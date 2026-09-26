@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { Escape } from "./escape.js";
 import { STEP, RAPIER } from "./physics.js";
 import { Input } from "./input.js";
 import { Character } from "./character.js";
@@ -28,6 +29,8 @@ export class Game {
       blur: () => this.pause(),
       mode: () => this.cycleMode(),
       map: () => this.openMap(),
+      camera: () => this.toggleCamera(),
+      team: () => this.toggleTeam(),
     });
     this.character = new Character(view, physics, this.input);
     this.navigation = new Navigation(physics.bounds);
@@ -97,7 +100,29 @@ export class Game {
     view.renderer.setAnimationLoop((now) => this.frame(now));
   }
   get mission() {
-    return CAMPAIGN[this.missionIndex];
+    return this.chapters[this.missionIndex];
+  }
+  get chapters() {
+    return this.escape?.chapters || CAMPAIGN;
+  }
+  toggleCamera() {
+    if (this.state !== "playing") return;
+    this.input.firstPerson = !this.input.firstPerson;
+    this.input.pitch = this.input.firstPerson ? 0 : 0.43;
+    this.view.camera.fov = this.input.firstPerson ? 70 : 43;
+    this.view.camera.updateProjectionMatrix();
+    this.character.updateCamera(0, true);
+    this.ui.update(this);
+  }
+  toggleTeam() {
+    if (this.state !== "playing") return;
+    this.crowd.waiting = !this.crowd.waiting;
+    this.ui.toast(
+      this.crowd.waiting
+        ? "El equipo espera aquí. H para llamarlo."
+        : "El equipo vuelve a seguirte.",
+    );
+    this.ui.update(this);
   }
   get mode() {
     return BALL_MODES[this.modeIndex];
@@ -110,7 +135,11 @@ export class Game {
       (i) => i.type === "target" && i.mission === id,
     );
   }
-  reset() {
+  reset(savedEscape = null) {
+    this.escape?.dispose();
+    this.escape = null;
+    this.crowd.waiting = false;
+    this.crowd.autoWait = false;
     this.score = 0;
     this.down = 0;
     this.shots = 12;
@@ -147,8 +176,6 @@ export class Game {
     this.auditWarning = -100;
     this.checkpoint = null;
     this.input.reset();
-    this.character.reset();
-    this.crowd.reset();
     this.props.reset();
     this.character.reset();
     this.crowd.reset();
@@ -157,10 +184,12 @@ export class Game {
     this.heldBall.children[0].material.color.set(BALL_MODES[0].color);
     this.deliveryPad.material.color.set("#d8b653");
     this.accumulator = 0;
+    this.escape = new Escape(this, savedEscape);
     this.saveCheckpoint();
   }
   saveCheckpoint() {
     this.checkpoint = {
+      escape: this.escape?.checkpoint(),
       stage: this.missionIndex,
       score: this.score,
       penalties: this.penalties,
@@ -170,44 +199,35 @@ export class Game {
     };
   }
   restoreCheckpoint(saved) {
-    if (!saved || saved.stage === 0) return;
-    this.missionIndex = saved.stage;
-    this.completed = CAMPAIGN.slice(0, saved.stage).map((m) => m.id);
-    this.score = saved.score;
-    this.penalties = saved.penalties;
-    this.unlocked = saved.unlocked;
-    this.time = CAMPAIGN_SECONDS - Math.max(180, saved.remaining);
-    this.lolaTalked = true;
-    this.evidence = saved.stage > 1;
-    this.delivered = saved.stage > 2;
-    this.directorSigned = saved.stage > 4;
-    for (const id of saved.team) this.crowd.recruit(id);
-    for (const item of [...this.props.items])
-      if (item.type === "target" && this.completed.includes(item.mission))
-        this.props.remove(item);
-    const start = this.mission.point;
-    const pos = { x: start[0], y: 0.98, z: start[1] < 0 ? -9 : 9 };
-    this.character.body.setTranslation(pos, true);
-    this.character.body.setNextKinematicTranslation(pos);
-    this.character.sync();
-    this.crowd.teammates.forEach((p, i) => {
-      const position = { x: pos.x + (i - 1) * 1.1, y: 0.98, z: pos.z + 1.6 };
-      p.body.setTranslation(position, true);
-      p.body.setNextKinematicTranslation(position);
-    });
-    if (this.mission.kind === "boss") this.wavePending = true;
-    this.checkpoint = saved;
+    if (!saved) return;
+    if (saved.escape) {
+      this.score = saved.score;
+      this.penalties = saved.penalties;
+      this.unlocked = saved.unlocked;
+      this.time = CAMPAIGN_SECONDS - Math.max(180, saved.remaining);
+      this.completed = this.chapters.slice(0, saved.stage).map((m) => m.id);
+      for (const id of saved.team) this.crowd.recruit(id);
+      const q = this.mission.point;
+      const pos = { x: q[0], y: 0.98, z: q[1] < 0 ? -9 : 9 };
+      this.character.body.setTranslation(pos, true);
+      this.character.body.setNextKinematicTranslation(pos);
+      this.character.sync();
+      this.checkpoint = saved;
+      return;
+    }
   }
   start(fromCheckpoint = false) {
     const saved = fromCheckpoint ? this.checkpoint : null;
     this.state = "intro";
     this.ui.closeDialogs();
-    this.reset();
+    this.reset(saved?.escape);
     if (saved) this.restoreCheckpoint(saved);
     this.state = "playing";
     this.input.enabled = true;
     this.ui.state(this.state);
     this.view.playCamera();
+    this.view.camera.fov = this.input.firstPerson ? 70 : 43;
+    this.view.camera.updateProjectionMatrix();
     this.character.updateCamera(0, true);
     this.view.renderer.domElement.focus();
     this.ui.update(this);
@@ -215,8 +235,8 @@ export class Game {
     this.ui.radio(
       "OPERACIÓN SALIDA",
       saved
-        ? "Volvemos al inicio del capítulo. Tu equipo sigue contigo."
-        : "18:00. El director ha bloqueado la salida para otra noche de trabajo. Habla con Lola: esta vez salen todos.",
+        ? "Retomamos el último encargo. Tu equipo sigue contigo."
+        : `${this.escape.plan.story.opening} ${this.escape.plan.names[0]}: ${this.escape.task.story}`,
       10,
     );
   }
@@ -236,6 +256,8 @@ export class Game {
       if (p.vision) p.vision.visible = false;
     });
     this.ui.state("intro");
+    this.view.camera.fov = 43;
+    this.view.camera.updateProjectionMatrix();
     this.view.heroCamera();
   }
   pause(showDialog = true) {
@@ -276,7 +298,9 @@ export class Game {
   cycleMode() {
     if (this.state !== "playing") return;
     if (this.unlocked === 1) {
-      this.ui.toast("Ayuda a Lola y Beto para desbloquear nuevas bolas.");
+      this.ui.toast(
+        "Rescata a tu primer compañero para desbloquear la bola pesada.",
+      );
       return;
     }
     this.modeIndex = (this.modeIndex + 1) % this.unlocked;
@@ -291,6 +315,7 @@ export class Game {
   }
   throwBall() {
     if (this.state !== "playing" || this.throwCooldown > 0) return;
+    if (!this.escape?.canThrow()) return;
     if (!this.ballReady || this.shots <= 0) {
       this.ui.toast(
         "Sin bolas. Sigue la ruta a una máquina y pulsa E para recargar.",
@@ -310,6 +335,7 @@ export class Game {
       this.ui.toast("No hay espacio para lanzar. Sepárate del obstáculo.");
       return;
     }
+    if (this.escape?.task?.kind === "precision") this.escape.validShot = true;
     this.shots--;
     this.totalThrows++;
     this.ballReady = false;
@@ -331,160 +357,24 @@ export class Game {
     )[0];
   }
   missionStatus() {
-    const m = this.mission,
-      targets = this.targetsFor(),
-      n = targets.filter((i) => i.scored).length;
-    if (m.id === "lola")
-      return !this.lolaTalked
-        ? {
-            title: "Habla con Lola",
-            detail: "Está junto a la barricada de recepción.",
-            count: 0,
-            total: 1,
-          }
-        : {
-            title: "Libera el paso de Lola",
-            detail: `Derriba los archivadores: ${n}/6.`,
-            count: n,
-            total: 6,
-          };
-    if (m.id === "archive")
-      return n < 6
-        ? {
-            title: "Abre el archivo de Beto",
-            detail: `Derriba los archivadores: ${n}/6.`,
-            count: n,
-            total: 6,
-          }
-        : {
-            title: "Recoge la memoria USB",
-            detail: "Acércate al fondo del archivo y pulsa E.",
-            count: 0,
-            total: 1,
-          };
-    if (m.id === "cafe")
-      return !this.delivered
-        ? {
-            title: "Lleva la batería al generador",
-            detail:
-              "Empuja el carrito amarillo al círculo. Puedes usar una bola pesada.",
-            count: 0,
-            total: 1,
-          }
-        : {
-            title: "Habla con Nora",
-            detail: "El generador ya funciona. Nora está junto a la mesa.",
-            count: 0,
-            total: 1,
-          };
-    if (m.id === "servers")
-      return {
-        title: "Apaga los tres servidores",
-        detail: `Tumba las torres azules: ${n}/3.`,
-        count: n,
-        total: 3,
-      };
-    if (m.id === "director")
-      return this.bossWave < 3
-        ? {
-            title: `Burocracia: oleada ${this.bossWave + 1}/3`,
-            detail: "Derriba la pila dorada. Llegarán nuevas órdenes.",
-            count: targets.filter((i) => i.wave === this.bossWave && i.scored)
-              .length,
-            total: 3,
-          }
-        : {
-            title: "Recoge la carta firmada",
-            detail: "Acércate al escritorio del director y pulsa E.",
-            count: 0,
-            total: 1,
-          };
-    return {
-      title: "Salgan juntos",
-      detail: "Llega al ascensor de recepción y pulsa E. ¡Ya está todo!",
-      count: 0,
-      total: 1,
-    };
+    return (
+      this.escape?.status() || {
+        title: "Preparando la fuga",
+        detail: "",
+        count: 0,
+        total: 1,
+      }
+    );
   }
   objective() {
-    const needsBall =
-      (["lola", "archive", "servers"].includes(this.mission.id) &&
-        this.targetsFor().some((t) => !t.scored) &&
-        (this.mission.id !== "lola" || this.lolaTalked)) ||
-      (this.mission.id === "director" && this.bossWave < 3);
-    if (this.shots === 0 && needsBall) {
-      const q = this.nearestDispenser();
-      return { x: q[0], z: q[1], label: "Recargar / E", reload: true };
-    }
-    const m = this.mission;
-    let point = m.point,
-      label = this.missionStatus().title;
-    if (m.id === "lola" && !this.lolaTalked) {
-      const p = this.crowd.get("lola").body.translation();
-      point = [p.x, p.z];
-    }
-    if (m.id === "archive" && this.targetsFor().every((t) => t.scored))
-      point = [-20, -22];
-    if (m.id === "cafe") {
-      if (this.delivered) {
-        const p = this.crowd.get("nora").body.translation();
-        point = [p.x, p.z];
-      } else {
-        const p = this.props.deliveryCart.body.translation();
-        point = distance(this.character.position, p) > 4 ? [p.x, p.z] : [0, 15];
-      }
-    }
-    if (m.id === "servers") {
-      const alive = this.targetsFor()
-        .filter((t) => !t.scored)
-        .sort(
-          (a, b) =>
-            distance(this.character.position, a.body.translation()) -
-            distance(this.character.position, b.body.translation()),
-        );
-      if (alive.length) {
-        const p = alive[0].body.translation();
-        point = [p.x, p.z];
-      }
-    }
-    if (m.id === "director") {
-      if (this.bossWave >= 3) point = [40, -22.5];
-      else {
-        const alive = this.targetsFor().find(
-          (t) => t.wave === this.bossWave && !t.scored,
-        );
-        if (alive) {
-          const p = alive.body.translation();
-          point = [p.x, p.z];
-        }
-      }
-    }
-    return { x: point[0], z: point[1], label };
+    return this.escape?.objective() || { x: -40, z: 13, label: "Preparando" };
   }
+
   nearby() {
-    const p = this.character.position,
-      m = this.mission;
-    if (m.id === "exit" && distance(p, this.view.map.exit) < 2.7)
-      return { type: "exit" };
-    if (
-      m.id === "archive" &&
-      this.targetsFor().every((t) => t.scored) &&
-      distance(p, [-20, -22]) < 2.2
-    )
-      return { type: "evidence" };
-    if (
-      m.id === "director" &&
-      this.bossWave >= 3 &&
-      distance(p, [40, -22.5]) < 2.3
-    )
-      return { type: "signature" };
+    const special = this.escape?.nearby();
+    if (special) return special;
+    const p = this.character.position;
     const friend = this.crowd.nearest(p);
-    if (
-      friend &&
-      ((friend.id === "lola" && !this.lolaTalked) ||
-        (friend.id === "nora" && m.id === "cafe" && this.delivered))
-    )
-      return { type: "talk", item: friend };
     const refill = this.view.map.dispensers.find((q) => distance(p, q) < 2.2);
     if (refill && this.shots < 16) return { type: "reload" };
     const bonus = this.props.bonuses.find(
@@ -511,6 +401,7 @@ export class Game {
   interactionPrompt() {
     if (this.state !== "playing") return null;
     const n = this.nearby();
+    if (n?.type === "escape") return n.label;
     return n
       ? {
           exit: "Salir con el equipo",
@@ -527,33 +418,14 @@ export class Game {
     if (this.state !== "playing") return;
     const near = this.nearby();
     if (!near) return;
-    if (near.type === "exit") {
-      if (
-        this.crowd.teammates.length === 3 &&
-        this.evidence &&
-        this.delivered &&
-        this.directorSigned
-      )
-        this.finish(true);
-      else
-        this.ui.toast(
-          "Aún falta completar la misión del equipo. Revisa el mapa.",
-        );
+    if (near.type === "escape") {
+      this.escape.interact(near);
+      this.ui.update(this);
       return;
     }
     if (near.type === "talk") {
       this.talk(near.item);
       return;
-    }
-    if (near.type === "evidence") {
-      this.evidence = true;
-      this.crowd.recruit("beto");
-      this.unlocked = 3;
-      this.advance();
-    }
-    if (near.type === "signature") {
-      this.directorSigned = true;
-      this.advance();
     }
     if (near.type === "reload") {
       this.shots = 16;
@@ -580,67 +452,19 @@ export class Game {
     this.ui.update(this);
   }
   talk(person) {
-    const p = this.character.position,
-      q = person.body.translation();
-    person.model.rotation.y = Math.atan2(q.x - p.x, q.z - p.z);
     this.pause(false);
-    let line = person.line;
-    if (person.recruited)
-      line =
-        person.id === "lola"
-          ? "Vamos bien. La ruta dorada lleva al siguiente objetivo. Nadie se queda atrás."
-          : person.id === "beto"
-            ? "Las pruebas están a salvo. Recuerda: la puntuación da una medalla, pero no bloquea nuestra salida."
-            : "Yo vigilo el generador. Tú ocúpate de la carta y mantén a los auditores lejos.";
-    if (person.id === "nora" && this.delivered)
-      line =
-        "¡Funciona! Ya podemos desactivar los servidores. Me voy con ustedes: ni una hora extra más.";
-    this.ui.dialogue(person, line, () => {
-      if (person.id === "lola" && !this.lolaTalked) {
-        this.lolaTalked = true;
-        this.ui.radio(
-          "LOLA",
-          "Mi paso está bloqueado. Tumba esos seis archivos y te sigo.",
-        );
-      }
-      if (
-        person.id === "nora" &&
-        this.mission.id === "cafe" &&
-        this.delivered
-      ) {
-        this.crowd.recruit("nora");
-        this.advance();
-      }
-      this.refreshRoute();
-      this.ui.update(this);
-    });
-  }
-  advance() {
-    if (this.state !== "playing" && this.state !== "paused") return;
-    const previous = this.mission;
-    this.completed.push(previous.id);
-    this.score += 200;
-    this.shots = Math.min(16, this.shots + 4);
-    this.ui.toast(`CAPÍTULO COMPLETO · ${previous.reward}`);
-    this.audio.play("bonus");
-    this.missionIndex++;
-    this.navTimer = 0;
-    this.suspicion = Math.max(0, this.suspicion - 20);
-    if (this.mission.kind === "boss") {
-      this.wavePending = true;
-      this.waveDelay = 0.6;
-    }
-    this.saveCheckpoint();
-    this.ui.radio(
-      this.mission.npc
-        ? this.crowd.get(this.mission.npc)?.name || "EQUIPO"
-        : "EQUIPO",
-      this.mission.brief,
-      9,
+    const current = this.escape.plan.names[this.escape.stage];
+    this.ui.dialogue(
+      person,
+      person.recruited
+        ? "Te sigo a distancia. Si necesitas espacio, pulsa H para que esperemos."
+        : person.name === current
+          ? this.escape.task.story
+          : "El objetivo de arriba te dice a quién ayudar ahora. Nos iremos todos juntos.",
+      () => {},
     );
-    this.refreshRoute();
-    this.ui.update(this);
   }
+
   collisions() {
     this.physics.events.drainCollisionEvents((a, b, started) => {
       if (!started) return;
@@ -672,6 +496,17 @@ export class Game {
         )
       )
         continue;
+      if (
+        item.escapeTask &&
+        this.escape.task?.kind === "precision" &&
+        !this.escape.validShot
+      ) {
+        item.body.setTranslation(item.initial, true);
+        item.body.setRotation({ x: 0, y: 0, z: 0, w: 1 }, true);
+        item.body.setLinvel({ x: 0, y: 0, z: 0 }, true);
+        item.body.setAngvel({ x: 0, y: 0, z: 0 }, true);
+        continue;
+      }
       item.scored = true;
       if (item.protected) {
         this.score -= 150;
@@ -705,89 +540,19 @@ export class Game {
   }
   checkCampaign() {
     if (this.state !== "playing") return;
-    const id = this.mission.id,
-      targets = this.targetsFor();
-    if (
-      id === "lola" &&
-      this.lolaTalked &&
-      targets.length === 6 &&
-      targets.every((t) => t.scored)
-    ) {
-      this.crowd.recruit("lola");
-      this.unlocked = 2;
-      this.advance();
-      return;
-    }
-    if (id === "cafe" && !this.delivered) {
-      const cart = this.props.deliveryCart,
-        p = cart.body.translation();
-      this.deliveryHold =
-        distance(p, [0, 15]) < 2 && p.y < 1.1 ? this.deliveryHold + STEP : 0;
-      if (this.deliveryHold > 0.25) {
-        this.delivered = true;
-        cart.locked = true;
-        cart.body.setLinvel({ x: 0, y: 0, z: 0 }, true);
-        cart.body.setAngvel({ x: 0, y: 0, z: 0 }, true);
-        cart.body.setBodyType(RAPIER.RigidBodyType.Fixed, true);
-        this.deliveryPad.material.color.set("#7eac71");
-        this.ui.radio(
-          "NORA",
-          "¡Batería conectada! Ven a hablar conmigo; me voy con ustedes.",
-        );
-        this.refreshRoute();
-      }
-    }
-    if (
-      id === "servers" &&
-      targets.length === 3 &&
-      targets.every((t) => t.scored)
-    ) {
-      this.advance();
-      return;
-    }
-    if (id === "director" && this.bossWave < 3) {
-      const current = targets.filter((t) => t.wave === this.bossWave);
-      if (current.length === 3 && current.every((t) => t.scored)) {
-        this.bossWave++;
-        this.wavePending = this.bossWave < 3;
-        this.waveDelay = 1.2;
-        this.ui.radio(
-          "EL DIRECTOR",
-          this.bossWave < 3
-            ? "Eso era solo el primer correo. Aquí tienen otros pendientes."
-            : "Está bien, está bien. La carta está en mi escritorio.",
-        );
-        this.refreshRoute();
-      }
-      if (this.wavePending) {
-        this.waveDelay -= STEP;
-        if (this.waveDelay <= 0) {
-          const spawned = this.props.spawnWave(this.bossWave);
-          this.wavePending = spawned.length === 0;
-          this.waveDelay = 1;
-          if (spawned.length) this.refreshRoute();
-        }
-      }
-    }
-    if (this.suspicion >= 100) {
+    this.escape.step(STEP);
+    if (this.suspicion >= 100)
       this.finish(
         false,
-        "Los auditores activaron el cierre del edificio. Usa las paredes para ocultarte y las bolas para distraerlos.",
+        "Los auditores te descubrieron. Ocúltate tras las paredes o distraelos lanzando una bola.",
       );
-      return;
-    }
-    if (this.remaining <= 0) {
+    else if (this.remaining <= 0)
       this.finish(
         false,
-        "Llegó el turno nocturno. Se acabaron los doce minutos para salir.",
+        "Se terminaron los doce minutos. Reintenta desde el último encargo.",
       );
-      return;
-    }
-    if (this.character.position.y < -4)
-      this.finish(
-        false,
-        "Te saliste del área segura del corporativo. Vuelve al último capítulo.",
-      );
+    else if (this.character.position.y < -4)
+      this.finish(false, "Vuelve al último punto de control.");
   }
   finish(won, reason = "") {
     if (this.state !== "playing") return;
@@ -825,14 +590,18 @@ export class Game {
     this.collisions();
     this.scoring();
     this.suspicion = THREE.MathUtils.clamp(
-      this.suspicion + (this.seen ? 13 : -3.5) * STEP,
+      this.suspicion +
+        (this.seen
+          ? this.escape.difficulty.suspicion
+          : -this.escape.difficulty.recovery) *
+          STEP,
       0,
       100,
     );
     if (this.seen && this.time - this.auditWarning > 7) {
       this.auditWarning = this.time;
       this.ui.radio(
-        "LOLA",
+        this.escape.plan.names[0],
         "¡Un auditor nos está viendo! Rompe su línea de visión o distraelo con una bola.",
         5,
       );
@@ -887,10 +656,16 @@ export class Game {
     this.last = now;
     if (this.state === "playing") {
       this.accumulator += dt;
-      while (this.accumulator >= STEP && this.state === "playing") {
+      let substeps = 0;
+      while (
+        this.accumulator >= STEP &&
+        this.state === "playing" &&
+        substeps++ < 3
+      ) {
         this.step();
         this.accumulator -= STEP;
       }
+      this.accumulator = Math.min(this.accumulator, STEP);
       this.props.update(dt, this.time, this.character.position);
       this.crowd.sync(this.character.position);
       this.character.updateCamera(dt);
@@ -902,7 +677,7 @@ export class Game {
       this.uiTimer -= dt;
       if (this.uiTimer <= 0) {
         this.ui.update(this);
-        this.uiTimer = 0.08;
+        this.uiTimer = 0.15;
       }
     } else if (this.state === "intro") {
       this.character.mixer.update(dt);
@@ -913,6 +688,8 @@ export class Game {
   }
   snapshot() {
     return {
+      escape: this.escape?.checkpoint(),
+      camera: this.input.firstPerson ? "first" : "third",
       state: this.state,
       mission: this.mission.id,
       chapter: this.missionIndex + 1,

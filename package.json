@@ -1,12 +1,12 @@
 {
   "name": "renuncia-definitiva",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "type": "module",
   "private": true,
   "description": "Boliche de oficina 3D con Three.js y Rapier. Sin compilación.",
   "scripts": {
     "start": "node tools/serve.cjs",
-    "test": "node tests/smoke.cjs"
+    "test": "node tests/escape.cjs && node tests/controls.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

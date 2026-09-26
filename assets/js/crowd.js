@@ -126,11 +126,22 @@ export class Crowd {
       this.people.push(person);
     }
   }
+  rename(id, name) {
+    const p = this.get(id);
+    p.name = name;
+    const c = p.label.material.map.image.getContext("2d");
+    c.fillStyle = "#214b3e";
+    c.fillRect(0, 0, 256, 64);
+    c.fillStyle = "#fff4d8";
+    c.fillText(name.toUpperCase(), 128, 43);
+    p.label.material.map.needsUpdate = true;
+  }
   reset() {
     for (const p of this.people) {
       p.recruited = false;
+      p.collider.setSensor(false);
       p.route = [];
-      p.repath = 0;
+      p.repath = this.people.indexOf(p) * 0.13;
       p.patrolIndex = 0;
       p.vertical = 0;
       p.body.setTranslation(
@@ -157,7 +168,9 @@ export class Crowd {
     const p = this.get(id);
     if (p) {
       p.recruited = true;
-      p.repath = 0;
+      p.collider.setSensor(true);
+      p.controller.setApplyImpulsesToDynamicBodies(false);
+      p.repath = this.people.indexOf(p) * 0.13;
     }
   }
   animate(p, state) {
@@ -189,7 +202,8 @@ export class Crowd {
       if (p.recruited) {
         const index = this.teammates.indexOf(p),
           distance = Math.hypot(player.x - pos.x, player.z - pos.z);
-        if (distance > 2.4 + index * 0.7) target = { x: player.x, z: player.z };
+        if (!this.waiting && !this.autoWait && distance > 4.5 + index * 1.1)
+          target = { x: player.x, z: player.z };
       } else if (p.guard) {
         const patrol = p.patrol[p.patrolIndex];
         target = { x: patrol[0], z: patrol[1] };
@@ -220,7 +234,7 @@ export class Crowd {
         p.route = this.navigation.route(pos, target, obstacles);
         if (!p.route.length) p.route = this.navigation.route(pos, target);
         p.waypoint = 0;
-        p.repath = p.guard ? 0.8 : 1.2;
+        p.repath = p.guard ? 1.4 : 1.8;
       }
       let dx = 0,
         dz = 0;
@@ -238,7 +252,11 @@ export class Crowd {
         dz = next.z - pos.z;
         const d = Math.hypot(dx, dz);
         if (d > 0.35) {
-          const speed = p.guard ? 2.1 : p.recruited ? 6 : 1.1;
+          const speed = p.guard
+            ? game.escape?.difficulty.speed || 2.1
+            : p.recruited
+              ? 6
+              : 1.1;
           dx = (dx / d) * speed * dt;
           dz = (dz / d) * speed * dt;
         } else dx = dz = 0;
@@ -249,7 +267,8 @@ export class Crowd {
       p.controller.computeColliderMovement(
         p.collider,
         { x: dx, y: p.vertical * dt, z: dz },
-        RAPIER.QueryFilterFlags.EXCLUDE_KINEMATIC,
+        RAPIER.QueryFilterFlags.EXCLUDE_KINEMATIC |
+          (p.recruited ? RAPIER.QueryFilterFlags.EXCLUDE_DYNAMIC : 0),
       );
       const move = p.controller.computedMovement();
       p.body.setNextKinematicTranslation({
@@ -262,6 +281,7 @@ export class Crowd {
       this.animate(p, moving ? (p.recruited ? "Run" : "Walk") : "Idle");
       p.mixer.update(dt);
       if (p.guard) {
+        p.vision.scale.setScalar((game.escape?.difficulty.sight || 7.5) / 7.5);
         const vx = player.x - pos.x,
           vz = player.z - pos.z,
           dist = Math.hypot(vx, vz),
@@ -269,7 +289,10 @@ export class Crowd {
             (-Math.sin(p.model.rotation.y) * vx -
               Math.cos(p.model.rotation.y) * vz) /
             Math.max(0.01, dist);
-        if (dist < 7.5 && (dot > 0.56 || dist < 1.5)) {
+        if (
+          dist < (game.escape?.difficulty.sight || 7.5) &&
+          (dot > 0.56 || dist < 1.5)
+        ) {
           const origin = { x: pos.x, y: 1.5, z: pos.z },
             direction = {
               x: vx / Math.max(0.01, dist),

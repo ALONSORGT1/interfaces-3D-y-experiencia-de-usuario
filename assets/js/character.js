@@ -91,11 +91,15 @@ export class Character {
     this.vertical = this.controller.computedGrounded()
       ? -0.5
       : Math.max(-20, this.vertical - 9.81 * dt);
-    this.controller.computeColliderMovement(this.collider, {
-      x: dir.x * speed * dt,
-      y: this.vertical * dt,
-      z: dir.z * speed * dt,
-    });
+    this.controller.computeColliderMovement(
+      this.collider,
+      {
+        x: dir.x * speed * dt,
+        y: this.vertical * dt,
+        z: dir.z * speed * dt,
+      },
+      RAPIER.QueryFilterFlags.EXCLUDE_KINEMATIC,
+    );
     const d = this.controller.computedMovement(),
       p = this.position;
     this.body.setNextKinematicTranslation({
@@ -124,6 +128,16 @@ export class Character {
   updateCamera(dt, instant = false) {
     const { yaw, pitch, distance } = this.input,
       p = this.position;
+    if (this.input.firstPerson) {
+      this.view.camera.position.set(p.x, p.y + 0.7, p.z);
+      this.view.camera.lookAt(
+        p.x - Math.sin(yaw) * Math.cos(pitch),
+        p.y + 0.7 - Math.sin(pitch),
+        p.z - Math.cos(yaw) * Math.cos(pitch),
+      );
+      this.model.visible = false;
+      return;
+    }
     const target = new THREE.Vector3(p.x, p.y + 0.55, p.z);
     const offset = new THREE.Vector3(
       Math.sin(yaw) * Math.cos(pitch),

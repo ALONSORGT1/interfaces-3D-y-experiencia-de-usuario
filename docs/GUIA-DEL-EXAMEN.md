@@ -6,14 +6,14 @@
 | --- | --- |
 | R1 | Three.js por CDN/import map; escenario, cámaras, luces y efectos |
 | R2 | GLTFLoader carga `campus.glb` y `employee.glb`; ver `R2-R4.md` |
-| R3 | Cámara en tercera persona, seguimiento, órbita, zoom y rayos contra obstáculos |
+| R3 | Alternancia V entre primera/tercera persona; seguimiento, órbita, zoom y rayos contra obstáculos |
 | R4 | AnimationMixer reproduce Idle, Walk, Run y Throw desde el GLB |
 | R5 | Rapier: suelo, muros, muebles, límites y personajes con colliders |
 | R6 | Archivadores, servidores, carritos, sillas, plantas, cafetera, bonos y bolas |
-| R7 | Pilas de recepción/archivo y oleadas físicas del director |
+| R7 | Pilas físicas de los encargos de derribo y precisión |
 | R8 | Lanzamientos con masa, velocidad, restitución y consecuencias visibles |
 | R9 | Potencia real y tres tipos de bola desbloqueables |
-| R10 | Generación comprobada de bolas, bonos y oleadas en volúmenes válidos |
+| R10 | Generación validada de bolas y bonos; pilas y carritos comprueban el volumen antes de aparecer y reintentan si está ocupado |
 | R11 | HUD, diálogos, mapa, estados y diseño responsivo propio |
 | R12 | Historial Git original preservado y ampliado; **repositorio público pendiente** |
 | R13 | Rutas relativas y subruta de Pages probada; **publicación real pendiente** |
@@ -25,20 +25,20 @@
 - Interacciones: hablar, recoger, empujar, recargar y lanzar.
 - Generación validada de proyectiles y pilas, con parámetros que modifican la física.
 - HUD con misión actual, contador, distancia, equipo, tiempo, sospecha, bolas y puntuación.
-- Victoria al completar las cinco misiones previas y activar la salida con el equipo y las pruebas. Se muestra inmediatamente al interactuar; la puntuación es opcional.
-- Derrota por tiempo, sospecha o caída. Reintento por capítulo o nueva campaña completa.
+- Victoria al completar los tres rescates (3–4 encargos por persona) y activar el ascensor. Se muestra inmediatamente al interactuar; la puntuación es opcional.
+- Derrota por tiempo, sospecha o caída. Reintento por encargo o nueva campaña completa.
 - Pausa, mapa y conversación detienen el mundo. La interfaz no requiere mirar la consola.
 - RN-15 queda pendiente hasta validar todo desde una URL pública de GitHub Pages.
 
 ## Qué cambió respecto a la oficina inicial
 
-El mapa pasó de 360 a 5,400 unidades². La campaña incorpora tres compañeros reclutables, otros empleados, el director y dos auditores. Hay seis objetivos sucesivos con diferentes acciones, recursos en varias zonas, bolas desbloqueables, mapa, rutas y puntos de control.
+El mapa pasó de 360 a 5,400 unidades². La campaña incorpora tres compañeros reclutables, otros empleados, el director y dos auditores. La versión actual sortea 3–4 mini misiones por compañero desde 57 situaciones escritas sobre siete familias de acciones. Cambian nombres y departamentos, hay tres dificultades, primera/tercera persona y orden de esperar. Los compañeros no bloquean físicamente al jugador ni a sus objetos.
 
 La regla anterior mezclaba derribar 18 objetos con alcanzar 1,800 puntos y resolver la física de la última bola. Eso permitía terminar el contador sin obtener un resultado. No se conservó telemetría de la partida reportada, por lo que no se atribuye su demora exacta de cinco minutos a una única causa. La nueva regla elimina esas dependencias: completar la historia y usar la salida resuelve el resultado en la misma interacción. Existe una prueba de victoria con puntos negativos y munición agotada.
 
 ## Validación manual antes de entregar
 
-1. Juega la historia completa sin usar el modo de pruebas. Habla con los personajes y comprueba que entiendes el siguiente objetivo sin leer el código.
+1. Juega al menos dos fugas aleatorias y compara dificultad, nombres y encargos. Juega la historia completa sin usar el modo de pruebas. Habla con los personajes y comprueba que entiendes el siguiente objetivo sin leer el código.
 2. Verifica la carga de ambos GLB y observa los cuatro estados de animación.
 3. Recorre habitaciones y pasillos, intenta atravesar sólidos y sigue a tus compañeros por una puerta.
 4. Compara potencias y tipos de bola, empuja el carrito y recoge recursos.
