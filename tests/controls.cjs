@@ -21,7 +21,7 @@ const passed = [];
   const page = await browser.newPage({
     viewport: { width: 1440, height: 900 },
   });
-  await page.goto("http://127.0.0.1:4176/?test=1");
+  await page.goto(new URL("?test=1", process.env.TEST_URL || "http://127.0.0.1:4176/").href);
   await page.waitForFunction(() => window.__game, { timeout: 60000 });
   await page.click("#start-button");
   await page.evaluate(() => {
@@ -111,7 +111,7 @@ const passed = [];
   await page.screenshot({ path: "test-results/final-map.png" });
   fs.writeFileSync(
     "test-results/controls-report.json",
-    JSON.stringify({ date: new Date().toISOString(), passed }, null, 2),
+    JSON.stringify({ date: new Date().toISOString(), url: page.url(), passed }, null, 2),
   );
   console.log(passed);
   await browser.close();

@@ -32,7 +32,7 @@ const pass = (s) => {
   page.on("response", (r) => {
     if (r.status() >= 400) errors.push(r.status() + " " + r.url());
   });
-  await page.goto("http://127.0.0.1:4175/renuncia-definitiva/?test=1");
+  await page.goto(new URL("?test=1", process.env.TEST_URL || "http://127.0.0.1:4175/renuncia-definitiva/").href);
   await page.waitForFunction(() => window.__game, { timeout: 60000 });
   await page.screenshot({ path: "test-results/random-intro.png" });
   await page.click("#start-button");
@@ -408,6 +408,7 @@ const pass = (s) => {
     JSON.stringify(
       {
         date: new Date().toISOString(),
+        url: page.url(),
         passed: results,
         taskDifficultyLocationCases: 399,
         performance: perf,

@@ -24,7 +24,7 @@ const passed = [],
   p.on("console", (m) => {
     if (m.type() === "error") errors.push(m.text());
   });
-  await p.goto("http://127.0.0.1:4177/?test=1");
+  await p.goto(new URL("?test=1", process.env.TEST_URL || "http://127.0.0.1:4177/").href);
   await p.waitForFunction(() => window.__game, { timeout: 60000 });
   await p.click("#start-button");
   await p.evaluate(() => {
@@ -330,6 +330,7 @@ const passed = [],
     JSON.stringify(
       {
         date: new Date().toISOString(),
+        url: p.url(),
         passed,
         contacts,
         jump,
