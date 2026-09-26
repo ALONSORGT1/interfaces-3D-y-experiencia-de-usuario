@@ -1,7 +1,9 @@
-import { createScene } from "./scene.js";
-import { createPhysics } from "./physics.js";
-import { Game } from "./game.js";
 async function boot() {
+  const [{ createScene }, { createPhysics }, { Game }] = await Promise.all([
+    import("./scene.js"),
+    import("./physics.js"),
+    import("./game.js"),
+  ]);
   const [view, physics] = await Promise.all([
     createScene(document.querySelector("#scene")),
     createPhysics(),
@@ -12,6 +14,11 @@ async function boot() {
 }
 boot().catch((error) => {
   console.error(error);
+  document.querySelector("#app").dataset.mode = "intro";
   document.querySelector("#load-status").textContent =
-    "No se pudo cargar la oficina. Comprueba tu conexión y recarga.";
+    "No se pudo cargar la oficina. Revisa tu conexión y que WebGL esté habilitado.";
+  document.querySelector("#start-label").textContent = "Volver a intentar";
+  const button = document.querySelector("#start-button");
+  button.disabled = false;
+  button.onclick = () => location.reload();
 });

@@ -278,6 +278,43 @@ async function run() {
   );
   assert.ok(valid);
   pass("Bonos generados durante la partida dentro de la zona válida");
+  await start();
+  const damage = await page.evaluate(() => {
+    const g = __game;
+    const plant = g.props.items.find((i) => i.type === "plant");
+    plant.body.setRotation({ x: 0, y: 0, z: 0.8, w: 0.6 }, true);
+    for (let n = 0; n < 120; n++) g.step();
+    const first = { score: g.score, penalties: g.penalties };
+    for (let n = 0; n < 180; n++) g.step();
+    return { first, second: { score: g.score, penalties: g.penalties } };
+  });
+  assert.equal(damage.first.penalties, 1);
+  assert.equal(damage.first.score, -150);
+  assert.deepEqual(damage.first, damage.second);
+  pass("Cada objeto protegido resta una sola vez, aunque siga en el suelo");
+  await start();
+  const lastBonus = await page.evaluate(() => {
+    const g = __game;
+    // State-machine fixture: the last throw clears the room, but a bonus is needed.
+    g.props.items
+      .filter((i) => i.type === "target")
+      .forEach((i) => (i.scored = true));
+    g.down = 18;
+    g.score = 1700;
+    g.shots = 0;
+    g.ballReady = false;
+    g.shot = { id: 1, start: -30, rebate: false };
+    g.checkResult();
+    const before = { state: g.state, canCollect: g.finalChoice };
+    const p = g.props.bonuses[0].position;
+    g.character.body.setTranslation({ x: p.x, y: 0.98, z: p.z }, true);
+    g.interact();
+    return { before, after: g.state, score: g.score };
+  });
+  assert.deepEqual(lastBonus.before, { state: "playing", canCollect: true });
+  assert.equal(lastBonus.after, "won");
+  assert.equal(lastBonus.score, 1800);
+  pass("Último tiro permite recoger el bono necesario antes de finalizar");
   await page.evaluate(() => __game.home());
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: path.join(results, "05-movil.png") });
@@ -294,6 +331,17 @@ async function run() {
   await page.screenshot({ path: path.join(results, "06-partida.png") });
   assert.deepEqual(logs, []);
   pass("Sin errores de JavaScript, recursos 404 ni errores de consola");
+  const offline = await browser.newPage();
+  await offline.route("https://cdn.jsdelivr.net/**", (route) => route.abort());
+  await offline.goto("http://127.0.0.1:4174/renuncia-definitiva/");
+  await offline.waitForFunction(
+    () =>
+      document.getElementById("start-label").textContent ===
+      "Volver a intentar",
+  );
+  assert.equal(await offline.locator("#start-button").isEnabled(), true);
+  await offline.close();
+  pass("Fallo de CDN muestra un mensaje legible y permite reintentar");
   fs.writeFileSync(
     path.join(results, "report.json"),
     JSON.stringify(

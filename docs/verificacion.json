@@ -1,0 +1,450 @@
+{
+  "date": "2026-09-26T00:39:32.664Z",
+  "browser": "153.0.4234.32",
+  "passed": [
+    "Carga GLB, texturas, CDN e import map desde una subruta de repositorio",
+    "Inicio limpio: 18 objetivos estables, ocho bolas y cuatro clips GLB",
+    "WASD, movimiento relativo a cámara y animaciones Idle/Walk/Run",
+    "Órbita con mouse",
+    "Personaje bloqueado por límites y escritorio sólido",
+    "Lanzamiento desde teclado causa un derrumbe físico y actualiza HUD/puntuación",
+    "Máquina recarga sin regalar lanzamientos",
+    "Recoger bono añade puntos y elimina el objeto",
+    "Empujar carrito aplica un impulso físico",
+    "El deslizador cambia la velocidad real de lanzamiento",
+    "Generación bloqueada si el volumen de salida está ocupado",
+    "Pausa congela física y tiempo; continuar restaura controles",
+    "Ayuda pausa y reanuda sin perder partida",
+    "Ocho tiros fallidos producen derrota después de resolver la última bola",
+    "Reinicio completo después de derrota",
+    "Tres torres derribadas con bolas reales y puntuación mínima producen victoria",
+    "Reinicio después de victoria",
+    "Bonos generados durante la partida dentro de la zona válida",
+    "Cada objeto protegido resta una sola vez, aunque siga en el suelo",
+    "Último tiro permite recoger el bono necesario antes de finalizar",
+    "Interfaz sin desbordamiento horizontal a 390 px",
+    "Sin errores de JavaScript, recursos 404 ni errores de consola",
+    "Fallo de CDN muestra un mensaje legible y permite reintentar"
+  ],
+  "errors": [],
+  "scenarios": {
+    "loss": {
+      "state": "lost",
+      "score": 0,
+      "down": 0,
+      "shots": 0,
+      "ballReady": false,
+      "power": 100,
+      "animation": "Idle",
+      "position": {
+        "x": 0.00008762686775298789,
+        "y": 0.974655270576477,
+        "z": 5.942049503326416
+      },
+      "targets": [
+        {
+          "id": 1,
+          "scored": false,
+          "position": {
+            "x": -5.489992618560791,
+            "y": 0.33806177973747253,
+            "z": -2.999999523162842
+          }
+        },
+        {
+          "id": 2,
+          "scored": false,
+          "position": {
+            "x": -4.5099992752075195,
+            "y": 0.33806195855140686,
+            "z": -2.999997854232788
+          }
+        },
+        {
+          "id": 3,
+          "scored": false,
+          "position": {
+            "x": -5.490437984466553,
+            "y": 1.015808343887329,
+            "z": -2.999922037124634
+          }
+        },
+        {
+          "id": 4,
+          "scored": false,
+          "position": {
+            "x": -4.510013103485107,
+            "y": 1.0158085823059082,
+            "z": -3.0000977516174316
+          }
+        },
+        {
+          "id": 5,
+          "scored": false,
+          "position": {
+            "x": -5.490335464477539,
+            "y": 1.6941838264465332,
+            "z": -3.0000803470611572
+          }
+        },
+        {
+          "id": 6,
+          "scored": false,
+          "position": {
+            "x": -4.509916305541992,
+            "y": 1.6941837072372437,
+            "z": -3.0002543926239014
+          }
+        },
+        {
+          "id": 7,
+          "scored": false,
+          "position": {
+            "x": -0.4899991750717163,
+            "y": 0.33806222677230835,
+            "z": -4.299994468688965
+          }
+        },
+        {
+          "id": 8,
+          "scored": false,
+          "position": {
+            "x": 0.4900006651878357,
+            "y": 0.33806225657463074,
+            "z": -4.299997806549072
+          }
+        },
+        {
+          "id": 9,
+          "scored": false,
+          "position": {
+            "x": -0.4899909794330597,
+            "y": 1.0158088207244873,
+            "z": -4.300241947174072
+          }
+        },
+        {
+          "id": 10,
+          "scored": false,
+          "position": {
+            "x": 0.49001044034957886,
+            "y": 1.0158089399337769,
+            "z": -4.300240993499756
+          }
+        },
+        {
+          "id": 11,
+          "scored": false,
+          "position": {
+            "x": -0.49001017212867737,
+            "y": 1.6941840648651123,
+            "z": -4.300312042236328
+          }
+        },
+        {
+          "id": 12,
+          "scored": false,
+          "position": {
+            "x": 0.4899913966655731,
+            "y": 1.6941840648651123,
+            "z": -4.300309181213379
+          }
+        },
+        {
+          "id": 13,
+          "scored": false,
+          "position": {
+            "x": 4.5099992752075195,
+            "y": 0.33806201815605164,
+            "z": -2.4999969005584717
+          }
+        },
+        {
+          "id": 14,
+          "scored": false,
+          "position": {
+            "x": 5.489998817443848,
+            "y": 0.33806201815605164,
+            "z": -2.4999969005584717
+          }
+        },
+        {
+          "id": 15,
+          "scored": false,
+          "position": {
+            "x": 4.51001501083374,
+            "y": 1.0158084630966187,
+            "z": -2.500246047973633
+          }
+        },
+        {
+          "id": 16,
+          "scored": false,
+          "position": {
+            "x": 5.490014553070068,
+            "y": 1.0158084630966187,
+            "z": -2.500246047973633
+          }
+        },
+        {
+          "id": 17,
+          "scored": false,
+          "position": {
+            "x": 4.510002136230469,
+            "y": 1.694183588027954,
+            "z": -2.500318765640259
+          }
+        },
+        {
+          "id": 18,
+          "scored": false,
+          "position": {
+            "x": 5.490001678466797,
+            "y": 1.694183588027954,
+            "z": -2.500318765640259
+          }
+        }
+      ],
+      "balls": [
+        {
+          "id": 37,
+          "position": {
+            "x": 0.00008742105273995548,
+            "y": 0.3187234699726105,
+            "z": 6.623087406158447
+          },
+          "velocity": {
+            "x": -1.2714543862202277e-9,
+            "y": 0,
+            "z": 0.004207880236208439
+          }
+        }
+      ],
+      "bonuses": 6,
+      "penalties": 0,
+      "time": 221.6666666667352
+    },
+    "win": {
+      "state": "won",
+      "score": 2025,
+      "down": 18,
+      "shots": 5,
+      "ballReady": false,
+      "power": 100,
+      "animation": "Throw",
+      "position": {
+        "x": 4.999999046325684,
+        "y": 0.974187970161438,
+        "z": 0.9999960660934448
+      },
+      "targets": [
+        {
+          "id": 1,
+          "scored": true,
+          "position": {
+            "x": -7.165406227111816,
+            "y": 0.41429388523101807,
+            "z": -5.484454154968262
+          }
+        },
+        {
+          "id": 2,
+          "scored": true,
+          "position": {
+            "x": -4.172857284545898,
+            "y": 0.33868783712387085,
+            "z": -6.552820682525635
+          }
+        },
+        {
+          "id": 3,
+          "scored": true,
+          "position": {
+            "x": -6.337372779846191,
+            "y": 0.41084298491477966,
+            "z": -5.160378932952881
+          }
+        },
+        {
+          "id": 4,
+          "scored": true,
+          "position": {
+            "x": -3.6266276836395264,
+            "y": 0.33868807554244995,
+            "z": -5.201367378234863
+          }
+        },
+        {
+          "id": 5,
+          "scored": true,
+          "position": {
+            "x": -8.112053871154785,
+            "y": 0.33868786692619324,
+            "z": -3.9603962898254395
+          }
+        },
+        {
+          "id": 6,
+          "scored": true,
+          "position": {
+            "x": -2.2029030323028564,
+            "y": 0.35870522260665894,
+            "z": -3.065516948699951
+          }
+        },
+        {
+          "id": 7,
+          "scored": true,
+          "position": {
+            "x": -2.1105916500091553,
+            "y": 0.3386878967285156,
+            "z": -5.923395156860352
+          }
+        },
+        {
+          "id": 8,
+          "scored": true,
+          "position": {
+            "x": 0.4734036922454834,
+            "y": 0.3587053418159485,
+            "z": -7.6595282554626465
+          }
+        },
+        {
+          "id": 9,
+          "scored": true,
+          "position": {
+            "x": -1.185720682144165,
+            "y": 0.3386881351470947,
+            "z": -6.046712398529053
+          }
+        },
+        {
+          "id": 10,
+          "scored": true,
+          "position": {
+            "x": 1.6614303588867188,
+            "y": 0.3386879563331604,
+            "z": -6.265235424041748
+          }
+        },
+        {
+          "id": 11,
+          "scored": true,
+          "position": {
+            "x": -2.4778268337249756,
+            "y": 0.3386878967285156,
+            "z": -4.771440029144287
+          }
+        },
+        {
+          "id": 12,
+          "scored": true,
+          "position": {
+            "x": 2.2439451217651367,
+            "y": 0.3398079574108124,
+            "z": -5.4708452224731445
+          }
+        },
+        {
+          "id": 13,
+          "scored": true,
+          "position": {
+            "x": 3.7196879386901855,
+            "y": 0.5600542426109314,
+            "z": -5.221261501312256
+          }
+        },
+        {
+          "id": 14,
+          "scored": true,
+          "position": {
+            "x": 6.349818229675293,
+            "y": 0.7163347601890564,
+            "z": -5.757286071777344
+          }
+        },
+        {
+          "id": 15,
+          "scored": true,
+          "position": {
+            "x": 4.255173683166504,
+            "y": 1.6097631454467773,
+            "z": -3.376926898956299
+          }
+        },
+        {
+          "id": 16,
+          "scored": true,
+          "position": {
+            "x": 5.8613433837890625,
+            "y": 1.5079777240753174,
+            "z": -3.3069071769714355
+          }
+        },
+        {
+          "id": 17,
+          "scored": true,
+          "position": {
+            "x": 3.8196005821228027,
+            "y": 2.6150383949279785,
+            "z": -2.84615421295166
+          }
+        },
+        {
+          "id": 18,
+          "scored": true,
+          "position": {
+            "x": 6.144683361053467,
+            "y": 2.438453435897827,
+            "z": -2.9112963676452637
+          }
+        }
+      ],
+      "balls": [
+        {
+          "id": 30,
+          "position": {
+            "x": -0.7323483824729919,
+            "y": 0.31872403621673584,
+            "z": -6.931660175323486
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "id": 31,
+          "position": {
+            "x": -7.505638122558594,
+            "y": 0.3187183141708374,
+            "z": -6.422094821929932
+          },
+          "velocity": {
+            "x": 0.16765780746936798,
+            "y": 0,
+            "z": 0.11923009902238846
+          }
+        },
+        {
+          "id": 32,
+          "position": {
+            "x": 4.979678153991699,
+            "y": 0.3898908197879791,
+            "z": -4.636622905731201
+          },
+          "velocity": {
+            "x": -0.05754707008600235,
+            "y": -1.2113956212997437,
+            "z": -7.7737226486206055
+          }
+        }
+      ],
+      "bonuses": 6,
+      "penalties": 1,
+      "time": 12.43333333333353
+    }
+  }
+}

@@ -30,8 +30,11 @@ button {
   cursor: pointer;
 }
 button:disabled {
-  cursor: wait;
+  cursor: not-allowed;
   opacity: 0.6;
+}
+#start-button:disabled {
+  cursor: wait;
 }
 button:focus-visible,
 a:focus-visible,
@@ -660,17 +663,6 @@ input[type="range"] {
   font-size: 68px;
   line-height: 1.2;
   color: #d1785c;
-}
-.crosshair {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  background: var(--paper);
-  border: 1px solid var(--ink);
-  border-radius: 50%;
-  left: calc(50% - 2px);
-  top: calc(50% - 2px);
-  opacity: 0.5;
 }
 dialog {
   color: var(--ink);
