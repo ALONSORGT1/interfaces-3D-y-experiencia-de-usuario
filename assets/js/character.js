@@ -55,7 +55,7 @@ export class Character {
     const target=new THREE.Vector3(p.x,p.y+.55,p.z);
     const offset=new THREE.Vector3(Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch));
     const ray=new RAPIER.Ray(target,offset);
-    const hit=this.physics.world.castRay(ray,distance,true,RAPIER.QueryFilterFlags.EXCLUDE_DYNAMIC,undefined,this.collider,this.body);
+    const hit=this.physics.world.castRay(ray,distance,true,RAPIER.QueryFilterFlags.EXCLUDE_DYNAMIC,undefined,this.collider,this.body,col=>!this.physics.invisibleBounds.has(col.handle));
     const length=hit?Math.max(1.1,hit.timeOfImpact-.2):distance;
     const desired=target.clone().addScaledVector(offset,length);
     if(instant)this.view.camera.position.copy(desired);else this.view.camera.position.lerp(desired,1-Math.exp(-12*dt));

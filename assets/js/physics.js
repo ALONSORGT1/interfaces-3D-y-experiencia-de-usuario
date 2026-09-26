@@ -12,13 +12,15 @@ export async function createPhysics() {
   if (!response.ok) throw new Error(`No se cargaron las colisiones: ${response.status}`);
   const bounds = await response.json();
   const walls = new Set();
+  const invisibleBounds = new Set();
   for (const item of bounds) {
     const { position: p, size: s } = item;
     const body = world.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(...p));
     const collider = world.createCollider(RAPIER.ColliderDesc.cuboid(s[0]/2,s[1]/2,s[2]/2).setFriction(.65).setRestitution(.2), body);
     if (/wall|limit|sill/i.test(item.name)) walls.add(collider.handle);
+    if (/limit/i.test(item.name)) invisibleBounds.add(collider.handle);
   }
-  return { world, events, walls, bounds };
+  return { world, events, walls, invisibleBounds, bounds };
 }
 
 export function hasSpace(world, position, radius, excludeBody) {
