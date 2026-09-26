@@ -21,6 +21,9 @@ export async function createPhysics() {
   const world = new RAPIER.World({ x: 0, y: -9.81, z: 0 });
   world.timestep = STEP;
   world.numSolverIterations = 8;
+  world.integrationParameters.maxCcdSubsteps = 4;
+  world.integrationParameters.normalizedPredictionDistance = 0.08;
+  world.integrationParameters.contact_natural_frequency = 60;
   const events = new RAPIER.EventQueue(true);
   const response = await fetch("./assets/models/campus-colliders.json");
   if (!response.ok)
@@ -34,16 +37,35 @@ export async function createPhysics() {
       RAPIER.RigidBodyDesc.fixed().setTranslation(...p),
     );
     const collider = world.createCollider(
-      RAPIER.ColliderDesc.cuboid(s[0] / 2, s[1] / 2, s[2] / 2)
+      (item.shape === "cylinder"
+        ? RAPIER.ColliderDesc.cylinder(s[1] / 2, s[0] / 2)
+        : RAPIER.ColliderDesc.cuboid(s[0] / 2, s[1] / 2, s[2] / 2)
+      )
         .setFriction(0.65)
         .setRestitution(0.2),
       body,
     );
-    if (/wall|limit|boundary|divider|front/i.test(item.name))
+    if (/wall|limit|boundary|divider|front|partition|window/i.test(item.name))
       walls.add(collider.handle);
     if (/limit/i.test(item.name)) invisibleBounds.add(collider.handle);
   }
-  return { world, events, walls, invisibleBounds, bounds };
+  let elevatorBody = null;
+  function setElevatorLocked(locked) {
+    if (locked && !elevatorBody) {
+      elevatorBody = world.createRigidBody(
+        RAPIER.RigidBodyDesc.fixed().setTranslation(-44, 1.55, 22.65),
+      );
+      world.createCollider(
+        RAPIER.ColliderDesc.cuboid(1.9, 1.5, 0.06).setFriction(0.5),
+        elevatorBody,
+      );
+    } else if (!locked && elevatorBody) {
+      world.removeRigidBody(elevatorBody);
+      elevatorBody = null;
+    }
+    world.updateSceneQueries();
+  }
+  return { world, events, walls, invisibleBounds, bounds, setElevatorLocked };
 }
 
 export function hasSpace(world, position, radius, excludeBody) {

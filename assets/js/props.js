@@ -1,4 +1,7 @@
 import * as THREE from "three";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
+import { projectUV } from "./office-materials.js";
+const uvGeometryCache = new Map();
 import { RAPIER, hasSpace, hasBoxSpace } from "./physics.js";
 
 const cube = new THREE.BoxGeometry(1, 1, 1);
@@ -47,6 +50,57 @@ export class Props {
     this.serial = 0;
   }
   add(type, mesh, position, colliders, options = {}) {
+    if (this.view.surfaces && ["target", "cart", "chair"].includes(type))
+      mesh.traverse((o) => {
+        if (!o.isMesh) return;
+        const color = "#" + o.material.color.getHexString();
+        const isMetal = ["#486457", "#36594d", "#496754", "#385244"].includes(
+          color,
+        );
+        const surface =
+          type === "cart" && color === "#bc9573"
+            ? "oak"
+            : type === "chair" && color === "#50786c"
+              ? "fabric"
+              : "plaster";
+        o.material = isMetal
+          ? this.view.surfaces.materials.get("metal")
+          : this.view.surfaces.prop(color, surface);
+        const key = `${o.geometry.uuid}/${o.scale.toArray().join(",")}/${surface}`;
+        if (!uvGeometryCache.has(key)) {
+          const scaled = o.geometry
+            .clone()
+            .scale(o.scale.x, o.scale.y, o.scale.z);
+          projectUV(scaled, o.material.userData.uvMeters);
+          const geo = o.geometry.clone();
+          geo.setAttribute("uv", scaled.attributes.uv);
+          scaled.dispose();
+          uvGeometryCache.set(key, geo);
+        }
+        o.geometry = uvGeometryCache.get(key);
+      });
+    // A rigid chair/cart moves as one object: batch its decorative pieces by material.
+    if (["target", "cart", "chair"].includes(type)) {
+      mesh.updateMatrixWorld(true);
+      const groups = new Map();
+      mesh.traverse((o) => {
+        if (o.isMesh) {
+          if (!groups.has(o.material)) groups.set(o.material, []);
+          groups
+            .get(o.material)
+            .push(o.geometry.clone().applyMatrix4(o.matrixWorld));
+        }
+      });
+      mesh.clear();
+      for (const [mat, parts] of groups) {
+        const merged = mergeGeometries(parts, false);
+        parts.forEach((g) => g.dispose());
+        const part = new THREE.Mesh(merged, mat);
+        part.userData.ownedGeometry = true;
+        part.castShadow = part.receiveShadow = true;
+        mesh.add(part);
+      }
+    }
     const desc = RAPIER.RigidBodyDesc.dynamic()
       .setTranslation(...position)
       .setLinearDamping(options.damping ?? 0.25)
@@ -406,6 +460,9 @@ export class Props {
     for (const c of item.colliders) this.byCollider.delete(c.handle);
     this.physics.world.removeRigidBody(item.body);
     this.view.scene.remove(item.mesh);
+    item.mesh.traverse((o) => {
+      if (o.userData.ownedGeometry) o.geometry.dispose();
+    });
     this.items = this.items.filter((i) => i !== item);
     this.balls = this.balls.filter((i) => i !== item);
   }

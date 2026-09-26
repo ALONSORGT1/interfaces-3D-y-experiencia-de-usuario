@@ -1,32 +1,96 @@
 import * as THREE from "three";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { officeMaterials, projectUV } from "./office-materials.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 
 // Batch the static GLB by material: a larger map should not mean thousands of draw calls.
-function batchGLB(root) {
+function batchGLB(root, surfaces) {
   root.updateMatrixWorld(true);
   const groups = new Map();
   root.traverse((o) => {
     if (!o.isMesh) return;
+    o.material = surfaces.materials.get(o.material.name) || o.material;
+    if (/Sofa.*(seat|back|arm)/i.test(o.name))
+      o.material = surfaces.prop(
+        "#" + o.material.color.getHexString(),
+        "fabric",
+      );
     const pos = new THREE.Vector3().setFromMatrixPosition(o.matrixWorld);
     const key = `${o.material.uuid}/${Math.floor(pos.x / 20)}/${Math.floor(pos.z / 20)}`;
     if (!groups.has(key))
       groups.set(key, { material: o.material, geometries: [] });
+    let geometry = o.geometry.clone().applyMatrix4(o.matrixWorld);
+    if (
+      /Sofa.*(seat|back|arm)|Desk.top|Shared.table|Lounge.table.top/i.test(
+        o.name,
+      )
+    ) {
+      geometry.dispose();
+      const position = new THREE.Vector3(),
+        rotation = new THREE.Quaternion(),
+        scale = new THREE.Vector3();
+      o.matrixWorld.decompose(position, rotation, scale);
+      geometry = new RoundedBoxGeometry(
+        scale.x,
+        scale.y,
+        scale.z,
+        2,
+        Math.min(scale.x, scale.y, scale.z) * 0.2,
+      )
+        .applyQuaternion(rotation)
+        .translate(position.x, position.y, position.z);
+    }
+    if (geometry.index) {
+      const indexed = geometry;
+      geometry = indexed.toNonIndexed();
+      indexed.dispose();
+    }
     groups
       .get(key)
-      .geometries.push(o.geometry.clone().applyMatrix4(o.matrixWorld));
+      .geometries.push(projectUV(geometry, o.material.userData.uvMeters || 1));
   });
   const batch = new THREE.Group();
   batch.name = "Campus loaded from GLB / material batches";
   for (const { material, geometries } of groups.values()) {
     const merged = mergeGeometries(geometries, false);
     const mesh = new THREE.Mesh(merged, material);
-    mesh.castShadow = true;
+    mesh.castShadow = !material.transparent;
     mesh.receiveShadow = true;
     batch.add(mesh);
     geometries.forEach((g) => g.dispose());
   }
   return batch;
+}
+
+// Keep animated bone/group nodes intact; only combine rigid pieces inside each node.
+function batchActor(root) {
+  const nodes = [];
+  root.traverse((o) => {
+    if (!o.isMesh) nodes.push(o);
+  });
+  for (const node of nodes) {
+    const groups = new Map();
+    for (const child of [...node.children])
+      if (child.isMesh) {
+        child.updateMatrix();
+        if (!groups.has(child.material)) groups.set(child.material, []);
+        groups.get(child.material).push(child);
+      }
+    for (const [mat, children] of groups) {
+      if (children.length < 2) continue;
+      const pieces = children.map((child) =>
+        child.geometry.clone().applyMatrix4(child.matrix),
+      );
+      const merged = new THREE.Mesh(mergeGeometries(pieces, false), mat);
+      pieces.forEach((g) => g.dispose());
+      merged.name =
+        children.find((c) => c.name === "Head")?.name || children[0].name;
+      children.forEach((child) => node.remove(child));
+      node.add(merged);
+    }
+  }
 }
 
 export async function createScene(container) {
@@ -52,16 +116,23 @@ export async function createScene(container) {
     0.1,
     350,
   );
-  scene.add(new THREE.HemisphereLight(0xfff9e8, 0x718473, 2.2));
-  const sun = new THREE.DirectionalLight(0xffedd5, 3);
+  scene.add(new THREE.HemisphereLight(0xe7f2ff, 0x667077, 1.05));
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const environment = new RoomEnvironment();
+  scene.environment = pmrem.fromScene(environment, 0.04).texture;
+  scene.environmentIntensity = 0.4;
+  environment.dispose();
+  pmrem.dispose();
+  const sun = new THREE.DirectionalLight(0xfff4e5, 2.1);
   sun.position.set(15, 40, 20);
   sun.castShadow = true;
   sun.shadow.mapSize.set(1024, 1024);
+  sun.shadow.radius = 2;
   Object.assign(sun.shadow.camera, {
-    left: -32,
-    right: 32,
-    top: 32,
-    bottom: -32,
+    left: -22,
+    right: 22,
+    top: 22,
+    bottom: -22,
     near: 1,
     far: 90,
   });
@@ -77,16 +148,18 @@ export async function createScene(container) {
   ground.receiveShadow = true;
   scene.add(ground);
   const loader = new GLTFLoader();
-  const [campus, employee, map] = await Promise.all([
+  const [campus, employee, map, surfaces] = await Promise.all([
     loader.loadAsync("./assets/models/campus.glb"),
     loader.loadAsync("./assets/models/employee.glb"),
     fetch("./assets/models/campus.json").then((r) => {
       if (!r.ok) throw new Error("Campus data unavailable");
       return r.json();
     }),
+    officeMaterials(renderer),
   ]);
-  const office = batchGLB(campus.scene);
+  const office = batchGLB(campus.scene, surfaces);
   scene.add(office);
+  batchActor(employee.scene);
   employee.scene.traverse((o) => {
     if (o.isMesh) {
       o.castShadow = true;
@@ -99,23 +172,13 @@ export async function createScene(container) {
       const front = addSign(
         scene,
         room.name,
-        [room.x, 2.85, z],
+        [room.x, 3.22, z],
         5.3,
         0.4,
         "#f3f0e8",
         "#31594c",
       );
       if (room.z > 0) front.rotation.y = Math.PI;
-      const floor = addSign(
-        scene,
-        room.name,
-        [room.x, 0.035, room.z],
-        9,
-        1.3,
-        "#496859",
-        room.color,
-      );
-      floor.rotation.x = -Math.PI / 2;
     }
   }
   for (const [x, z] of map.dispensers)
@@ -142,11 +205,7 @@ export async function createScene(container) {
   for (const side of [-1, 1]) {
     const door = new THREE.Mesh(
       new THREE.BoxGeometry(1.88, 3, 0.08),
-      new THREE.MeshStandardMaterial({
-        color: "#94a69c",
-        metalness: 0.55,
-        roughness: 0.35,
-      }),
+      surfaces.materials.get("metal"),
     );
     door.position.set(-44 + side * 0.95, 1.55, 22.65);
     scene.add(door);
@@ -169,10 +228,29 @@ export async function createScene(container) {
     );
     elevatorDoors.forEach((door) => (door.scale.x = open ? 0.06 : 1));
     elevatorStatus.visible = !open;
+    elevatorHook?.(!open);
+  }
+  // Only two nearby practical lights run at once; no extra shadow maps.
+  const practicalLights = Array.from({ length: 2 }, () => {
+    const light = new THREE.PointLight(0xfff5df, 18, 15, 2);
+    scene.add(light);
+    return light;
+  });
+  let lightingTimer = 0;
+  const lightPositions = map.rooms
+    .filter((r) => r.z !== 0)
+    .flatMap((r) =>
+      [-4, 4].map((dx) => new THREE.Vector3(r.x + dx, 3.45, r.z)),
+    );
+  let elevatorHook = null;
+  function bindElevatorPhysics(callback) {
+    elevatorHook = callback;
+    callback(elevatorStatus.visible);
   }
   let intro = true;
   function heroCamera() {
     intro = true;
+    practicalLights.forEach((l) => (l.intensity = 0));
     scene.fog.near = 240;
     scene.fog.far = 350;
     camera.position.set(89, 97, 119);
@@ -190,12 +268,25 @@ export async function createScene(container) {
   }
   function playCamera() {
     intro = false;
+    lightingTimer = 19;
+    practicalLights.forEach((l) => (l.intensity = 18));
     scene.fog.near = 65;
     scene.fog.far = 145;
     camera.clearViewOffset();
   }
   function updateLighting(p) {
     if (intro) return;
+    if (++lightingTimer % 20 === 0) {
+      const nearest = [...lightPositions]
+        .sort(
+          (a, b) =>
+            (a.x - p.x) ** 2 +
+            (a.z - p.z) ** 2 -
+            ((b.x - p.x) ** 2 + (b.z - p.z) ** 2),
+        )
+        .slice(0, 2);
+      practicalLights.forEach((l, i) => l.position.copy(nearest[i]));
+    }
     sun.position.set(p.x + 15, 40, p.z + 20);
     sun.target.position.set(p.x, 0, p.z);
   }
@@ -218,6 +309,8 @@ export async function createScene(container) {
     playCamera,
     updateLighting,
     setElevatorOpen,
+    bindElevatorPhysics,
+    surfaces,
   };
 }
 

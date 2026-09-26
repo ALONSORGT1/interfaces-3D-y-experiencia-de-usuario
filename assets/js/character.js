@@ -20,7 +20,8 @@ export class Character {
       this.body,
     );
     this.controller = physics.world.createCharacterController(0.025);
-    this.controller.enableSnapToGround(0.25);
+    this.controller.enableSnapToGround(0.2);
+    this.controller.enableAutostep(0.18, 0.25, false);
     this.controller.setApplyImpulsesToDynamicBodies(true);
     this.controller.setCharacterMass(35);
     this.mixer = new THREE.AnimationMixer(this.model);
@@ -88,9 +89,14 @@ export class Character {
     dir.normalize();
     const running = i.has("ShiftLeft", "ShiftRight");
     const speed = running ? 7.2 : 4.2;
-    this.vertical = this.controller.computedGrounded()
-      ? -0.5
-      : Math.max(-20, this.vertical - 9.81 * dt);
+    const grounded = this.controller.computedGrounded();
+    if (i.jumpRequested && grounded) this.vertical = 4.8;
+    else
+      this.vertical =
+        grounded && this.vertical <= 0
+          ? -0.5
+          : Math.max(-20, this.vertical - 9.81 * dt);
+    i.jumpRequested = false;
     this.controller.computeColliderMovement(
       this.collider,
       {
@@ -102,6 +108,8 @@ export class Character {
     );
     const d = this.controller.computedMovement(),
       p = this.position;
+    if (this.vertical > 0 && d.y < this.vertical * dt - 0.002)
+      this.vertical = 0;
     this.body.setNextKinematicTranslation({
       x: p.x + d.x,
       y: p.y + d.y,
@@ -149,7 +157,8 @@ export class Character {
       ray,
       distance,
       true,
-      RAPIER.QueryFilterFlags.EXCLUDE_DYNAMIC,
+      RAPIER.QueryFilterFlags.EXCLUDE_DYNAMIC |
+        RAPIER.QueryFilterFlags.EXCLUDE_KINEMATIC,
       undefined,
       this.collider,
       this.body,

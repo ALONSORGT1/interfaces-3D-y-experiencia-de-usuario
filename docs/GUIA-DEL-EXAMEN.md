@@ -39,7 +39,7 @@ La regla anterior mezclaba derribar 18 objetos con alcanzar 1,800 puntos y resol
 ## Validación manual antes de entregar
 
 1. Juega al menos dos fugas aleatorias y compara dificultad, nombres y encargos. Juega la historia completa sin usar el modo de pruebas. Habla con los personajes y comprueba que entiendes el siguiente objetivo sin leer el código.
-2. Verifica la carga de ambos GLB y observa los cuatro estados de animación.
+2. Pulsa J para saltar y aterrizar; Espacio debe seguir lanzando la bola. Verifica la carga de ambos GLB y observa los cuatro estados de animación.
 3. Recorre habitaciones y pasillos, intenta atravesar sólidos y sigue a tus compañeros por una puerta.
 4. Compara potencias y tipos de bola, empuja el carrito y recoge recursos.
 5. Comprueba que los auditores detectan dentro de su cono y pierden visión detrás de una pared.

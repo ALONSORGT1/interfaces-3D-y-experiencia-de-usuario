@@ -81,52 +81,78 @@
     "name": "Room front",
     "position": [
       -45.9,
-      1.2,
+      1.6,
       -6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
     "name": "Room front",
     "position": [
       -34.1,
-      1.2,
+      1.6,
       -6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Door lintel",
     "position": [
-      -49.1,
-      0.95,
-      -17
+      -40,
+      3.22,
+      -6.8
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      5.6,
+      0.22,
+      0.25
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Window",
     "position": [
-      -30.9,
-      0.95,
-      -17
+      -45.5,
+      2.1,
+      -26.770000000000003
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      -40,
+      2.1,
+      -26.770000000000003
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      -34.5,
+      2.1,
+      -26.770000000000003
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
     ]
   },
   {
@@ -208,6 +234,19 @@
     ]
   },
   {
+    "name": "Office printer",
+    "position": [
+      -45.12,
+      1.35,
+      -22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
+    ]
+  },
+  {
     "name": "Desk top",
     "position": [
       -34,
@@ -283,6 +322,19 @@
       1,
       0.66,
       0.1
+    ]
+  },
+  {
+    "name": "Office printer",
+    "position": [
+      -33.12,
+      1.35,
+      -22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
     ]
   },
   {
@@ -302,52 +354,78 @@
     "name": "Room front",
     "position": [
       -25.9,
-      1.2,
+      1.6,
       -6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
     "name": "Room front",
     "position": [
       -14.1,
-      1.2,
+      1.6,
       -6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Door lintel",
     "position": [
-      -29.1,
-      0.95,
-      -17
+      -20,
+      3.22,
+      -6.8
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      5.6,
+      0.22,
+      0.25
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Window",
     "position": [
-      -10.9,
-      0.95,
-      -17
+      -25.5,
+      2.1,
+      -26.770000000000003
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      -20,
+      2.1,
+      -26.770000000000003
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      -14.5,
+      2.1,
+      -26.770000000000003
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
     ]
   },
   {
@@ -429,6 +507,19 @@
     ]
   },
   {
+    "name": "Office printer",
+    "position": [
+      -25.12,
+      1.35,
+      -22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
+    ]
+  },
+  {
     "name": "Desk top",
     "position": [
       -14,
@@ -504,6 +595,19 @@
       1,
       0.66,
       0.1
+    ]
+  },
+  {
+    "name": "Office printer",
+    "position": [
+      -13.12,
+      1.35,
+      -22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
     ]
   },
   {
@@ -523,52 +627,78 @@
     "name": "Room front",
     "position": [
       -5.9,
-      1.2,
+      1.6,
       -6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
     "name": "Room front",
     "position": [
       5.9,
-      1.2,
+      1.6,
       -6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Door lintel",
     "position": [
-      -9.1,
-      0.95,
-      -17
+      0,
+      3.22,
+      -6.8
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      5.6,
+      0.22,
+      0.25
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Window",
     "position": [
-      9.1,
-      0.95,
-      -17
+      -5.5,
+      2.1,
+      -26.770000000000003
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      0,
+      2.1,
+      -26.770000000000003
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      5.5,
+      2.1,
+      -26.770000000000003
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
     ]
   },
   {
@@ -650,6 +780,19 @@
     ]
   },
   {
+    "name": "Office printer",
+    "position": [
+      -5.12,
+      1.35,
+      -22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
+    ]
+  },
+  {
     "name": "Desk top",
     "position": [
       6,
@@ -725,6 +868,19 @@
       1,
       0.66,
       0.1
+    ]
+  },
+  {
+    "name": "Office printer",
+    "position": [
+      6.88,
+      1.35,
+      -22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
     ]
   },
   {
@@ -744,52 +900,78 @@
     "name": "Room front",
     "position": [
       14.1,
-      1.2,
+      1.6,
       -6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
     "name": "Room front",
     "position": [
       25.9,
-      1.2,
+      1.6,
       -6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Door lintel",
     "position": [
-      10.9,
-      0.95,
-      -17
+      20,
+      3.22,
+      -6.8
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      5.6,
+      0.22,
+      0.25
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Window",
     "position": [
-      29.1,
-      0.95,
-      -17
+      14.5,
+      2.1,
+      -26.770000000000003
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      20,
+      2.1,
+      -26.770000000000003
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      25.5,
+      2.1,
+      -26.770000000000003
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
     ]
   },
   {
@@ -871,6 +1053,19 @@
     ]
   },
   {
+    "name": "Office printer",
+    "position": [
+      14.88,
+      1.35,
+      -22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
+    ]
+  },
+  {
     "name": "Desk top",
     "position": [
       26,
@@ -946,6 +1141,19 @@
       1,
       0.66,
       0.1
+    ]
+  },
+  {
+    "name": "Office printer",
+    "position": [
+      26.88,
+      1.35,
+      -22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
     ]
   },
   {
@@ -965,52 +1173,78 @@
     "name": "Room front",
     "position": [
       34.1,
-      1.2,
+      1.6,
       -6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
     "name": "Room front",
     "position": [
       45.9,
-      1.2,
+      1.6,
       -6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Door lintel",
     "position": [
-      30.9,
-      0.95,
-      -17
+      40,
+      3.22,
+      -6.8
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      5.6,
+      0.22,
+      0.25
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Window",
     "position": [
-      49.1,
-      0.95,
-      -17
+      34.5,
+      2.1,
+      -26.770000000000003
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      40,
+      2.1,
+      -26.770000000000003
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      45.5,
+      2.1,
+      -26.770000000000003
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
     ]
   },
   {
@@ -1092,6 +1326,19 @@
     ]
   },
   {
+    "name": "Office printer",
+    "position": [
+      34.88,
+      1.35,
+      -22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
+    ]
+  },
+  {
     "name": "Desk top",
     "position": [
       46,
@@ -1167,6 +1414,19 @@
       1,
       0.66,
       0.1
+    ]
+  },
+  {
+    "name": "Office printer",
+    "position": [
+      46.88,
+      1.35,
+      -22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
     ]
   },
   {
@@ -1186,52 +1446,78 @@
     "name": "Room front",
     "position": [
       -45.9,
-      1.2,
+      1.6,
       6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
     "name": "Room front",
     "position": [
       -34.1,
-      1.2,
+      1.6,
       6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Door lintel",
     "position": [
-      -49.1,
-      0.95,
-      17
+      -40,
+      3.22,
+      6.8
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      5.6,
+      0.22,
+      0.25
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Window",
     "position": [
-      -30.9,
-      0.95,
-      17
+      -45.5,
+      2.1,
+      26.720000000000002
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      -40,
+      2.1,
+      26.720000000000002
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      -34.5,
+      2.1,
+      26.720000000000002
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
     ]
   },
   {
@@ -1310,6 +1596,19 @@
       1,
       0.66,
       0.1
+    ]
+  },
+  {
+    "name": "Office printer",
+    "position": [
+      -33.12,
+      1.35,
+      22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
     ]
   },
   {
@@ -1329,52 +1628,78 @@
     "name": "Room front",
     "position": [
       -25.9,
-      1.2,
+      1.6,
       6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
     "name": "Room front",
     "position": [
       -14.1,
-      1.2,
+      1.6,
       6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Door lintel",
     "position": [
-      -29.1,
-      0.95,
-      17
+      -20,
+      3.22,
+      6.8
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      5.6,
+      0.22,
+      0.25
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Window",
     "position": [
-      -10.9,
-      0.95,
-      17
+      -25.5,
+      2.1,
+      26.720000000000002
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      -20,
+      2.1,
+      26.720000000000002
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      -14.5,
+      2.1,
+      26.720000000000002
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
     ]
   },
   {
@@ -1456,6 +1781,19 @@
     ]
   },
   {
+    "name": "Office printer",
+    "position": [
+      -25.12,
+      1.35,
+      22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
+    ]
+  },
+  {
     "name": "Desk top",
     "position": [
       -14,
@@ -1531,6 +1869,19 @@
       1,
       0.66,
       0.1
+    ]
+  },
+  {
+    "name": "Office printer",
+    "position": [
+      -13.12,
+      1.35,
+      22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
     ]
   },
   {
@@ -1550,52 +1901,78 @@
     "name": "Room front",
     "position": [
       -5.9,
-      1.2,
+      1.6,
       6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
     "name": "Room front",
     "position": [
       5.9,
-      1.2,
+      1.6,
       6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Door lintel",
     "position": [
-      -9.1,
-      0.95,
-      17
+      0,
+      3.22,
+      6.8
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      5.6,
+      0.22,
+      0.25
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Window",
     "position": [
-      9.1,
-      0.95,
-      17
+      -5.5,
+      2.1,
+      26.720000000000002
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      0,
+      2.1,
+      26.720000000000002
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      5.5,
+      2.1,
+      26.720000000000002
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
     ]
   },
   {
@@ -1677,6 +2054,19 @@
     ]
   },
   {
+    "name": "Office printer",
+    "position": [
+      -5.12,
+      1.35,
+      22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
+    ]
+  },
+  {
     "name": "Desk top",
     "position": [
       6,
@@ -1752,6 +2142,19 @@
       1,
       0.66,
       0.1
+    ]
+  },
+  {
+    "name": "Office printer",
+    "position": [
+      6.88,
+      1.35,
+      22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
     ]
   },
   {
@@ -1771,52 +2174,78 @@
     "name": "Room front",
     "position": [
       14.1,
-      1.2,
+      1.6,
       6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
     "name": "Room front",
     "position": [
       25.9,
-      1.2,
+      1.6,
       6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Door lintel",
     "position": [
-      10.9,
-      0.95,
-      17
+      20,
+      3.22,
+      6.8
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      5.6,
+      0.22,
+      0.25
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Window",
     "position": [
-      29.1,
-      0.95,
-      17
+      14.5,
+      2.1,
+      26.720000000000002
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      20,
+      2.1,
+      26.720000000000002
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      25.5,
+      2.1,
+      26.720000000000002
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
     ]
   },
   {
@@ -1898,6 +2327,19 @@
     ]
   },
   {
+    "name": "Office printer",
+    "position": [
+      14.88,
+      1.35,
+      22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
+    ]
+  },
+  {
     "name": "Desk top",
     "position": [
       26,
@@ -1973,6 +2415,19 @@
       1,
       0.66,
       0.1
+    ]
+  },
+  {
+    "name": "Office printer",
+    "position": [
+      26.88,
+      1.35,
+      22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
     ]
   },
   {
@@ -1992,52 +2447,78 @@
     "name": "Room front",
     "position": [
       34.1,
-      1.2,
+      1.6,
       6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
     "name": "Room front",
     "position": [
       45.9,
-      1.2,
+      1.6,
       6.8
     ],
     "size": [
       6.2,
-      2.4,
-      0.2
+      3.2,
+      0.22
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Door lintel",
     "position": [
-      30.9,
-      0.95,
-      17
+      40,
+      3.22,
+      6.8
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      5.6,
+      0.22,
+      0.25
     ]
   },
   {
-    "name": "Room divider",
+    "name": "Window",
     "position": [
-      49.1,
-      0.95,
-      17
+      34.5,
+      2.1,
+      26.720000000000002
     ],
     "size": [
-      0.18,
-      1.9,
-      20
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      40,
+      2.1,
+      26.720000000000002
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
+    ]
+  },
+  {
+    "name": "Window",
+    "position": [
+      45.5,
+      2.1,
+      26.720000000000002
+    ],
+    "size": [
+      3.18,
+      1.7,
+      0.06
     ]
   },
   {
@@ -2119,6 +2600,19 @@
     ]
   },
   {
+    "name": "Office printer",
+    "position": [
+      34.88,
+      1.35,
+      22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
+    ]
+  },
+  {
     "name": "Desk top",
     "position": [
       46,
@@ -2194,6 +2688,19 @@
       1,
       0.66,
       0.1
+    ]
+  },
+  {
+    "name": "Office printer",
+    "position": [
+      46.88,
+      1.35,
+      22
+    ],
+    "size": [
+      0.62,
+      0.45,
+      0.55
     ]
   },
   {
@@ -2246,6 +2753,45 @@
       0.18,
       3.2,
       3.5
+    ]
+  },
+  {
+    "name": "Elevator cabin floor",
+    "position": [
+      -44,
+      0.025,
+      24.3
+    ],
+    "size": [
+      3.8,
+      0.05,
+      3.4
+    ]
+  },
+  {
+    "name": "Elevator handrail",
+    "position": [
+      -44,
+      1.1,
+      25.7
+    ],
+    "size": [
+      3.1,
+      0.08,
+      0.08
+    ]
+  },
+  {
+    "name": "Elevator threshold",
+    "position": [
+      -44,
+      0.035,
+      22.55
+    ],
+    "size": [
+      4,
+      0.06,
+      0.4
     ]
   },
   {
@@ -3091,6 +3637,1026 @@
       1.35,
       0.12,
       1.1
+    ]
+  },
+  {
+    "name": "Sofa plinth",
+    "position": [
+      -34,
+      0.2,
+      -15
+    ],
+    "size": [
+      2.8,
+      0.3,
+      1.05
+    ]
+  },
+  {
+    "name": "Sofa seat",
+    "position": [
+      -34,
+      0.48,
+      -15
+    ],
+    "size": [
+      2.8,
+      0.3,
+      1.1
+    ]
+  },
+  {
+    "name": "Sofa back",
+    "position": [
+      -34,
+      0.95,
+      -14.55
+    ],
+    "size": [
+      2.8,
+      0.9,
+      0.28
+    ]
+  },
+  {
+    "name": "Sofa arm",
+    "position": [
+      -35.36,
+      0.65,
+      -15
+    ],
+    "size": [
+      0.24,
+      0.64,
+      1.1
+    ]
+  },
+  {
+    "name": "Sofa arm",
+    "position": [
+      -32.64,
+      0.65,
+      -15
+    ],
+    "size": [
+      0.24,
+      0.64,
+      1.1
+    ]
+  },
+  {
+    "name": "Lounge table top",
+    "position": [
+      -34,
+      0.65,
+      -16.8
+    ],
+    "size": [
+      1.8,
+      0.14,
+      0.9
+    ]
+  },
+  {
+    "name": "Lounge table leg",
+    "position": [
+      -34.65,
+      0.29,
+      -16.8
+    ],
+    "size": [
+      0.12,
+      0.58,
+      0.6
+    ]
+  },
+  {
+    "name": "Lounge table leg",
+    "position": [
+      -33.35,
+      0.29,
+      -16.8
+    ],
+    "size": [
+      0.12,
+      0.58,
+      0.6
+    ]
+  },
+  {
+    "name": "Sofa plinth",
+    "position": [
+      -14,
+      0.2,
+      14
+    ],
+    "size": [
+      2.8,
+      0.3,
+      1.05
+    ]
+  },
+  {
+    "name": "Sofa seat",
+    "position": [
+      -14,
+      0.48,
+      14
+    ],
+    "size": [
+      2.8,
+      0.3,
+      1.1
+    ]
+  },
+  {
+    "name": "Sofa back",
+    "position": [
+      -14,
+      0.95,
+      14.45
+    ],
+    "size": [
+      2.8,
+      0.9,
+      0.28
+    ]
+  },
+  {
+    "name": "Sofa arm",
+    "position": [
+      -15.36,
+      0.65,
+      14
+    ],
+    "size": [
+      0.24,
+      0.64,
+      1.1
+    ]
+  },
+  {
+    "name": "Sofa arm",
+    "position": [
+      -12.64,
+      0.65,
+      14
+    ],
+    "size": [
+      0.24,
+      0.64,
+      1.1
+    ]
+  },
+  {
+    "name": "Lounge table top",
+    "position": [
+      -14,
+      0.65,
+      12.2
+    ],
+    "size": [
+      1.8,
+      0.14,
+      0.9
+    ]
+  },
+  {
+    "name": "Lounge table leg",
+    "position": [
+      -14.65,
+      0.29,
+      12.2
+    ],
+    "size": [
+      0.12,
+      0.58,
+      0.6
+    ]
+  },
+  {
+    "name": "Lounge table leg",
+    "position": [
+      -13.35,
+      0.29,
+      12.2
+    ],
+    "size": [
+      0.12,
+      0.58,
+      0.6
+    ]
+  },
+  {
+    "name": "Sofa plinth",
+    "position": [
+      6,
+      0.2,
+      -15
+    ],
+    "size": [
+      2.8,
+      0.3,
+      1.05
+    ]
+  },
+  {
+    "name": "Sofa seat",
+    "position": [
+      6,
+      0.48,
+      -15
+    ],
+    "size": [
+      2.8,
+      0.3,
+      1.1
+    ]
+  },
+  {
+    "name": "Sofa back",
+    "position": [
+      6,
+      0.95,
+      -14.55
+    ],
+    "size": [
+      2.8,
+      0.9,
+      0.28
+    ]
+  },
+  {
+    "name": "Sofa arm",
+    "position": [
+      4.64,
+      0.65,
+      -15
+    ],
+    "size": [
+      0.24,
+      0.64,
+      1.1
+    ]
+  },
+  {
+    "name": "Sofa arm",
+    "position": [
+      7.36,
+      0.65,
+      -15
+    ],
+    "size": [
+      0.24,
+      0.64,
+      1.1
+    ]
+  },
+  {
+    "name": "Lounge table top",
+    "position": [
+      6,
+      0.65,
+      -16.8
+    ],
+    "size": [
+      1.8,
+      0.14,
+      0.9
+    ]
+  },
+  {
+    "name": "Lounge table leg",
+    "position": [
+      5.35,
+      0.29,
+      -16.8
+    ],
+    "size": [
+      0.12,
+      0.58,
+      0.6
+    ]
+  },
+  {
+    "name": "Lounge table leg",
+    "position": [
+      6.65,
+      0.29,
+      -16.8
+    ],
+    "size": [
+      0.12,
+      0.58,
+      0.6
+    ]
+  },
+  {
+    "name": "Sofa plinth",
+    "position": [
+      34,
+      0.2,
+      14
+    ],
+    "size": [
+      2.8,
+      0.3,
+      1.05
+    ]
+  },
+  {
+    "name": "Sofa seat",
+    "position": [
+      34,
+      0.48,
+      14
+    ],
+    "size": [
+      2.8,
+      0.3,
+      1.1
+    ]
+  },
+  {
+    "name": "Sofa back",
+    "position": [
+      34,
+      0.95,
+      14.45
+    ],
+    "size": [
+      2.8,
+      0.9,
+      0.28
+    ]
+  },
+  {
+    "name": "Sofa arm",
+    "position": [
+      32.64,
+      0.65,
+      14
+    ],
+    "size": [
+      0.24,
+      0.64,
+      1.1
+    ]
+  },
+  {
+    "name": "Sofa arm",
+    "position": [
+      35.36,
+      0.65,
+      14
+    ],
+    "size": [
+      0.24,
+      0.64,
+      1.1
+    ]
+  },
+  {
+    "name": "Lounge table top",
+    "position": [
+      34,
+      0.65,
+      12.2
+    ],
+    "size": [
+      1.8,
+      0.14,
+      0.9
+    ]
+  },
+  {
+    "name": "Lounge table leg",
+    "position": [
+      33.35,
+      0.29,
+      12.2
+    ],
+    "size": [
+      0.12,
+      0.58,
+      0.6
+    ]
+  },
+  {
+    "name": "Lounge table leg",
+    "position": [
+      34.65,
+      0.29,
+      12.2
+    ],
+    "size": [
+      0.12,
+      0.58,
+      0.6
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      -44,
+      3.75,
+      -17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      -36,
+      3.75,
+      -17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      -24,
+      3.75,
+      -17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      -16,
+      3.75,
+      -17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      -4,
+      3.75,
+      -17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      4,
+      3.75,
+      -17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      16,
+      3.75,
+      -17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      24,
+      3.75,
+      -17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      36,
+      3.75,
+      -17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      44,
+      3.75,
+      -17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      -44,
+      3.75,
+      17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      -36,
+      3.75,
+      17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      -24,
+      3.75,
+      17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      -16,
+      3.75,
+      17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      -4,
+      3.75,
+      17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      4,
+      3.75,
+      17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      16,
+      3.75,
+      17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      24,
+      3.75,
+      17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      36,
+      3.75,
+      17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Pendant housing",
+    "position": [
+      44,
+      3.75,
+      17
+    ],
+    "size": [
+      3.6,
+      0.13,
+      0.38
+    ]
+  },
+  {
+    "name": "Planter pot",
+    "position": [
+      -47,
+      0.4,
+      20
+    ],
+    "size": [
+      0.85,
+      0.8,
+      0.85
+    ],
+    "shape": "cylinder"
+  },
+  {
+    "name": "Planter pot",
+    "position": [
+      -28,
+      0.4,
+      -12
+    ],
+    "size": [
+      0.85,
+      0.8,
+      0.85
+    ],
+    "shape": "cylinder"
+  },
+  {
+    "name": "Planter pot",
+    "position": [
+      -8,
+      0.4,
+      20
+    ],
+    "size": [
+      0.85,
+      0.8,
+      0.85
+    ],
+    "shape": "cylinder"
+  },
+  {
+    "name": "Planter pot",
+    "position": [
+      12,
+      0.4,
+      -12
+    ],
+    "size": [
+      0.85,
+      0.8,
+      0.85
+    ],
+    "shape": "cylinder"
+  },
+  {
+    "name": "Planter pot",
+    "position": [
+      28,
+      0.4,
+      12
+    ],
+    "size": [
+      0.85,
+      0.8,
+      0.85
+    ],
+    "shape": "cylinder"
+  },
+  {
+    "name": "Planter pot",
+    "position": [
+      47,
+      0.4,
+      19
+    ],
+    "size": [
+      0.85,
+      0.8,
+      0.85
+    ],
+    "shape": "cylinder"
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      -49.1,
+      1.62,
+      -17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      -30.9,
+      1.62,
+      -17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      -29.1,
+      1.62,
+      -17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      -10.9,
+      1.62,
+      -17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      -9.1,
+      1.62,
+      -17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      9.1,
+      1.62,
+      -17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      10.9,
+      1.62,
+      -17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      29.1,
+      1.62,
+      -17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      30.9,
+      1.62,
+      -17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      49.1,
+      1.62,
+      -17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      -49.1,
+      1.62,
+      17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      -30.9,
+      1.62,
+      17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      -29.1,
+      1.62,
+      17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      -10.9,
+      1.62,
+      17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      -9.1,
+      1.62,
+      17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      9.1,
+      1.62,
+      17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      10.9,
+      1.62,
+      17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      29.1,
+      1.62,
+      17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      30.9,
+      1.62,
+      17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
+    ]
+  },
+  {
+    "name": "Partition solid envelope",
+    "position": [
+      49.1,
+      1.62,
+      17
+    ],
+    "size": [
+      0.18,
+      3.24,
+      20
     ]
   }
 ]

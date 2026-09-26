@@ -18,6 +18,7 @@ export class Game {
   constructor(view, physics) {
     this.view = view;
     this.physics = physics;
+    view.bindElevatorPhysics(physics.setElevatorLocked);
     this.ui = new UI();
     this.audio = new Audio();
     this.state = "intro";

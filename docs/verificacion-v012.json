@@ -1,0 +1,39 @@
+{
+  "version": "0.12.0",
+  "campaign": {
+    "date": "2026-09-26T02:25:10.327Z",
+    "passed": [
+      "57 encargos únicos; 1000 semillas con 3–4 tareas por persona, sin repeticiones y nombres distintos",
+      "GLB real y cuatro clips de AnimationMixer conservados",
+      "Los 57 encargos se completan en todas sus ubicaciones (relaxed), incluidos tiros físicos y carritos",
+      "Los 57 encargos se completan en todas sus ubicaciones (normal), incluidos tiros físicos y carritos",
+      "Los 57 encargos se completan en todas sus ubicaciones (expert), incluidos tiros físicos y carritos",
+      "Secuencia errónea, terminal interrumpido, sigilo descubierto, tiro fuera de marca y espera automática comprobados; la dificultad cambia la detección real",
+      "Escape aleatorio completo: tres rescates y victoria inmediata sin puntos ni bolas",
+      "Otra fuga genera una historia, encargos y nombres nuevos",
+      "Derrota y reintento mantienen la combinación y el encargo guardado",
+      "V alterna primera y tercera persona sin reiniciar la partida",
+      "Compañeros sin colisión física; orden esperar/seguir operativa",
+      "Objetivo y botones de cámara/equipo visibles durante la partida",
+      "Muestra de rendimiento registrada (CPU de actualización/render, no FPS garantizados)",
+      "Inicio sin desbordamiento horizontal a 390 px",
+      "Sin errores JavaScript ni recursos HTTP fallidos"
+    ],
+    "taskDifficultyLocationCases": 399,
+    "performance": {
+      "median": 6.700000047683716,
+      "p95": 9.199999928474426,
+      "drawCalls": 52
+    },
+    "errors": []
+  },
+  "controls": {
+    "date": "2026-09-26T02:28:46.99Z",
+    "passed": [
+      "Teclado real activa Idle, Walk, Run y Throw",
+      "Teclas V, H y M alternan cámara, equipo y mapa correctamente",
+      "El jugador atraviesa la posición de un compañero sin quedar bloqueado",
+      "Si toda la zona está ocupada no aparece la pila; se reintenta al despejarse"
+    ]
+  }
+}

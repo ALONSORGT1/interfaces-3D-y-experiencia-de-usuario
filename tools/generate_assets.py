@@ -36,6 +36,23 @@ class GLB:
     def box(self,name,pos,size,mat,parent=None):
         if mat not in self.meshes:self.meshes[mat]=len(self.g['meshes']);self.g['meshes'].append({'primitives':[{'attributes':self.geo,'indices':self.indices,'material':mat}]})
         i=self.node(name,pos,parent);self.g['nodes'][i].update(mesh=self.meshes[mat],scale=list(size));return i
+    def cylinder(self,name,pos,size,mat,segments=16):
+        key=('cylinder',mat)
+        if key not in self.meshes:
+            positions=[];normals=[];uv=[];indices=[]
+            for i in range(segments):
+                t0=2*math.pi*i/segments;t1=2*math.pi*(i+1)/segments
+                x0,z0=math.cos(t0)*.5,math.sin(t0)*.5;x1,z1=math.cos(t1)*.5,math.sin(t1)*.5
+                n=len(positions)//3
+                for x,y,z in [(x0,-.5,z0),(x0,.5,z0),(x1,.5,z1),(x1,-.5,z1)]:positions.extend((x,y,z));normals.extend((x*2,0,z*2));uv.extend((x+.5,y+.5))
+                indices.extend((n,n+1,n+2,n,n+2,n+3))
+                for y,sign in [(-.5,-1),(.5,1)]:
+                    n=len(positions)//3
+                    verts=[(0,y,0),(x0,y,z0),(x1,y,z1)] if sign<0 else [(0,y,0),(x1,y,z1),(x0,y,z0)]
+                    for v in verts:positions.extend(v);normals.extend((0,sign,0));uv.extend((v[0]+.5,v[2]+.5))
+                    indices.extend((n,n+1,n+2))
+            self.meshes[key]=len(self.g['meshes']);self.g['meshes'].append({'primitives':[{'attributes':{'POSITION':self.access(positions,'VEC3'),'NORMAL':self.access(normals,'VEC3'),'TEXCOORD_0':self.access(uv,'VEC2')},'indices':self.access(indices,'SCALAR',5123),'material':mat}]})
+        i=self.node(name,pos);self.g['nodes'][i].update(mesh=self.meshes[key],scale=list(size));return i
     def animation(self,name,tracks,duration):
         a={'name':name,'samplers':[],'channels':[]}
         for node,axis,angles in tracks:

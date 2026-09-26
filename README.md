@@ -74,6 +74,7 @@ Empiezas con 12 bolas. La siguiente aparece en la mano tras un breve intervalo; 
 | --- | --- |
 | WASD o flechas | Caminar respecto a la cámara |
 | Shift | Correr |
+| J | Saltar y subir a obstáculos bajos; Espacio conserva el lanzamiento |
 | Arrastrar el mouse | Girar cámara y apuntar |
 | Rueda | Ajustar distancia de cámara |
 | F, espacio o LANZAR | Lanzar la bola |
@@ -97,15 +98,21 @@ Empiezas con 12 bolas. La siguiente aparece en la mano tras un breve intervalo; 
 
 La medalla final es oro desde 4,200, plata desde 3,000 y bronce por debajo. **Incluso una puntuación negativa permite ganar si se cumple la misión.** El indicador ×N representa la longitud de la cadena, no multiplica toda la puntuación.
 
-## Oficinas y rendimiento
+## Oficinas, materiales y rendimiento
 
-El GLB incluye impresoras, bandejas de papel, tazas, bolígrafos, cuadros, tablones, relojes y una cabina de ascensor con interior, pasamanos, iluminación, botonera y puertas que se abren cuando el equipo está listo.
+La versión 0.13 conserva el escenario y las mecánicas, con una nueva dirección visual: madera cálida, concreto suave, alfombra por departamento, pintura mate con acentos azul/verde/amarillo/coral, mamparas de vidrio, metal satinado, sofás de tejido, mesas con bordes suaves, plantas y luminarias lineales. No reproduce una oficina real ni utiliza logotipos de Google.
 
-La geometría estática se agrupa por material **y sector** para poder omitir sectores fuera de cámara. Se redujeron resolución de sombras y densidad de píxeles; la detección continua se reserva a las bolas. La navegación de los NPC se reparte en el tiempo, el HUD se actualiza a una frecuencia limitada y la simulación evita acumular demasiados pasos tras un tirón. Las pruebas registran una muestra de CPU en este equipo; no garantizan un número de FPS en otros dispositivos.
+Se incluyen **12 mapas PBR locales** (color, normal y rugosidad), reutilizados por todos los materiales. Madera y concreto usan 1024²; pintura y tejido, 512². Se distribuyen como WebP y ocupan aproximadamente 1.16 MB en conjunto. Solo los mapas de color usan sRGB. Los UVs se proyectan en metros antes de agrupar geometría, con RepeatWrapping, mipmaps y anisotropía limitada a 8: una pared larga no estira la imagen de un cubo.
+
+Los materiales distinguen metal, vidrio transparente, superficies mates y pantallas emisivas. Un entorno de reflexión precalculado con RoomEnvironment, luz hemisférica, una luz direccional con sombras suaves y dos luminarias cercanas aportan profundidad sin renderizar múltiples mapas de sombra. Las luminarias restantes son geometría emisiva. El vidrio usa una sola pasada; las mallas estáticas se agrupan por material/sector, las piezas de cada mueble por material y las piezas rígidas del personaje dentro de sus nodos animados. Los cuatro clips y los nodos de AnimationMixer se conservan.
+
+Las colisiones siguen siendo Rapier: colliders simples para muebles, cilindros para macetas y envolventes continuas para las mamparas, evitando costuras entre sus postes. Hay un collider que se retira al abrir las puertas del ascensor. El paso sigue siendo fijo a 1/60 s; las bolas usan CCD y se ajustó la predicción de contactos para evitar hundimientos breves al caer. El controlador permite escalones de 18 cm, salto con J y aterrizaje sobre muebles sin atravesarlos. Los compañeros conservan su comportamiento sin bloquear al jugador.
+
+[Detalle de materiales, física y comprobaciones](docs/RENOVACION-VISUAL.md). Las mediciones son de este equipo y no garantizan la misma tasa de FPS en otros dispositivos.
 
 ## R2 y R4: evidencia explícita
 
-**R2 se cumple:** `scene.js` crea un `GLTFLoader` y carga `assets/models/campus.glb` y `assets/models/employee.glb`. El escenario renderizado procede del GLB. Sus mallas estáticas se agrupan por material después de cargarlas para reducir llamadas de dibujo; se conservan geometría, materiales y textura incrustada.
+**R2 se cumple:** `scene.js` crea un `GLTFLoader` y carga `assets/models/campus.glb` y `assets/models/employee.glb`. El escenario renderizado procede del GLB. Sus mallas estáticas se agrupan por material después de cargarlas para reducir llamadas de dibujo; se conservan los datos del escenario y se aplican los mapas PBR locales.
 
 **R4 se cumple:** `employee.glb` contiene cuatro animaciones glTF reales: `Idle`, `Walk`, `Run` y `Throw`. `character.js` crea `THREE.AnimationMixer`, convierte los clips cargados en acciones con `clipAction`, mezcla sus transiciones y reproduce el estado según reposo, caminar, correr o lanzar/empujar. Son animaciones de nodos articulados incluidas en el archivo.
 
@@ -124,6 +131,7 @@ index.html                    Pantallas, diálogos, HUD e import map
 assets/css/                   Identidad visual y HUD de campaña
 assets/js/main.js             Carga y recuperación ante errores
 assets/js/scene.js            GLTFLoader, escenario, luces y cámara inicial
+assets/js/office-materials.js Materiales PBR compartidos y UVs métricas
 assets/js/physics.js          Rapier, colliders y validación de espacios
 assets/js/character.js        Movimiento físico y AnimationMixer del jugador
 assets/js/input.js            Teclado, mouse, foco y pausa
@@ -141,7 +149,9 @@ assets/licenses/              Licencias externas
 tools/build_campus.py         Generador reproducible del escenario ampliado
 tools/generate_assets.py      Escritor GLB y generador del personaje
 tools/serve.cjs               Servidor local sin instalación adicional
-tests/escape.cjs               Pruebas reales en navegador
+tests/escape.cjs              Misiones aleatorias en navegador
+tests/controls.cjs            Teclado, cámara y animaciones
+tests/visual-physics.cjs      Colisiones, salto, caída, materiales y rendimiento
 docs/                        Capturas, verificación y guía del examen
 ```
 
@@ -175,7 +185,7 @@ El proyecto utiliza rutas relativas y `.nojekyll`. Consulta [la guía del examen
 
 ## Créditos y uso de IA
 
-El mapa, el personaje, las animaciones, los objetos, la textura incrustada y los sonidos se crearon específicamente para este proyecto con asistencia de IA; se incluyen sus fuentes. No se descargaron modelos de terceros.
+El mapa, el personaje, las animaciones, los objetos y los sonidos se crearon específicamente para este proyecto con asistencia de IA; se incluyen sus fuentes. No se descargaron modelos de terceros.
 
 | Dependencia | Autor/fuente | Licencia |
 | --- | --- | --- |
@@ -184,6 +194,8 @@ El mapa, el personaje, las animaciones, los objetos, la textura incrustada y los
 | DM Sans | [DM Sans Project Authors](https://github.com/googlefonts/dm-fonts) | [SIL OFL](assets/licenses/DM-Sans-OFL.txt) |
 | Space Grotesk | [Space Grotesk Project Authors / Florian Karsten](https://github.com/floriankarsten/space-grotesk) | [SIL OFL](assets/licenses/Space-Grotesk-OFL.txt) |
 | Playwright, desarrollo | [Microsoft](https://github.com/microsoft/playwright) | Apache 2.0, incluida en el paquete |
+
+Las texturas PBR actuales proceden de Poly Haven, bajo CC0; sus URLs y modificaciones se registran en `assets/textures/pbr/sources.json` y `docs/RENOVACION-VISUAL.md`. No se descargaron modelos 3D.
 
 La IA ayudó con arquitectura, programación, modelos, interfaz, navegación y pruebas. La ampliación responde a la revisión del alumno: propósito poco claro, soledad, mapa pequeño y falta de retroalimentación final. Se sustituyó el bloqueo por puntuación por una progresión narrativa explícita y una salida inmediata.
 

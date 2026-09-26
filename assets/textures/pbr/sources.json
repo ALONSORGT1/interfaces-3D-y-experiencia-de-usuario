@@ -1,0 +1,98 @@
+[
+  {
+    "file": "assets/textures/pbr/oak-color.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_floor/wood_floor_diff_1k.jpg",
+    "asset": "https://polyhaven.com/a/wood_floor",
+    "license": "CC0",
+    "resolution": 1024,
+    "bytes": 153664
+  },
+  {
+    "file": "assets/textures/pbr/oak-normal.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_floor/wood_floor_nor_gl_1k.jpg",
+    "asset": "https://polyhaven.com/a/wood_floor",
+    "license": "CC0",
+    "resolution": 1024,
+    "bytes": 24546
+  },
+  {
+    "file": "assets/textures/pbr/oak-roughness.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_floor/wood_floor_rough_1k.jpg",
+    "asset": "https://polyhaven.com/a/wood_floor",
+    "license": "CC0",
+    "resolution": 1024,
+    "bytes": 99328
+  },
+  {
+    "file": "assets/textures/pbr/plaster-color.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_02/white_plaster_02_diff_1k.jpg",
+    "asset": "https://polyhaven.com/a/white_plaster_02",
+    "license": "CC0",
+    "resolution": 512,
+    "bytes": 5204
+  },
+  {
+    "file": "assets/textures/pbr/plaster-normal.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_02/white_plaster_02_nor_gl_1k.jpg",
+    "asset": "https://polyhaven.com/a/white_plaster_02",
+    "license": "CC0",
+    "resolution": 512,
+    "bytes": 33398
+  },
+  {
+    "file": "assets/textures/pbr/plaster-roughness.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_02/white_plaster_02_rough_1k.jpg",
+    "asset": "https://polyhaven.com/a/white_plaster_02",
+    "license": "CC0",
+    "resolution": 512,
+    "bytes": 13302
+  },
+  {
+    "file": "assets/textures/pbr/concrete-color.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_floor_02/concrete_floor_02_diff_1k.jpg",
+    "asset": "https://polyhaven.com/a/concrete_floor_02",
+    "license": "CC0",
+    "resolution": 1024,
+    "bytes": 293036
+  },
+  {
+    "file": "assets/textures/pbr/concrete-normal.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_floor_02/concrete_floor_02_nor_gl_1k.jpg",
+    "asset": "https://polyhaven.com/a/concrete_floor_02",
+    "license": "CC0",
+    "resolution": 1024,
+    "bytes": 201386
+  },
+  {
+    "file": "assets/textures/pbr/concrete-roughness.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_floor_02/concrete_floor_02_rough_1k.jpg",
+    "asset": "https://polyhaven.com/a/concrete_floor_02",
+    "license": "CC0",
+    "resolution": 1024,
+    "bytes": 118528
+  },
+  {
+    "file": "assets/textures/pbr/fabric-color.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dirty_carpet/dirty_carpet_diff_1k.jpg",
+    "asset": "https://polyhaven.com/a/dirty_carpet",
+    "license": "CC0",
+    "resolution": 512,
+    "bytes": 102198
+  },
+  {
+    "file": "assets/textures/pbr/fabric-normal.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dirty_carpet/dirty_carpet_nor_gl_1k.jpg",
+    "asset": "https://polyhaven.com/a/dirty_carpet",
+    "license": "CC0",
+    "resolution": 512,
+    "bytes": 106950
+  },
+  {
+    "file": "assets/textures/pbr/fabric-roughness.webp",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dirty_carpet/dirty_carpet_rough_1k.jpg",
+    "asset": "https://polyhaven.com/a/dirty_carpet",
+    "license": "CC0",
+    "resolution": 512,
+    "bytes": 4570
+  }
+]

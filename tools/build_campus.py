@@ -1,16 +1,18 @@
 """Build the 100 x 54 corporate campus (15 times the original floor area).
 Uses the original GLB writer; models, materials and colliders share one source.
 """
-import json
+import json, math
 from generate_assets import GLB, OUT, employee
 
 def build():
     a=GLB()
-    colors={'carpet':'#c5d0b9','mint':'#b9cbbb','cream':'#e8dfc3','pink':'#dec8bf','blue':'#b8cbd2','gold':'#d7c399','hall':'#e3e3d2','wall':'#e5e6d6','trim':'#5c7b6a','wood':'#ba9876','desk':'#f0e9d3','dark':'#264f44','screen':'#9abfb2','white':'#fff5df','coral':'#d39985'}
-    m={n:a.mat(n,c,n=='carpet') for n,c in colors.items()};coll=[]
+    colors={'glass':'#aacbdc','metal':'#97a8b3','light':'#fff2dc','carpetBlue':'#6e889b','carpetGreen':'#8ba297','carpetCoral':'#b78580','carpet':'#bdc7cd','mint':'#3a9d83','cream':'#dfd9cd','pink':'#d56a75','blue':'#327bd1','gold':'#edb72f','hall':'#e3e3d2','wall':'#edf1ef','trim':'#38474f','wood':'#ba9876','desk':'#f0e9d3','dark':'#264f44','screen':'#9abfb2','white':'#fff5df','coral':'#d95d50'}
+    m={n:a.mat(n,c) for n,c in colors.items()};coll=[]; solids=[]
     def box(name,p,s,mat,solid=False):
         a.box(name,p,s,m[mat])
-        if solid:coll.append({'name':name,'position':p,'size':s})
+        if solid:
+            coll.append({'name':name,'position':p,'size':s})
+            solids.append({'name':name,'position':p,'size':s})
     box('Campus floor',(0,-.22,0),(100,.44,54),'carpet',True)
     box('Campus foundation',(0,-.57,0),(100.5,.26,54.5),'trim')
     for x in (-50.15,50.15):box('Boundary side',(x,1.7,0),(.3,3.4,54.6),'wall',True)
@@ -24,29 +26,34 @@ def build():
         for column,(name,color) in enumerate(defs):
             x=-40+column*20
             rooms.append({'id':f'{row}-{column}','name':name,'x':x,'z':zoneZ,'width':18,'depth':20,'color':colors[color]})
-            box(f'{name} floor',(x,.008,zoneZ),(18,.015,20),color)
+            floorMat='wood' if (row,column) in [('south',0),('south',2),('north',4)] else 'carpetBlue' if column in (0,3) else 'carpetCoral' if column==1 and row=='south' else 'carpetGreen'
+            box(f'{name} floor',(x,.008,zoneZ),(18,.015,20),floorMat)
             frontZ=-6.8 if row=='north' else 6.8
             # Two segments leave a wide, genuine doorway.
-            for dx in (-5.9,5.9):box('Room front',(x+dx,1.2,frontZ),(6.2,2.4,.2),'wall',True)
-            for side in (-9.1,9.1):box('Room divider',(x+side,.95,zoneZ),(.18,1.9,20),'wall',True)
-            box('Door lintel',(x,2.85,frontZ),(5.6,.3,.22),'trim')
+            for dx in (-5.9,5.9):box('Room front',(x+dx,1.6,frontZ),(6.2,3.2,.22),color if dx<0 else 'wall',True)
+            for side in (-9.1,9.1):
+                box('Room divider base',(x+side,.4,zoneZ),(.18,.8,20),'wood',True)
+                box('Glass partition',(x+side,2,zoneZ),(.1,2.4,20),'glass',True)
+                for dz in (-9.9,-5,0,5,9.9):box('Partition post',(x+side,1.6,zoneZ+dz),(.16,3.2,.1),'metal',True)
+                box('Partition top rail',(x+side,3.2,zoneZ),(.16,.08,20),'metal')
+            box('Door lintel',(x,3.22,frontZ),(5.6,.22,.25),'trim',True)
             box('Door stripe',(x,.025,frontZ),(5.5,.025,.8),'coral')
             backZ=-26.85 if row=='north' else 26.8
             for dx in (-5.5,0,5.5):
-                box('Window frame',(x+dx,2.1,backZ),(3.4,1.9,.12),'trim')
-                box('Window',(x+dx,2.1,backZ+(.08 if row=='north' else -.08)),(3.18,1.7,.03),'screen')
+                box('Window frame',(x+dx,2.1,backZ),(3.4,1.9,.12),'metal')
+                box('Window',(x+dx,2.1,backZ+(.08 if row=='north' else -.08)),(3.18,1.7,.06),'glass',True)
             # Side desks preserve an open path down every room.
             for dx,dz in ([(-6,-5),(6,-5)] if row=='north' else [(-6,5),(6,5)]):
                 if row=="south" and column==0 and dx==-6: continue # clear elevator lobby
                 xx,zz=x+dx,zoneZ+dz
-                box('Desk top',(xx,1.05,zz),(2.7,.16,1.35),'desk',True)
+                box('Desk top',(xx,1.05,zz),(2.7,.16,1.35),'wood',True)
                 for lx in (-1.1,1.1):
                     for lz in (-.5,.5):box('Desk leg',(xx+lx,.49,zz+lz),(.1,.98,.1),'trim',True)
                 box('Monitor',(xx,1.58,zz-.25),(1,.66,.1),'dark',True)
                 box('Screen',(xx,1.58,zz-.19),(.86,.52,.02),'screen')
                 box('Keyboard',(xx,1.15,zz+.32),(.8,.05,.3),'trim')
                 box('Monitor base',(xx,1.19,zz-.25),(.15,.28,.15),'dark')
-                box('Office printer',(xx+.88,1.35,zz),(.62,.45,.55),'white')
+                box('Office printer',(xx+.88,1.35,zz),(.62,.45,.55),'white',True)
                 box('Printer lid',(xx+.88,1.6,zz),(.6,.05,.52),'trim')
                 box('Printer output',(xx+.88,1.3,zz+.29),(.42,.07,.07),'dark')
                 box('Printed page',(xx+.88,1.28,zz+.4),(.35,.02,.24),'white')
@@ -59,7 +66,7 @@ def build():
             for zoff in (-1,0,1):box('Storage face',(x-6.87,.8,zoneZ+zoff),(.04,1.4,.85),'desk')
             # Wall decoration stays above the navigation corridor.
             artZ=zoneZ+(-7 if row=='north' else 7)
-            box('Picture frame',(x+8.94,2.35,artZ),(.07,1.1,1.6),'wood')
+            box('Picture frame',(x+8.94,2.35,artZ),(.07,1.1,1.6),'metal')
             box('Abstract print',(x+8.89,2.35,artZ),(.03,.92,1.42),'blue')
             box('Art accent',(x+8.86,2.5,artZ+.23),(.025,.3,.6),'coral')
             box('Noticeboard',(x-8.93,2.35,zoneZ+4),(.08,1.1,1.6),'gold')
@@ -70,11 +77,11 @@ def build():
     box('Elevator back',(-44,1.6,26),(4,3.2,.15),'dark',True)
     for xx in (-46,-42):box('Elevator side',(xx,1.6,24.3),(.18,3.2,3.5),'trim',True)
     box('Elevator ceiling',(-44,3.25,24.3),(4.2,.18,3.5),'trim')
-    box('Elevator cabin floor',(-44,.025,24.3),(3.8,.05,3.4),'desk')
+    box('Elevator cabin floor',(-44,.025,24.3),(3.8,.05,3.4),'desk',True)
     box('Elevator mirror',(-44,1.85,25.89),(2.8,1.8,.03),'screen')
-    box('Elevator handrail',(-44,1.1,25.7),(3.1,.08,.08),'white')
-    box('Elevator threshold',(-44,.035,22.55),(4,.06,.4),'dark')
-    box('Elevator light',(-44,3.12,24.3),(2,.035,.4),'white')
+    box('Elevator handrail',(-44,1.1,25.7),(3.1,.08,.08),'metal',True)
+    box('Elevator threshold',(-44,.035,22.55),(4,.06,.4),'dark',True)
+    box('Elevator light',(-44,3.12,24.3),(2,.035,.4),'light')
     box('Elevator call panel',(-41.8,1.2,22.6),(.23,.5,.14),'dark')
     box('Elevator call button',(-41.8,1.22,22.51),(.1,.1,.02),'gold')
     # Central boulevard: five additional distinct public areas.
@@ -101,9 +108,44 @@ def build():
         box('Dispenser lid',(x,1.36,z),(1.35,.12,1.1),'dark',True)
         box('Dispenser opening',(x,.8,z+.52),(.65,.45,.04),'dark')
         box('Dispenser sign',(x,1.9,z+.2),(1.2,.85,.1),'dark')
+    # Collaboration lounges occupy side bays, preserving all mission anchors and doors.
+    for x,z,color in [(-34,-15,'blue'),(-14,14,'coral'),(6,-15,'gold'),(34,14,'mint')]:
+        box('Lounge rug',(x,.026,z),(4.4,.035,5),'carpetBlue')
+        box('Sofa plinth',(x,.2,z),(2.8,.3,1.05),'dark',True)
+        box('Sofa seat',(x,.48,z),(2.8,.3,1.1),color,True)
+        box('Sofa back',(x,.95,z+.45),(2.8,.9,.28),color,True)
+        for dx in (-1.36,1.36):box('Sofa arm',(x+dx,.65,z),(.24,.64,1.1),color,True)
+        box('Lounge table top',(x,.65,z-1.8),(1.8,.14,.9),'wood',True)
+        for dx in (-.65,.65):box('Lounge table leg',(x+dx,.29,z-1.8),(.12,.58,.6),'metal',True)
+    # Timber slats, acoustic panels and linear LED fixtures are consistent across zones.
+    for room in rooms[:10]:
+        x,z=room['x'],room['z'];back=-26.7 if z<0 else 26.6
+        for dx in range(8):box('Acoustic timber fin',(x-8+dx*.25,1.65,back),( .1,3.1,.13),'wood')
+        for dx in (-4,4):
+            box('Pendant housing',(x+dx,3.75,z),(3.6,.13,.38),'metal',True)
+            box('LED diffuser',(x+dx,3.67,z),(3.4,.025,.3),'light')
+            for sx in (-1.2,1.2):box('Pendant cable',(x+dx+sx,4.2,z),(.018,.8,.018),'metal')
+        # Whiteboard and a low credenza, away from playable centers.
+        box('Whiteboard frame',(x+8.87,2.2,z+4),(.09,1.2,2.2),'metal')
+        box('Whiteboard',(x+8.80,2.2,z+4),(.035,1.08,2.08),'white')
+        for line in range(3):box('Whiteboard note',(x+8.77,2.45-line*.22,z+3.5),(.015,.025,.65),'blue')
+    for x,z in [(-47,20),(-28,-12),(-8,20),(12,-12),(28,12),(47,19)]:
+        a.cylinder('Planter pot',(x,.4,z),(.85,.8,.85),m['white'])
+        pot={'name':'Planter pot','position':[x,.4,z],'size':[.85,.8,.85],'shape':'cylinder'};coll.append(pot);solids.append(pot)
+        a.cylinder('Planter soil',(x,.81,z),(.72,.04,.72),m['dark'])
+        a.cylinder('Plant stem',(x,1.25,z),(.07,1,.07),m['wood'])
+        for leaf in range(9):
+            angle=leaf*2.4;dx=math.cos(angle)*.26;dz=math.sin(angle)*.26
+            node=a.box('Foliage',(x+dx,1.4+leaf*.065,z+dz),(.18,.58,.1),m['mint'])
+            a.g['nodes'][node]['rotation']=[0,0,math.sin(math.cos(angle)*.4),math.cos(math.cos(angle)*.4)]
+    # Each uninterrupted divider is a single compound envelope, avoiding seam contacts.
+    divider_names={'Room divider base','Glass partition','Partition post'}
+    coll=[c for c in coll if c['name'] not in divider_names]
+    for room in rooms[:10]:
+        for side in (-9.1,9.1):coll.append({'name':'Partition solid envelope','position':[room['x']+side,1.62,room['z']],'size':[.18,3.24,20]})
     a.save('campus.glb')
     (OUT/'campus-colliders.json').write_text(json.dumps(coll,indent=2),encoding='utf-8')
-    (OUT/'campus.json').write_text(json.dumps({'width':100,'depth':54,'previousArea':360,'areaMultiplier':15,'spawn':[-40,18],'exit':[-44,23],'rooms':rooms,'dispensers':dispensers},indent=2,ensure_ascii=False),encoding='utf-8')
+    (OUT/'campus.json').write_text(json.dumps({'width':100,'depth':54,'previousArea':360,'areaMultiplier':15,'spawn':[-40,18],'exit':[-44,23],'rooms':rooms,'dispensers':dispensers,'solidManifest':solids},indent=2,ensure_ascii=False),encoding='utf-8')
     employee()
     print(f'Campus: 100 x 54 = 5400 units², exactly 15x. {len(rooms)} areas; {len(coll)} static colliders.')
 if __name__=='__main__':build()

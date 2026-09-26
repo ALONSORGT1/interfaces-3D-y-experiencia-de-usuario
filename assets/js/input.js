@@ -25,6 +25,7 @@ export class Input {
       )
         e.preventDefault();
       this.keys.add(e.code);
+      if (!e.repeat && e.code === "KeyJ") this.jumpRequested = true;
       if (
         !e.repeat &&
         ["KeyF", "Space"].includes(e.code) &&
@@ -85,6 +86,7 @@ export class Input {
   }
   clear() {
     this.keys.clear();
+    this.jumpRequested = false;
     this.drag = null;
   }
   reset() {
