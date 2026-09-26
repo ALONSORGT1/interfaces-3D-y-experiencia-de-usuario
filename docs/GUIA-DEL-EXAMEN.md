@@ -15,8 +15,8 @@
 | R9 | Potencia real y tres tipos de bola desbloqueables |
 | R10 | Generación validada de bolas y bonos; pilas y carritos comprueban el volumen antes de aparecer y reintentan si está ocupado |
 | R11 | HUD, diálogos, mapa, estados y diseño responsivo propio |
-| R12 | Historial Git original preservado y ampliado; **repositorio público pendiente** |
-| R13 | Rutas relativas y subruta de Pages probada; **publicación real pendiente** |
+| R12 | Historial Git original preservado y ampliado; [repositorio de entrega](https://github.com/ALONSORGT1/interfaces-3D-y-experiencia-de-usuario) |
+| R13 | Rutas relativas, `.nojekyll` y publicación desde main/root; [GitHub Pages](https://alonsorgt1.github.io/interfaces-3D-y-experiencia-de-usuario/) |
 
 ## Reglas de negocio
 
@@ -28,7 +28,7 @@
 - Victoria al completar los tres rescates (3–4 encargos por persona) y activar el ascensor. Se muestra inmediatamente al interactuar; la puntuación es opcional.
 - Derrota por tiempo, sospecha o caída. Reintento por encargo o nueva campaña completa.
 - Pausa, mapa y conversación detienen el mundo. La interfaz no requiere mirar la consola.
-- RN-15 queda pendiente hasta validar todo desde una URL pública de GitHub Pages.
+- RN-15 debe contrastarse con la prueba sobre GitHub Pages: `TEST_URL` permite ejecutar las suites existentes contra la URL pública y registra esa URL en `test-results/`. Los informes históricos de `docs/` corresponden a pruebas locales.
 
 ## Qué cambió respecto a la oficina inicial
 
@@ -46,7 +46,7 @@ La regla anterior mezclaba derribar 18 objetos con alcanzar 1,800 puntos y resol
 6. Completa todos los pasos y activa el ascensor: debe aparecer el final sin esperar derrumbes pendientes ni conseguir puntos extra.
 7. Fuerza una derrota; verifica el punto de control y la opción de empezar una campaña nueva.
 8. Confirma que el escenario es distinto del usado en tu práctica 1.5; esa práctica no se proporcionó para comparación.
-9. Publica el repositorio, conserva sus commits, activa GitHub Pages y vuelve a probar Console y Network desde la URL pública.
-10. Añade las URLs reales y tus conclusiones personales. No presentes la URL localhost como entrega pública.
+9. Revisa Console y Network desde la URL pública y comprueba los informes generados con `TEST_URL`; las instrucciones están en el README.
+10. Añade tus conclusiones personales. El README registra las URLs de entrega; localhost solo sirve para desarrollo.
 
 Las pruebas automáticas usan navegador y física reales, pero preparan posiciones para acortar los desplazamientos y establecer casos límite. No equivalen a una evaluación humana de toda la experiencia. La versión está diseñada para teclado/mouse, sin multijugador ni controles táctiles. Los puntos de control viven en la sesión actual, no persisten al cerrar la página.
