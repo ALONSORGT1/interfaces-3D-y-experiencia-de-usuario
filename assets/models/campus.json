@@ -178,6 +178,159 @@
       4
     ]
   ],
+  "ceilingHeight": 7.2,
+  "fixtures": [
+    {
+      "x": -40,
+      "y": 5.62,
+      "z": 0,
+      "material": "pulse0"
+    },
+    {
+      "x": -20,
+      "y": 5.62,
+      "z": 0,
+      "material": "light"
+    },
+    {
+      "x": 0,
+      "y": 5.62,
+      "z": 0,
+      "material": "light"
+    },
+    {
+      "x": 20,
+      "y": 5.62,
+      "z": 0,
+      "material": "light"
+    },
+    {
+      "x": 40,
+      "y": 5.62,
+      "z": 0,
+      "material": "light"
+    },
+    {
+      "x": -44,
+      "y": 5.220000000000001,
+      "z": -17,
+      "material": "light"
+    },
+    {
+      "x": -36,
+      "y": 5.220000000000001,
+      "z": -17,
+      "material": "light"
+    },
+    {
+      "x": -24,
+      "y": 5.220000000000001,
+      "z": -17,
+      "material": "light"
+    },
+    {
+      "x": -16,
+      "y": 5.220000000000001,
+      "z": -17,
+      "material": "light"
+    },
+    {
+      "x": -4,
+      "y": 5.220000000000001,
+      "z": -17,
+      "material": "light"
+    },
+    {
+      "x": 4,
+      "y": 5.220000000000001,
+      "z": -17,
+      "material": "pulse1"
+    },
+    {
+      "x": 16,
+      "y": 5.220000000000001,
+      "z": -17,
+      "material": "light"
+    },
+    {
+      "x": 24,
+      "y": 5.220000000000001,
+      "z": -17,
+      "material": "light"
+    },
+    {
+      "x": 36,
+      "y": 5.220000000000001,
+      "z": -17,
+      "material": "light"
+    },
+    {
+      "x": 44,
+      "y": 5.220000000000001,
+      "z": -17,
+      "material": "light"
+    },
+    {
+      "x": -44,
+      "y": 5.220000000000001,
+      "z": 17,
+      "material": "light"
+    },
+    {
+      "x": -36,
+      "y": 5.220000000000001,
+      "z": 17,
+      "material": "light"
+    },
+    {
+      "x": -24,
+      "y": 5.220000000000001,
+      "z": 17,
+      "material": "light"
+    },
+    {
+      "x": -16,
+      "y": 5.220000000000001,
+      "z": 17,
+      "material": "light"
+    },
+    {
+      "x": -4,
+      "y": 5.220000000000001,
+      "z": 17,
+      "material": "light"
+    },
+    {
+      "x": 4,
+      "y": 5.220000000000001,
+      "z": 17,
+      "material": "light"
+    },
+    {
+      "x": 16,
+      "y": 5.220000000000001,
+      "z": 17,
+      "material": "pulse2"
+    },
+    {
+      "x": 24,
+      "y": 5.220000000000001,
+      "z": 17,
+      "material": "light"
+    },
+    {
+      "x": 36,
+      "y": 5.220000000000001,
+      "z": 17,
+      "material": "light"
+    },
+    {
+      "x": 44,
+      "y": 5.220000000000001,
+      "z": 17,
+      "material": "light"
+    }
+  ],
   "solidManifest": [
     {
       "name": "Campus floor",
@@ -242,6 +395,383 @@
         100,
         0.56,
         0.3
+      ]
+    },
+    {
+      "name": "Ceiling slab",
+      "position": [
+        0,
+        7.35,
+        0
+      ],
+      "size": [
+        100.6,
+        0.3,
+        54.6
+      ]
+    },
+    {
+      "name": "Ceiling boundary side",
+      "position": [
+        -50.15,
+        5.3,
+        0
+      ],
+      "size": [
+        0.3,
+        3.8,
+        54.6
+      ]
+    },
+    {
+      "name": "Ceiling boundary side",
+      "position": [
+        50.15,
+        5.3,
+        0
+      ],
+      "size": [
+        0.3,
+        3.8,
+        54.6
+      ]
+    },
+    {
+      "name": "Ceiling boundary back",
+      "position": [
+        0,
+        5.3,
+        -27.15
+      ],
+      "size": [
+        100,
+        3.8,
+        0.3
+      ]
+    },
+    {
+      "name": "Ceiling boundary front glass",
+      "position": [
+        0,
+        3.88,
+        27.15
+      ],
+      "size": [
+        100,
+        6.64,
+        0.12
+      ]
+    },
+    {
+      "name": "Ceiling structural rib",
+      "position": [
+        -50,
+        7.04,
+        0
+      ],
+      "size": [
+        0.16,
+        0.32,
+        54
+      ]
+    },
+    {
+      "name": "Ceiling structural rib",
+      "position": [
+        -40,
+        7.04,
+        0
+      ],
+      "size": [
+        0.16,
+        0.32,
+        54
+      ]
+    },
+    {
+      "name": "Ceiling structural rib",
+      "position": [
+        -30,
+        7.04,
+        0
+      ],
+      "size": [
+        0.16,
+        0.32,
+        54
+      ]
+    },
+    {
+      "name": "Ceiling structural rib",
+      "position": [
+        -20,
+        7.04,
+        0
+      ],
+      "size": [
+        0.16,
+        0.32,
+        54
+      ]
+    },
+    {
+      "name": "Ceiling structural rib",
+      "position": [
+        -10,
+        7.04,
+        0
+      ],
+      "size": [
+        0.16,
+        0.32,
+        54
+      ]
+    },
+    {
+      "name": "Ceiling structural rib",
+      "position": [
+        0,
+        7.04,
+        0
+      ],
+      "size": [
+        0.16,
+        0.32,
+        54
+      ]
+    },
+    {
+      "name": "Ceiling structural rib",
+      "position": [
+        10,
+        7.04,
+        0
+      ],
+      "size": [
+        0.16,
+        0.32,
+        54
+      ]
+    },
+    {
+      "name": "Ceiling structural rib",
+      "position": [
+        20,
+        7.04,
+        0
+      ],
+      "size": [
+        0.16,
+        0.32,
+        54
+      ]
+    },
+    {
+      "name": "Ceiling structural rib",
+      "position": [
+        30,
+        7.04,
+        0
+      ],
+      "size": [
+        0.16,
+        0.32,
+        54
+      ]
+    },
+    {
+      "name": "Ceiling structural rib",
+      "position": [
+        40,
+        7.04,
+        0
+      ],
+      "size": [
+        0.16,
+        0.32,
+        54
+      ]
+    },
+    {
+      "name": "Ceiling structural rib",
+      "position": [
+        50,
+        7.04,
+        0
+      ],
+      "size": [
+        0.16,
+        0.32,
+        54
+      ]
+    },
+    {
+      "name": "Ceiling cross beam",
+      "position": [
+        0,
+        6.97,
+        -18
+      ],
+      "size": [
+        100,
+        0.18,
+        0.18
+      ]
+    },
+    {
+      "name": "Ceiling cross beam",
+      "position": [
+        0,
+        6.97,
+        0
+      ],
+      "size": [
+        100,
+        0.18,
+        0.18
+      ]
+    },
+    {
+      "name": "Ceiling cross beam",
+      "position": [
+        0,
+        6.97,
+        18
+      ],
+      "size": [
+        100,
+        0.18,
+        0.18
+      ]
+    },
+    {
+      "name": "Ceiling acoustic island",
+      "position": [
+        -40,
+        6.81,
+        -17
+      ],
+      "size": [
+        13,
+        0.14,
+        6
+      ]
+    },
+    {
+      "name": "Ceiling acoustic island",
+      "position": [
+        -40,
+        6.81,
+        17
+      ],
+      "size": [
+        13,
+        0.14,
+        6
+      ]
+    },
+    {
+      "name": "Ceiling acoustic island",
+      "position": [
+        -20,
+        6.81,
+        -17
+      ],
+      "size": [
+        13,
+        0.14,
+        6
+      ]
+    },
+    {
+      "name": "Ceiling acoustic island",
+      "position": [
+        -20,
+        6.81,
+        17
+      ],
+      "size": [
+        13,
+        0.14,
+        6
+      ]
+    },
+    {
+      "name": "Ceiling acoustic island",
+      "position": [
+        0,
+        6.81,
+        -17
+      ],
+      "size": [
+        13,
+        0.14,
+        6
+      ]
+    },
+    {
+      "name": "Ceiling acoustic island",
+      "position": [
+        0,
+        6.81,
+        17
+      ],
+      "size": [
+        13,
+        0.14,
+        6
+      ]
+    },
+    {
+      "name": "Ceiling acoustic island",
+      "position": [
+        20,
+        6.81,
+        -17
+      ],
+      "size": [
+        13,
+        0.14,
+        6
+      ]
+    },
+    {
+      "name": "Ceiling acoustic island",
+      "position": [
+        20,
+        6.81,
+        17
+      ],
+      "size": [
+        13,
+        0.14,
+        6
+      ]
+    },
+    {
+      "name": "Ceiling acoustic island",
+      "position": [
+        40,
+        6.81,
+        -17
+      ],
+      "size": [
+        13,
+        0.14,
+        6
+      ]
+    },
+    {
+      "name": "Ceiling acoustic island",
+      "position": [
+        40,
+        6.81,
+        17
+      ],
+      "size": [
+        13,
+        0.14,
+        6
       ]
     },
     {
@@ -6045,261 +6575,326 @@
     {
       "name": "Pendant housing",
       "position": [
-        -44,
-        3.75,
-        -17
+        -40,
+        5.8,
+        0
       ],
       "size": [
-        3.6,
+        5.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
-        -36,
-        3.75,
-        -17
+        -20,
+        5.8,
+        0
       ],
       "size": [
-        3.6,
+        5.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
-        -24,
-        3.75,
-        -17
+        0,
+        5.8,
+        0
       ],
       "size": [
-        3.6,
+        5.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
-        -16,
-        3.75,
-        -17
+        20,
+        5.8,
+        0
       ],
       "size": [
-        3.6,
+        5.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
-        -4,
-        3.75,
-        -17
+        40,
+        5.8,
+        0
       ],
       "size": [
-        3.6,
+        5.2,
         0.13,
-        0.38
-      ]
-    },
-    {
-      "name": "Pendant housing",
-      "position": [
-        4,
-        3.75,
-        -17
-      ],
-      "size": [
-        3.6,
-        0.13,
-        0.38
-      ]
-    },
-    {
-      "name": "Pendant housing",
-      "position": [
-        16,
-        3.75,
-        -17
-      ],
-      "size": [
-        3.6,
-        0.13,
-        0.38
-      ]
-    },
-    {
-      "name": "Pendant housing",
-      "position": [
-        24,
-        3.75,
-        -17
-      ],
-      "size": [
-        3.6,
-        0.13,
-        0.38
-      ]
-    },
-    {
-      "name": "Pendant housing",
-      "position": [
-        36,
-        3.75,
-        -17
-      ],
-      "size": [
-        3.6,
-        0.13,
-        0.38
-      ]
-    },
-    {
-      "name": "Pendant housing",
-      "position": [
-        44,
-        3.75,
-        -17
-      ],
-      "size": [
-        3.6,
-        0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
         -44,
-        3.75,
-        17
+        5.4,
+        -17
       ],
       "size": [
-        3.6,
+        4.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
         -36,
-        3.75,
-        17
+        5.4,
+        -17
       ],
       "size": [
-        3.6,
+        4.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
         -24,
-        3.75,
-        17
+        5.4,
+        -17
       ],
       "size": [
-        3.6,
+        4.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
         -16,
-        3.75,
-        17
+        5.4,
+        -17
       ],
       "size": [
-        3.6,
+        4.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
         -4,
-        3.75,
-        17
+        5.4,
+        -17
       ],
       "size": [
-        3.6,
+        4.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
         4,
-        3.75,
-        17
+        5.4,
+        -17
       ],
       "size": [
-        3.6,
+        4.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
         16,
-        3.75,
-        17
+        5.4,
+        -17
       ],
       "size": [
-        3.6,
+        4.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
         24,
-        3.75,
-        17
+        5.4,
+        -17
       ],
       "size": [
-        3.6,
+        4.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
         36,
-        3.75,
-        17
+        5.4,
+        -17
       ],
       "size": [
-        3.6,
+        4.2,
         0.13,
-        0.38
+        0.5
       ]
     },
     {
       "name": "Pendant housing",
       "position": [
         44,
-        3.75,
+        5.4,
+        -17
+      ],
+      "size": [
+        4.2,
+        0.13,
+        0.5
+      ]
+    },
+    {
+      "name": "Pendant housing",
+      "position": [
+        -44,
+        5.4,
         17
       ],
       "size": [
-        3.6,
+        4.2,
         0.13,
-        0.38
+        0.5
+      ]
+    },
+    {
+      "name": "Pendant housing",
+      "position": [
+        -36,
+        5.4,
+        17
+      ],
+      "size": [
+        4.2,
+        0.13,
+        0.5
+      ]
+    },
+    {
+      "name": "Pendant housing",
+      "position": [
+        -24,
+        5.4,
+        17
+      ],
+      "size": [
+        4.2,
+        0.13,
+        0.5
+      ]
+    },
+    {
+      "name": "Pendant housing",
+      "position": [
+        -16,
+        5.4,
+        17
+      ],
+      "size": [
+        4.2,
+        0.13,
+        0.5
+      ]
+    },
+    {
+      "name": "Pendant housing",
+      "position": [
+        -4,
+        5.4,
+        17
+      ],
+      "size": [
+        4.2,
+        0.13,
+        0.5
+      ]
+    },
+    {
+      "name": "Pendant housing",
+      "position": [
+        4,
+        5.4,
+        17
+      ],
+      "size": [
+        4.2,
+        0.13,
+        0.5
+      ]
+    },
+    {
+      "name": "Pendant housing",
+      "position": [
+        16,
+        5.4,
+        17
+      ],
+      "size": [
+        4.2,
+        0.13,
+        0.5
+      ]
+    },
+    {
+      "name": "Pendant housing",
+      "position": [
+        24,
+        5.4,
+        17
+      ],
+      "size": [
+        4.2,
+        0.13,
+        0.5
+      ]
+    },
+    {
+      "name": "Pendant housing",
+      "position": [
+        36,
+        5.4,
+        17
+      ],
+      "size": [
+        4.2,
+        0.13,
+        0.5
+      ]
+    },
+    {
+      "name": "Pendant housing",
+      "position": [
+        44,
+        5.4,
+        17
+      ],
+      "size": [
+        4.2,
+        0.13,
+        0.5
       ]
     },
     {

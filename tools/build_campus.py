@@ -7,7 +7,8 @@ from generate_assets import GLB, OUT, employee
 def build():
     a=GLB()
     colors={'glass':'#aacbdc','metal':'#97a8b3','light':'#fff2dc','carpetBlue':'#6e889b','carpetGreen':'#8ba297','carpetCoral':'#b78580','carpet':'#bdc7cd','mint':'#3a9d83','cream':'#dfd9cd','pink':'#d56a75','blue':'#327bd1','gold':'#edb72f','hall':'#e3e3d2','wall':'#edf1ef','trim':'#38474f','wood':'#ba9876','desk':'#f0e9d3','dark':'#264f44','screen':'#9abfb2','white':'#fff5df','coral':'#d95d50'}
-    m={n:a.mat(n,c) for n,c in colors.items()};coll=[]; solids=[]
+    colors.update(ceiling='#d8dde1',ceilingTrim='#66757d',pulse0='#fff2dc',pulse1='#fff2dc',pulse2='#fff2dc')
+    m={n:a.mat(n,c) for n,c in colors.items()};coll=[]; solids=[]; fixtures=[]
     def box(name,p,s,mat,solid=False):
         a.box(name,p,s,m[mat])
         if solid:
@@ -19,6 +20,19 @@ def build():
     box('Boundary back',(0,1.7,-27.15),(100,3.4,.3),'wall',True)
     box('Boundary front',(0,.28,27.15),(100,.56,.3),'trim',True)
     coll.append({'name':'Front limit','position':[0,2,27.35],'size':[100.6,4,.3]})
+    # One enclosing shell at 7.2 m; low internal partitions retain their open office layout.
+    box('Ceiling slab',(0,7.35,0),(100.6,.3,54.6),'ceiling',True)
+    for x in (-50.15,50.15):box('Ceiling boundary side',(x,5.3,0),(.3,3.8,54.6),'wall',True)
+    box('Ceiling boundary back',(0,5.3,-27.15),(100,3.8,.3),'wall',True)
+    box('Ceiling boundary front glass',(0,3.88,27.15),(100,6.64,.12),'glass',True)
+    for x in range(-50,51,10):
+        box('Ceiling structural rib',(x,7.04,0),(.16,.32,54),'ceilingTrim',True)
+        box('Ceiling facade mullion',(x,3.88,27.06),(.12,6.64,.2),'metal')
+    for z in (-18,0,18):box('Ceiling cross beam',(0,6.97,z),(100,.18,.18),'ceilingTrim',True)
+    for x in range(-40,41,20):
+        for z in (-17,17):
+            box('Ceiling acoustic island',(x,6.81,z),(13,.14,6),'ceiling',True)
+            for dx in (-5.4,-4.8,4.8,5.4):box('Ceiling timber detail',(x+dx,6.70,z),(.16,.08,5.4),'wood')
     rooms=[]
     north=[('ARCHIVO MUERTO','cream'),('ARCHIVO / EVIDENCIAS','gold'),('REUNIÓN ETERNA','pink'),('SISTEMAS / TI','blue'),('DIRECCIÓN','mint')]
     south=[('RECEPCIÓN / SALIDA','mint'),('CREATIVIDAD','pink'),('CAFETERÍA','cream'),('LOGÍSTICA','gold'),('AZOTEA / JARDÍN','blue')]
@@ -117,14 +131,22 @@ def build():
         for dx in (-1.36,1.36):box('Sofa arm',(x+dx,.65,z),(.24,.64,1.1),color,True)
         box('Lounge table top',(x,.65,z-1.8),(1.8,.14,.9),'wood',True)
         for dx in (-.65,.65):box('Lounge table leg',(x+dx,.29,z-1.8),(.12,.58,.6),'metal',True)
+    def pendant(x,z,y,width,pulse=None):
+        mat='light' if pulse is None else f'pulse{pulse}'
+        box('Pendant housing',(x,y,z),(width,.13,.5),'metal',True)
+        box('Ceiling LED diffuser',(x,y-.08,z),(width-.2,.025,.42),mat)
+        for sx in (-width*.34,width*.34):
+            box('Pendant cable',(x+sx,(7.2+y+.07)/2,z),(.024,7.2-y-.07,.024),'metal')
+        fixtures.append({'x':x,'y':y-.18,'z':z,'material':mat})
+    # The corridor and departments share a suspended lighting system anchored to the roof.
+    for n,x in enumerate(range(-40,41,20)):pendant(x,0,5.8,5.2,0 if n==0 else None)
     # Timber slats, acoustic panels and linear LED fixtures are consistent across zones.
     for room in rooms[:10]:
         x,z=room['x'],room['z'];back=-26.7 if z<0 else 26.6
         for dx in range(8):box('Acoustic timber fin',(x-8+dx*.25,1.65,back),( .1,3.1,.13),'wood')
         for dx in (-4,4):
-            box('Pendant housing',(x+dx,3.75,z),(3.6,.13,.38),'metal',True)
-            box('LED diffuser',(x+dx,3.67,z),(3.4,.025,.3),'light')
-            for sx in (-1.2,1.2):box('Pendant cable',(x+dx+sx,4.2,z),(.018,.8,.018),'metal')
+            pulse=1 if x==0 and z<0 and dx==4 else 2 if x==20 and z>0 and dx==-4 else None
+            pendant(x+dx,z,5.4,4.2,pulse)
         # Whiteboard and a low credenza, away from playable centers.
         box('Whiteboard frame',(x+8.87,2.2,z+4),(.09,1.2,2.2),'metal')
         box('Whiteboard',(x+8.80,2.2,z+4),(.035,1.08,2.08),'white')
@@ -145,7 +167,7 @@ def build():
         for side in (-9.1,9.1):coll.append({'name':'Partition solid envelope','position':[room['x']+side,1.62,room['z']],'size':[.18,3.24,20]})
     a.save('campus.glb')
     (OUT/'campus-colliders.json').write_text(json.dumps(coll,indent=2),encoding='utf-8')
-    (OUT/'campus.json').write_text(json.dumps({'width':100,'depth':54,'previousArea':360,'areaMultiplier':15,'spawn':[-40,18],'exit':[-44,23],'rooms':rooms,'dispensers':dispensers,'solidManifest':solids},indent=2,ensure_ascii=False),encoding='utf-8')
+    (OUT/'campus.json').write_text(json.dumps({'width':100,'depth':54,'previousArea':360,'areaMultiplier':15,'spawn':[-40,18],'exit':[-44,23],'rooms':rooms,'dispensers':dispensers,'ceilingHeight':7.2,'fixtures':fixtures,'solidManifest':solids},indent=2,ensure_ascii=False),encoding='utf-8')
     employee()
     print(f'Campus: 100 x 54 = 5400 units², exactly 15x. {len(rooms)} areas; {len(coll)} static colliders.')
 if __name__=='__main__':build()

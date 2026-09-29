@@ -1,0 +1,188 @@
+{
+  "date": "2026-09-29T19:31:51.294Z",
+  "url": "http://127.0.0.1:4177/?test=1",
+  "passed": [
+    "12 mapas PBR compartidos, UVs métricas repetidas, metal y vidrio diferenciados",
+    "Cada volumen sólido declarado en el GLB queda cubierto por un collider o una envolvente compuesta",
+    "Techo a 7.2 m: cámara y bola rápida no lo atraviesan; 25 lámparas, ciclo lento y movimiento reducido verificados",
+    "12 recorridos caminando/corriendo contra paredes, vidrio, escritorio, mesa, sofá y maceta; sin atravesarlos ni vibración vertical",
+    "Salto J, gravedad y aterrizaje estable sobre el piso",
+    "El jugador aterriza sobre una mesa sólida sin hundirse ni atravesarla",
+    "El ascensor bloquea con las puertas cerradas y permite entrar al abrirse",
+    "Bola con gravedad se asienta sobre el suelo; proyectil rápido no atraviesa la pared",
+    "Las quince zonas siguen conectadas tras añadir mobiliario y mamparas",
+    "Sin errores JavaScript o WebGL; muestra de tiempos de cuadro registrada"
+  ],
+  "contacts": [
+    {
+      "name": "muro opaco",
+      "running": false,
+      "end": {
+        "x": -35.004417419433594,
+        "y": 0.9750828146934509,
+        "z": -6.365259170532227
+      },
+      "closest": null,
+      "jitter": 0.000005066394805908203
+    },
+    {
+      "name": "muro opaco",
+      "running": true,
+      "end": {
+        "x": -35.006492614746094,
+        "y": 0.9750953316688538,
+        "z": -6.3654046058654785
+      },
+      "closest": null,
+      "jitter": 0.00001138448715209961
+    },
+    {
+      "name": "mampara de vidrio",
+      "running": false,
+      "end": {
+        "x": -31.314653396606445,
+        "y": 0.9750910997390747,
+        "z": -11.998592376708984
+      },
+      "closest": null,
+      "jitter": 0.0000069141387939453125
+    },
+    {
+      "name": "mampara de vidrio",
+      "running": true,
+      "end": {
+        "x": -31.314977645874023,
+        "y": 0.9750910401344299,
+        "z": -12.009182929992676
+      },
+      "closest": null,
+      "jitter": 0
+    },
+    {
+      "name": "escritorio",
+      "running": false,
+      "end": {
+        "x": -33.99492645263672,
+        "y": 0.9750906229019165,
+        "z": 20.999998092651367
+      },
+      "closest": null,
+      "jitter": 0.0000064373016357421875
+    },
+    {
+      "name": "escritorio",
+      "running": true,
+      "end": {
+        "x": -33.97499084472656,
+        "y": 0.9748830795288086,
+        "z": 20.99990463256836
+      },
+      "closest": null,
+      "jitter": 0.00011050701141357422
+    },
+    {
+      "name": "mesa de colaboración",
+      "running": false,
+      "end": {
+        "x": 2.9978573322296143,
+        "y": 0.9750846028327942,
+        "z": 21.024869918823242
+      },
+      "closest": null,
+      "jitter": 0.000006079673767089844
+    },
+    {
+      "name": "mesa de colaboración",
+      "running": true,
+      "end": {
+        "x": 3.0054967403411865,
+        "y": 0.9744805097579956,
+        "z": 21.024900436401367
+      },
+      "closest": null,
+      "jitter": 0.0005138516426086426
+    },
+    {
+      "name": "sofá",
+      "running": false,
+      "end": {
+        "x": -32.19490051269531,
+        "y": 0.9749802947044373,
+        "z": -14.999337196350098
+      },
+      "closest": null,
+      "jitter": 0.000018656253814697266
+    },
+    {
+      "name": "sofá",
+      "running": true,
+      "end": {
+        "x": -32.19485092163086,
+        "y": 0.974979817867279,
+        "z": -15.001104354858398
+      },
+      "closest": null,
+      "jitter": 0.000019788742065429688
+    },
+    {
+      "name": "maceta cilíndrica",
+      "running": false,
+      "end": {
+        "x": -48.685054779052734,
+        "y": 0.974683940410614,
+        "z": 19.25075912475586
+      },
+      "closest": 0.7500039550279332,
+      "jitter": 0.0003096461296081543
+    },
+    {
+      "name": "maceta cilíndrica",
+      "running": true,
+      "end": {
+        "x": -48.684898376464844,
+        "y": 0.9750999808311462,
+        "z": 19.24675941467285
+      },
+      "closest": 0.7499357330032856,
+      "jitter": 5.960464477539063e-8
+    }
+  ],
+  "ceiling": {
+    "playing": true,
+    "cutaway": true,
+    "cameraY": 7.029578163975613,
+    "on": 3,
+    "off": 0,
+    "restored": 3,
+    "highest": 6.885204315185547,
+    "height": 7.2,
+    "fixtures": 25
+  },
+  "jump": {
+    "peak": 2.182490348815918,
+    "low": 0.9667337536811829,
+    "end": 0.9699342846870422
+  },
+  "platform": {
+    "x": 2.1000025272369385,
+    "y": 2.065098524093628,
+    "z": 22
+  },
+  "doors": {
+    "closed": 22.264972686767578,
+    "open": 22.749183654785156
+  },
+  "fall": {
+    "lowest": 0.3189311623573303,
+    "settled": 0.3189311623573303,
+    "minZ": -6.352922439575195
+  },
+  "performance": {
+    "medianFrameMs": 29.600000023841858,
+    "p95FrameMs": 51.69999998807907,
+    "calls": 154,
+    "triangles": 14912,
+    "textures": 38
+  },
+  "errors": []
+}

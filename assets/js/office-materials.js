@@ -59,6 +59,8 @@ export async function officeMaterials(renderer) {
     return material;
   }
   make("wall", "#eef1ef");
+  make("ceiling", "#d8dde1", "plaster", { roughness: 0.95 });
+  make("ceilingTrim", "#66757d", "plaster", { metalness: 0.35, roughness: 0.55 });
   make("white", "#f8fafb");
   make("desk", "#edf1f3", "plaster", { roughness: 0.45 });
   make("blue", "#2773cf");
@@ -86,6 +88,12 @@ export async function officeMaterials(renderer) {
     emissiveIntensity: 3,
     roughness: 0.5,
   });
+  // Only three independent emissive materials; all other fixtures share the steady one.
+  for (let i = 0; i < 3; i++) {
+    const material = materials.get("light").clone();
+    material.name = `pulse${i}`;
+    materials.set(material.name, material);
+  }
   const glass = new THREE.MeshPhysicalMaterial({
     name: "glass",
     color: "#b7d6e2",

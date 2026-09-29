@@ -1,6 +1,6 @@
 {
   "name": "renuncia-definitiva",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "private": true,
   "description": "Boliche de oficina 3D con Three.js y Rapier. Sin compilación.",

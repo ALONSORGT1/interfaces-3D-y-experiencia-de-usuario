@@ -1,5 +1,15 @@
 # Renovación visual y física · v0.13
 
+## Ampliación v1.1: techo y lámparas
+
+El GLB incluye una cubierta a 7.2 m con vigas, islas acústicas, detalles de madera y cerramiento perimetral. Veinticinco lámparas cuelgan a 5.4–5.8 m mediante cables unidos al techo. Tres difusores tienen materiales emisivos independientes y ciclos de 28 segundos: transición de dos segundos al apagarse, un segundo apagados y dos segundos al encenderse. Sus fases son distintas; no producen destellos rápidos. La iluminación real de las dos lámparas cercanas sigue el mismo nivel que sus difusores. La preferencia `prefers-reduced-motion` mantiene la luz constante.
+
+El ciclo usa el tiempo de juego, por lo que se detiene con la pausa. Se conservan dos luces puntuales y una sola sombra direccional; no se agregan mapas ni texturas. La cubierta no proyecta sombra sobre la luz direccional que simula iluminación interior de relleno. Las paredes, muebles y personajes conservan sus sombras. La vista aérea de inicio muestra una sección abierta del edificio; durante la partida el techo permanece visible y sus colliders limitan tanto proyectiles como cámara.
+
+Las pruebas visuales/físicas incluyen el techo, la cámara a altura máxima, una bola ascendente rápida y los estados encendido/apagado/movimiento reducido. La prueba de caída libre se desplazó para no generar la bola dentro de una nueva luminaria. Las mediciones más abajo corresponden a la v0.13 y se conservan como registro histórico.
+
+![Techo y lámparas suspendidas](capturas/techo.png)
+
 Se conserva la oficina de 100 × 54, el banco de 57 encargos, las dificultades, los compañeros, las cámaras y las animaciones. El cambio afecta materiales, ambientación y robustez de colisiones. El estilo es propio: una oficina tecnológica colorida, sin reproducir una sede real ni usar marcas gráficas de Google.
 
 ## Materiales

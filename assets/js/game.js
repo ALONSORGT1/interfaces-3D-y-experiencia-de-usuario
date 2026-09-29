@@ -670,7 +670,7 @@ export class Game {
       this.props.update(dt, this.time, this.character.position);
       this.crowd.sync(this.character.position);
       this.character.updateCamera(dt);
-      this.view.updateLighting(this.character.position);
+      this.view.updateLighting(this.character.position, this.time);
       this.navTimer -= dt;
       if (this.navTimer <= 0) this.refreshRoute();
       this.updateGuides();

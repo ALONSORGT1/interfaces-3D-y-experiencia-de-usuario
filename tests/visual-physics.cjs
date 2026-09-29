@@ -91,6 +91,49 @@ const passed = [],
   passed.push(
     "Cada volumen sólido declarado en el GLB queda cubierto por un collider o una envolvente compuesta",
   );
+  const ceiling = await p.evaluate(() => {
+    const g = __game, view = g.view;
+    const playing = view.ceiling.visible;
+    view.heroCamera();
+    const cutaway = !view.ceiling.visible;
+    view.playCamera();
+    place(-33, -3);
+    g.input.pitch = 1.02;
+    g.input.distance = 11;
+    g.character.updateCamera(0, true);
+    const cameraY = view.camera.position.y;
+    const pulse = view.surfaces.materials.get("pulse0");
+    view.updateLighting({x:-40,z:0}, 0);
+    const on = pulse.emissiveIntensity;
+    view.updateLighting({x:-40,z:0}, 2.5);
+    const off = pulse.emissiveIntensity;
+    view.updateLighting({x:-40,z:0}, 6);
+    const restored = pulse.emissiveIntensity;
+    const ball = g.props.spawnBall({x:-33,y:5,z:-3}, {x:0,y:35,z:0}, 990);
+    let highest = 0;
+    for (let i=0;i<60;i++) {
+      g.physics.world.step(g.physics.events);
+      highest = Math.max(highest, ball.body.translation().y);
+    }
+    g.props.remove(ball);
+    g.input.pitch = 0.43;
+    g.input.distance = 7.7;
+    return {playing,cutaway,cameraY,on,off,restored,highest,
+      height:view.map.ceilingHeight, fixtures:view.map.fixtures.length};
+  });
+  assert(ceiling.playing && ceiling.cutaway);
+  assert.equal(ceiling.height, 7.2);
+  assert.equal(ceiling.fixtures, 25);
+  assert(ceiling.cameraY < 7.1 && ceiling.cameraY > 5, JSON.stringify(ceiling));
+  assert(ceiling.highest < 7 && ceiling.highest > 6.5, JSON.stringify(ceiling));
+  assert(ceiling.on === 3 && ceiling.off === 0 && ceiling.restored === 3);
+  await p.emulateMedia({ reducedMotion: "reduce" });
+  assert.equal(await p.evaluate(() => {
+    __game.view.updateLighting({x:-40,z:0}, 2.5);
+    return __game.view.surfaces.materials.get("pulse0").emissiveIntensity;
+  }), 3);
+  await p.emulateMedia({ reducedMotion: "no-preference" });
+  passed.push("Techo a 7.2 m: cámara y bola rápida no lo atraviesan; 25 lámparas, ciclo lento y movimiento reducido verificados");
   const cases = [
     {
       name: "muro opaco",
@@ -234,7 +277,7 @@ const passed = [],
     const g = __game;
     place(-40, 0);
     const ball = g.props.spawnBall(
-      { x: 0, y: 6, z: 0 },
+      { x: 3, y: 6, z: -2 }, // Clear of the new suspended corridor fixture.
       { x: 0, y: 0, z: 0 },
       991,
     );
@@ -299,6 +342,16 @@ const passed = [],
     g.view.renderer.render(g.view.scene, g.view.camera);
   });
   await p.screenshot({ path: "test-results/visual-lounge.png" });
+  await p.evaluate(() => {
+    const g = __game;
+    place(-40, 12);
+    g.input.yaw = 0;
+    g.input.pitch = -0.25;
+    g.character.updateCamera(0, true);
+    g.view.updateLighting(g.character.position, 6);
+    g.view.renderer.render(g.view.scene, g.view.camera);
+  });
+  await p.screenshot({ path: "test-results/visual-ceiling.png" });
   const perf = await p.evaluate(async () => {
     const g = __game,
       frameTimes = [];
@@ -333,6 +386,7 @@ const passed = [],
         url: p.url(),
         passed,
         contacts,
+        ceiling,
         jump,
         platform,
         doors,

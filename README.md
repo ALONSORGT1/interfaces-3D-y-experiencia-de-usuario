@@ -4,7 +4,7 @@
 
 - **Repositorio:** https://github.com/ALONSORGT1/interfaces-3D-y-experiencia-de-usuario
 - **GitHub Pages:** https://alonsorgt1.github.io/interfaces-3D-y-experiencia-de-usuario/
-- **Entrega:** v1.0. El juego se desarrolló y verificó localmente antes de su publicación inicial. Se conserva el historial original, sus fechas y sus etapas reales; la numeración no pretende representar diez entregas públicas sucesivas.
+- **Versión:** v1.1. El juego se desarrolló y verificó localmente antes de su publicación inicial. Se conserva el historial original, sus fechas y sus etapas reales; la numeración no pretende representar diez entregas públicas sucesivas.
 
 ![Escenario y partida](docs/capturas/partida.png)
 
@@ -48,6 +48,8 @@ Se elige **Tranquila, Normal o Auditoría extrema** antes de iniciar. La dificul
 **Personaje y animaciones:** GLTFLoader carga `employee.glb`. AnimationMixer administra cuatro clips reales: `Idle`, `Walk`, `Run` y `Throw`, ligados a reposo, caminar, correr y lanzar/empujar. Hay compañeros, empleados, director y dos auditores. [Evidencia R2/R4](docs/R2-R4.md).
 
 **Escenario:** `campus.glb`, 100 × 54 unidades y quince áreas conectadas, con escritorios, mesas, impresoras, sofás, plantas, mamparas y ascensor. Es quince veces el área de la oficina inicial. Usa madera, concreto, alfombra, pintura, vidrio y metal; doce mapas PBR locales compartidos (~1.16 MB), UVs a escala, luces ambientales, sombras suaves y reflejos. [Materiales y rendimiento](docs/RENOVACION-VISUAL.md).
+
+La v1.1 cierra el edificio con un **techo de 7.2 m**, vigas, paneles acústicos y 25 lámparas suspendidas. Tres lámparas se apagan y encienden suavemente en ciclos de 28 segundos; el resto mantiene iluminación estable. La preferencia del sistema de movimiento reducido deja todas encendidas. El techo tiene collider y se oculta únicamente en la vista aérea del menú.
 
 **Física y colisiones:** gravedad −9.81, paso fijo 1/60 s, cápsula con controlador, salto y colliders simples para suelo, paredes y mobiliario. Archivadores, sillas, carritos, plantas, cafetera y bolas usan cuerpos físicos. Las bolas tienen CCD para evitar atravesar sólidos. El ascensor bloquea con la puerta cerrada; los compañeros no bloquean las maniobras. Se comprueba el espacio antes de generar objetos.
 
@@ -121,6 +123,7 @@ Las etapas siguientes corresponden al historial real. No se fabricaron commits v
 | v0.13 | Renovación visual | Texturas PBR, iluminación y colisiones verificadas (`194c60c`) |
 | v0.14 | Verificación de publicación | Pruebas reutilizables contra una URL y registro del destino |
 | v1.0 | Entrega y publicación | README final, créditos, URLs y preparación para Pages |
+| v1.1 | Techo e iluminación interior | Cubierta alta con colisión y luminarias suspendidas con ciclos suaves |
 
 ### Uso de Inteligencia Artificial
 

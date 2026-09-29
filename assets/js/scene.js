@@ -18,9 +18,10 @@ function batchGLB(root, surfaces) {
         "fabric",
       );
     const pos = new THREE.Vector3().setFromMatrixPosition(o.matrixWorld);
-    const key = `${o.material.uuid}/${Math.floor(pos.x / 20)}/${Math.floor(pos.z / 20)}`;
+    const overhead = /^(Ceiling|Pendant)/.test(o.name);
+    const key = `${overhead}/${o.material.uuid}/${Math.floor(pos.x / 20)}/${Math.floor(pos.z / 20)}`;
     if (!groups.has(key))
-      groups.set(key, { material: o.material, geometries: [] });
+      groups.set(key, { material: o.material, geometries: [], overhead });
     let geometry = o.geometry.clone().applyMatrix4(o.matrixWorld);
     if (
       /Sofa.*(seat|back|arm)|Desk.top|Shared.table|Lounge.table.top/i.test(
@@ -53,12 +54,16 @@ function batchGLB(root, surfaces) {
   });
   const batch = new THREE.Group();
   batch.name = "Campus loaded from GLB / material batches";
-  for (const { material, geometries } of groups.values()) {
+  const ceiling = new THREE.Group();
+  ceiling.name = "Ceiling assembly";
+  batch.add(ceiling);
+  for (const { material, geometries, overhead } of groups.values()) {
     const merged = mergeGeometries(geometries, false);
     const mesh = new THREE.Mesh(merged, material);
-    mesh.castShadow = !material.transparent;
+    // The key light represents indoor fill: the shell must not black out that fill.
+    mesh.castShadow = !material.transparent && !overhead;
     mesh.receiveShadow = true;
-    batch.add(mesh);
+    (overhead ? ceiling : batch).add(mesh);
     geometries.forEach((g) => g.dispose());
   }
   return batch;
@@ -158,6 +163,7 @@ export async function createScene(container) {
     officeMaterials(renderer),
   ]);
   const office = batchGLB(campus.scene, surfaces);
+  const ceiling = office.getObjectByName("Ceiling assembly");
   scene.add(office);
   batchActor(employee.scene);
   employee.scene.traverse((o) => {
@@ -232,16 +238,17 @@ export async function createScene(container) {
   }
   // Only two nearby practical lights run at once; no extra shadow maps.
   const practicalLights = Array.from({ length: 2 }, () => {
-    const light = new THREE.PointLight(0xfff5df, 18, 15, 2);
+    const light = new THREE.PointLight(0xfff5df, 44, 18, 2);
     scene.add(light);
     return light;
   });
   let lightingTimer = 0;
-  const lightPositions = map.rooms
-    .filter((r) => r.z !== 0)
-    .flatMap((r) =>
-      [-4, 4].map((dx) => new THREE.Vector3(r.x + dx, 3.45, r.z)),
-    );
+  const lightPositions = map.fixtures.map((f) => ({
+    position: new THREE.Vector3(f.x, f.y, f.z),
+    material: surfaces.materials.get(f.material),
+  }));
+  let activeFixtures = [];
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   let elevatorHook = null;
   function bindElevatorPhysics(callback) {
     elevatorHook = callback;
@@ -250,6 +257,7 @@ export async function createScene(container) {
   let intro = true;
   function heroCamera() {
     intro = true;
+    ceiling.visible = false; // Cutaway only on the existing aerial title screen.
     practicalLights.forEach((l) => (l.intensity = 0));
     scene.fog.near = 240;
     scene.fog.far = 350;
@@ -268,25 +276,38 @@ export async function createScene(container) {
   }
   function playCamera() {
     intro = false;
+    ceiling.visible = true;
     lightingTimer = 19;
-    practicalLights.forEach((l) => (l.intensity = 18));
+    practicalLights.forEach((l) => (l.intensity = 44));
     scene.fog.near = 65;
     scene.fog.far = 145;
     camera.clearViewOffset();
   }
-  function updateLighting(p) {
+  function updateLighting(p, time = 0) {
     if (intro) return;
+    // Slow 28-second cycles, two-second fades and a one-second rest; never a strobe.
+    for (let i = 0; i < 3; i++) {
+      const phase = (time + i * 9) % 28;
+      const level = reducedMotion.matches ? 1
+        : phase < 2 ? (1 + Math.cos(Math.PI * phase / 2)) / 2
+        : phase < 3 ? 0
+        : phase < 5 ? (1 - Math.cos(Math.PI * (phase - 3) / 2)) / 2 : 1;
+      surfaces.materials.get(`pulse${i}`).emissiveIntensity = 3 * level;
+    }
     if (++lightingTimer % 20 === 0) {
-      const nearest = [...lightPositions]
+      activeFixtures = [...lightPositions]
         .sort(
           (a, b) =>
-            (a.x - p.x) ** 2 +
-            (a.z - p.z) ** 2 -
-            ((b.x - p.x) ** 2 + (b.z - p.z) ** 2),
+            (a.position.x - p.x) ** 2 +
+            (a.position.z - p.z) ** 2 -
+            ((b.position.x - p.x) ** 2 + (b.position.z - p.z) ** 2),
         )
         .slice(0, 2);
-      practicalLights.forEach((l, i) => l.position.copy(nearest[i]));
+      practicalLights.forEach((l, i) => l.position.copy(activeFixtures[i].position));
     }
+    practicalLights.forEach((l, i) => {
+      l.intensity = 44 * (activeFixtures[i]?.material.emissiveIntensity ?? 3) / 3;
+    });
     sun.position.set(p.x + 15, 40, p.z + 20);
     sun.target.position.set(p.x, 0, p.z);
   }
@@ -303,6 +324,7 @@ export async function createScene(container) {
     camera,
     renderer,
     office,
+    ceiling,
     employee,
     map,
     heroCamera,
